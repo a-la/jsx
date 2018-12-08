@@ -10,7 +10,10 @@ const Element = ({ test, children, id }) => <div id={ 'id' }>
 </div>
 
 /* expected */
-const Element = ({ test, children, id }) =>            p('div',{id:'id'},'  Hello, ',test,'! ',children,p('div',{class:'TEST'},'test'))
+const Element = ({ test, children, id }) => p('div',{id:'id'},
+'  Hello, ',test,'! ',children,
+p('div',{class:'TEST'},'test')
+)
 /**/
 ```
 
