@@ -1,0 +1,11 @@
+// replaces a chunk of string
+{
+  "input": "const Static = <div>Hello World</div>",
+  "index": 15,
+  "length": 22,
+  "chunk": "e('div','Hello World')"
+}
+
+/* expected */
+const Static = e('div','Hello World')
+/**/

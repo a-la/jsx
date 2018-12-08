@@ -1,0 +1,47 @@
+// makes a pragma with a string as array argument
+{
+  "tagName": "div",
+  "props": { "class": "'Test'" },
+  "children": "'Hello World'"
+}
+
+/* expected */
+p('div',{class:'Test'},'Hello World')
+/**/
+
+// makes a pragma with a string argument
+{
+  "tagName": "div",
+  "props": "Hello world"
+}
+
+/* expected */
+e('div','Hello world')
+/**/
+
+// makes a pragma with an array argument
+{
+  "tagName": "div",
+  "props": ["'Hello, '","test","'world'"]
+}
+
+/* expected */
+e('div','Hello, ',test,'world')
+/**/
+
+// makes a pragma function
+{
+  "tagName": "div",
+  "props": {
+    "id": "'STATIC_ID'"
+  },
+  "children": [
+    "'Hello, '",
+    "test",
+    "'!'"
+  ]
+}
+
+/* expected */
+p('div',{id:'STATIC_ID'},'Hello, ',test,'!')
+/**/
