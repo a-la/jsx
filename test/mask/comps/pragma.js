@@ -1,5 +1,5 @@
 import { makeTestSuite } from 'zoroaster'
-import { pragma, makeObjectBody } from '../../../src/lib/components/'
+import { pragma, makeObjectBody } from '../../../src/lib'
 
 const Pragma = makeTestSuite('test/result/components/pragma.json', {
   getResults(input) {

@@ -1,8 +1,8 @@
 import { makeTestSuite } from 'zoroaster'
-import { Script } from 'vm'
 import { jsx } from '../../src/lib/components'
 import { findIndexByEvaluating, findBeforeLengthFromError, replaceChunk }
   from '../../src/lib/'
+import Context from '../context'
 
 export
 const Components = makeTestSuite('test/result/components.jsx', {
@@ -18,23 +18,9 @@ const FindLength = makeTestSuite('test/result/components/find-length.md', {
     const res = findBeforeLengthFromError(stack, input)
     return res
   },
-  context: { getStack },
+  context: Context,
   jsonProps: ['expected'],
 })
-
-/**
- * Returns the error when trying to create a script.
- */
-const getStack = (input) => {
-  let s
-  try {
-    new Script(input)
-  } catch ({ stack }) {
-    s = stack
-  }
-  if (!s) throw new Error('Could not get the stack.')
-  return s
-}
 
 export
 const FindIndex = makeTestSuite('test/result/components/find-index.md', {

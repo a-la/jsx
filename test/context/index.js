@@ -1,5 +1,6 @@
 import { resolve } from 'path'
 import { debuglog } from 'util'
+import getStack from './get-stack'
 
 const LOG = debuglog('@a-la/jsx')
 
@@ -27,7 +28,10 @@ export default class Context {
   get SNAPSHOT_DIR() {
     return resolve(__dirname, '../snapshot')
   }
-  async _destroy() {
-    LOG('destroy context')
+  getStack(string) {
+    return getStack(string)
   }
+  // async _destroy() {
+  //   LOG('destroy context')
+  // }
 }

@@ -1,7 +1,7 @@
 import { parseSimpleContent, pragma, newPragma, findIndexByEvaluating, replaceChunk }
   from '.'
-import extract from './components/extract'
-import { getProps } from './components/'
+import extract from './extract'
+import { getProps } from '.'
 
 
 /* <div id={'id'}>

@@ -1,5 +1,5 @@
 import { makeTestSuite } from 'zoroaster'
-import { getQuoted } from '../../../src/lib/components/'
+import { getQuoted } from '../../../src/lib'
 
 export
 const GetTagName = makeTestSuite('test/result/components/get-quoted.md', {

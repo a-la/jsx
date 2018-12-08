@@ -1,5 +1,5 @@
 import { makeTestSuite } from 'zoroaster'
-import extract from '../../../src/lib/components/extract'
+import extract from '../../../src/lib/extract'
 
 export
 const Extract = makeTestSuite('test/result/components/extract.md', {

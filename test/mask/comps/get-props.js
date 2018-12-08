@@ -1,5 +1,5 @@
 import { makeTestSuite } from 'zoroaster'
-import { getProps } from '../../../src/lib/components/'
+import { getProps } from '../../../src/lib'
 
 export
 const GetProps = makeTestSuite('test/result/components/get-props.md', {
