@@ -82,19 +82,20 @@ const Element = ({ cb }) => <div onclick={() => {
 }}>Test</div>
 
 /* expected */
-const Element = ({ test }) =>    h('div',{onclick:() => {
+const Element = ({ cb }) => h('div',{onclick:() => {
   return () => {
     cb('test')
   }
-}
-},`Test`)
+}},`Test`)
 /**/
 
-// processes a tag with function in props
+// processes a tag with function in props (2)
 const Element = ({ test }) => <div onclick={() => {
   return test
 }}></div>
 
 /* expected */
-OK
+const Element = ({ test }) =>    h('div',{onclick:() => {
+  return test
+}})
 /**/

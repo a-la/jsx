@@ -11,3 +11,35 @@ class={'hello world'}
 /* expected */
 {"class": "'hello world'"}
 /**/
+
+// gets props with }
+callback={() => {}}
+
+/* expected */
+{"callback": "() => {}"}
+/**/
+
+// gets plain props
+id='test' class="Test"
+
+/* expected */
+{
+  "id": "'test'",
+  "class": "\"Test\""
+}
+/**/
+
+// gets multiple props with }
+id="test" callback={() => {}} callback2={() => {
+  return () => {
+    return 'test'
+  }
+}}
+
+/* expected */
+{
+  "id": "\"test\"",
+  "callback": "() => {}",
+  "callback2": "() => {\n  return () => {\n    return 'test'\n  }\n}"
+}
+/**/

@@ -1,4 +1,5 @@
 import mismatch from 'mismatch'
+import { SyncReplaceable } from 'restream'
 
 /**
  * Returns the name of the opening tag from the string starting with <, or `undefined`.
@@ -29,9 +30,59 @@ export const getTagName = (string) => {
  */
 export
 const getProps = (props) => {
-  const res = mismatch(/(\S+)\s*=\s*{([\s\S]+?)}/g, props, ['n', 'v'])
-    .reduce((acc, { n, v }) => {
-      acc[n] = v
+  let stack = 0
+  const positions = []
+  let current
+  SyncReplaceable(props, [
+    {
+      re: /[{}]/g,
+      replacement(m, i) {
+        const closing = m == '}'
+        const opening = !closing
+        if (!stack && closing)
+          throw new Error('A closing } is found without opening one.')
+        stack += opening ? 1 : -1
+        if (stack == 1 && opening) {
+          current = {
+            open: i,
+          }
+        } else if (stack == 0 && closing) {
+          current.close = i
+          positions.push(current)
+          current = {}
+        }
+      },
+    },
+  ])
+  if (stack) throw new Error(`Unbalanced props (level ${stack})`)
+  const obj = {}
+  positions.reduce((acc, { open, close }) => {
+    const before = props.slice(acc, open)
+    const [, propName] = /(\S+)\s*=\s*$/.exec(before) || []
+    if (!propName) throw new Error('Could not detect prop name')
+    const val = props.slice(open + 1, close)
+    obj[propName] = val
+    const bb = before.slice(0, before.length - propName.length - 1)
+    const plain = getPlain(bb)
+    Object.assign(obj, plain)
+    return close + 1
+  }, 0)
+  // make sure plain attrs are there when no {} are given
+  if (!positions.length) {
+    const plain = getPlain(props)
+    return plain
+  }
+  return obj
+}
+
+/**
+ * Returns the matches without {}, such as `id="test"`.
+ * @param {string} string The string with plain attributes.
+ */
+const getPlain = (string) => {
+  const res = mismatch(/(\S+)\s*=\s*(["'])([\s\S]+?)\2/g, string, ['n', 'q', 'v'])
+    .reduce((acc, { n, v, q }) => {
+      acc[n] = `${q}${v}${q}`
       return acc
     }, {})
   return res
