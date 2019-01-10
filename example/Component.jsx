@@ -1,8 +1,8 @@
 const Title = <title>Example</title>
 
-export const Component = ({ cl }) => <div>
+export const Component = ({ align = 'right' }) => <div>
   <Title/>
-  <p class={cl}>
+  <p align={align}>
     Hello World!
   </p>
 </div>

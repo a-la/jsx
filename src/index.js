@@ -1,12 +1,26 @@
 import transpileJSX from './lib/components'
+import { SyncReplaceable,
+  makeMarkers, makeCutRule, makePasteRule } from 'restream'
 
 /**
  * Process a JSX file.
  * @param {string} input The source code with JSX to transpile.
  */
 const jsx = (input) => {
-  const tt = transpileJSX(input)
-  return tt
+  const { e } = makeMarkers({
+    e: /^( *)(export\s+)(default\s+)?/mg,
+  }, {
+    getReplacement(name, index) {
+      return `/*%%_RESTREAM_${name.toUpperCase()}_REPLACEMENT_${index}_%%*/`
+    },
+    getRegex(name) {
+      return new RegExp(`/\\*%%_RESTREAM_${name.toUpperCase()}_REPLACEMENT_(\\d+)_%%\\*/`, 'g')
+    },
+  })
+  const s = SyncReplaceable(input, [makeCutRule(e)])
+  const tt = transpileJSX(s)
+  const as = SyncReplaceable(tt, [makePasteRule(e)])
+  return as
 }
 
 export default jsx

@@ -45,7 +45,14 @@ import jsx from '@a-la/jsx'
 })()
 ```
 ```
+const Title = h('title',{},`Example`)
 
+export const Component = ({ align = 'right' }) => h('div',{},`
+  `,h(Title),`
+  `,h('p',{align:align},`
+    Hello World!
+  `),`
+`)
 ```
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/2.svg?sanitize=true"></a></p>
