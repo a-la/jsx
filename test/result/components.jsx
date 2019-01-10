@@ -136,3 +136,39 @@ const Element = ({ test }) =>    h('div',{onclick:() => {
   return test
 }})
 /**/
+
+// processes content with arrow functions
+<div>
+  <img src={profilePicture} width="50"/>
+  Hello, {firstName} {lastName}!
+  <a href="#" onClick={(e) => {
+    e.preventDefault()
+    signOut(host, csrf, (err) => {
+      if (err) alert(`Could not sign out: ${err}. Please refresh the page and try again. Alternatively, clear your cookies.`)
+      else onSignout()
+    })
+    return false
+  }}>Sign Out</a>
+</div>
+
+/* expected */
+h('div',{},`
+  `,h('img',{src:profilePicture,width:"50"}),`
+  Hello, `,firstName,` `,lastName,`!
+  `,h('a',{onClick:(e) => {
+    e.preventDefault()
+    signOut(host, csrf, (err) => {
+      if (err) alert(`Could not sign out: ${err}. Please refresh the page and try again. Alternatively, clear your cookies.`)
+      else onSignout()
+    })
+    return false
+  },href:"#"},`Sign Out`),`
+`)
+/**/
+
+// destructures the properties
+<div {...props} id={test}/>
+
+/* expected */
+h('div',{...props,id:test})
+/**/

@@ -16,13 +16,13 @@ import { getProps } from '.'
  */
 const transpileJSX = (input) => {
   const position = detectJSX(input)
-  if (!position) return input
+  if (position === null) return input
 
   const s = input.slice(position)
   const { props = '', content, tagName, string: { length } } = extract(s)
   const children = parseContent(content)
-  const prop = getProps(props)
-  const f = pragma(tagName, prop, children)
+  const { obj, destructuring } = getProps(props)
+  const f = pragma(tagName, obj, children, destructuring)
   const res = replaceChunk(input, position, length, f)
   // find another one one
   const newRes = transpileJSX(res)
@@ -61,9 +61,9 @@ export const parseContent = (content) => {
 
   const trim = C.slice(bl)
   const { string: { length }, props = '', content: jsx, tagName } = extract(trim)
-  const pp = getProps(props)
+  const { obj, destructuring } = getProps(props)
   const children = parseContent(jsx)
-  const p = pragma(tagName, pp, children)
+  const p = pragma(tagName, obj, children, destructuring)
 
   const a = C.slice(bl + length)
   const after = a ? parseContent(a) : []

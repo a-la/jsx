@@ -16,7 +16,7 @@ const { getProps } = require('.');
  */
 const transpileJSX = (input) => {
   const position = detectJSX(input)
-  if (!position) return input
+  if (position === null) return input
 
   const s = input.slice(position)
   const { props = '', content, tagName, string: { length } } = extract(s)

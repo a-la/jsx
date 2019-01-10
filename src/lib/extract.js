@@ -44,7 +44,7 @@ const extract = (stringWithTag) => {
     },
   ])
   if (!end)
-    throw new Error('Could not find the matching closing tag.')
+    throw new Error(`Could not find the matching closing tag for ${tagName}.`)
   const string = preString.slice(0, end)
   const content = preString.slice(contentStart, contentEnd)
   /**
@@ -53,7 +53,8 @@ const extract = (stringWithTag) => {
    */
   const s = string.replace(arrow.regExp, '=>')
   const pp = props.replace(arrow.regExp, '=>')
-  return { string: s, props: pp, content, tagName }
+  const c = content.replace(arrow.regExp, '=>')
+  return { string: s, props: pp, content: c, tagName }
 }
 
 

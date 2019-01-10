@@ -7,8 +7,10 @@ const { SyncReplaceable,
  * @param {string} input The source code with JSX to transpile.
  */
 const jsx = (input) => {
-  const { e } = makeMarkers({
-    e: /^( *)(export\s+)(default\s+)?/mg,
+  const { e, i, ias } = makeMarkers({
+    e: /^ *export\s+(?:default\s+)?/mg,
+    i: /^ *import(\s+([^\s,]+)\s*,?)?(\s*{(?:[^}]+)})?\s+from\s+['"].+['"]/gm,
+    ias: / *import\s+(?:(.+?)\s*,\s*)?\*\s+as\s+.+?\s+from\s+['"].+['"]/gm,
   }, {
     getReplacement(name, index) {
       return `/*%%_RESTREAM_${name.toUpperCase()}_REPLACEMENT_${index}_%%*/`
@@ -17,9 +19,11 @@ const jsx = (input) => {
       return new RegExp(`/\\*%%_RESTREAM_${name.toUpperCase()}_REPLACEMENT_(\\d+)_%%\\*/`, 'g')
     },
   })
-  const s = SyncReplaceable(input, [makeCutRule(e)])
+  const s = SyncReplaceable(input, [makeCutRule(e),
+    makeCutRule(i), makeCutRule(ias)])
   const tt = transpileJSX(s)
-  const as = SyncReplaceable(tt, [makePasteRule(e)])
+  const as = SyncReplaceable(tt, [makePasteRule(e),
+    makePasteRule(i), makePasteRule(ias)])
   return as
 }
 
