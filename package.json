@@ -37,6 +37,7 @@
   },
   "homepage": "https://github.com/a-la/jsx#readme",
   "devDependencies": {
+    "@wrote/read": "1.0.0",
     "alamode": "1.6.0",
     "documentary": "1.20.1",
     "eslint-config-artdeco": "1.0.1",

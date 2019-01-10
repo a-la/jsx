@@ -22,8 +22,6 @@ const extract = (stringWithTag) => {
       re,
       replacement(m, closing = false, p = '', selfClosing, i) {
         const isSelfClosing = selfClosing.startsWith('/')
-        // const realMatch = m.replace(arrow.regExp, '=>')
-        // const realProps = p.replace(arrow.regExp, '=>')
         if (!contentStart) {
           contentStart = m.length
           props = p

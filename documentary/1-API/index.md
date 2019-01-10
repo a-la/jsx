@@ -8,16 +8,15 @@ import jsx from '@a-la/jsx'
 
 %~%
 
-```## jsx
+```## jsx => string
 [
-  ["arg1", "string"],
-  ["arg2?", "boolean"]
+  ["string", "string"]
 ]
 ```
 
-Call this function to get the result you want.
+Returns the transpiled JSX code into `h` pragma calls.
 
-%TYPEDEF types/index.xml%
+<!-- %TYPEDEF types/index.xml% -->
 
 %EXAMPLE: example/example.js, ../src => @a-la/jsx%
 %FORK example example/example%

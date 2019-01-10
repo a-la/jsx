@@ -46,6 +46,13 @@
   dependencies:
     makepromise "2.0.0"
 
+"@wrote/read@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@wrote/read/-/read-1.0.0.tgz#ab57de1def7af1ec0b63853b63147ed641ba0db0"
+  integrity sha512-oUI1SAvdlTVYlbro4sfm5OzsT6GSuisqrJsi2YqaAgVNykqm5flPXsnttOeDksjvMD9LjHXPMkTtmytmzfoluQ==
+  dependencies:
+    catchment "3.1.1"
+
 "@zoroaster/fork@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@zoroaster/fork/-/fork-1.0.0.tgz#3418d2af1ad498bf9fb2a696591362bb626b54f0"
