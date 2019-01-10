@@ -18,6 +18,21 @@ const Static = <div>Hello, World</div>
 const Static = h('div',{},`Hello, World`)
 /**/
 
+// processes a component with another component
+const Title = () => <h1>Title</h1>
+const Static = <div>
+  <Title></Title>
+  Hello, World
+</div>
+
+/* expected */
+const Title = () => h('h1',{},`Title`)
+const Static = h('div',{},`
+  `,h(Title),`
+  Hello, World
+`)
+/**/
+
 // processes a component with a variable
 const Param = ({ test }) => <div>Hello, { test }!</div>
 

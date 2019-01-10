@@ -1,5 +1,5 @@
 import { makeTestSuite } from 'zoroaster'
-import { jsx } from '../../src/lib/components'
+import jsx from '../../src'
 import { replaceChunk } from '../../src/lib'
 
 export
@@ -9,7 +9,7 @@ const Components = makeTestSuite('test/result/components.jsx', {
   },
 })
 
-// export
+export
 const ReplaceChunk = makeTestSuite('test/result/components/replace-chunk.json', {
   getResults(input) {
     const { input: i, index, length, chunk } = JSON.parse(input)

@@ -8,14 +8,8 @@ const T = {
   'is a function'() {
     equal(typeof jsx, 'function')
   },
-  async 'calls package without error'() {
-    await jsx()
-  },
-  async 'gets a link to the fixture'({ FIXTURE }) {
-    const res = await jsx({
-      text: FIXTURE,
-    })
-    ok(res, FIXTURE)
+  'calls package without error'() {
+    jsx()
   },
 }
 

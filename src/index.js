@@ -4,10 +4,12 @@ import transpileJSX from './lib/components'
  * Process a JSX file.
  * @param {string} input The source code with JSX to transpile.
  */
-export const jsx = (input) => {
+const jsx = (input) => {
   const tt = transpileJSX(input)
   return tt
 }
+
+export default jsx
 
 /* documentary types/index.xml */
 /**

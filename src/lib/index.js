@@ -130,6 +130,9 @@ export const pragma = (tagName, props = {}, children = []) => {
   // } else     if (Array.isArray(props)) {
   //   return    `e(${tn},${props.join(',')})`
   // }
+  if (!Object.keys(props).length && !children.length) {
+    return `h(${tn})`
+  }
   const pr = makeObjectBody(props)
   const c = children.join(',')
   const res = `h(${tn},${pr}${c ? `,${c}` : ''})`
