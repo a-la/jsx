@@ -8,7 +8,7 @@ import mismatch from 'mismatch'
  * const tag = getTagName(s) // div
  */
 export const getTagName = (string) => {
-  const [, tagName] = /<\s*(.+?)(?:\s+.+)?\s*\/?\s*>/.exec(string) || []
+  const [, tagName] = /<\s*(.+?)(?:\s+[\s\S]+)?\s*\/?\s*>/.exec(string) || []
   return tagName
 }
 
@@ -29,7 +29,7 @@ export const getTagName = (string) => {
  */
 export
 const getProps = (props) => {
-  const res = mismatch(/([^\s]+)\s*=\s*{(.+?)}/g, props, ['n', 'v'])
+  const res = mismatch(/(\S+)\s*=\s*{([\s\S]+?)}/g, props, ['n', 'v'])
     .reduce((acc, { n, v }) => {
       acc[n] = v
       return acc
@@ -46,7 +46,7 @@ export
 const makeObjectBody = pp => {
   const { length } = Object.keys(pp)
   const pr = length ? `{${Object.keys(pp).reduce((a, k) => {
-    const v = pp[k].trim()
+    const v = pp[k]
     return [...a, `${k}:${v}`]
   }, []).join(',')}}` : '{}'
   return pr
@@ -80,7 +80,8 @@ export const pragma = (tagName, props = {}, children = []) => {
   //   return    `e(${tn},${props.join(',')})`
   // }
   const pr = makeObjectBody(props)
-  const res = `h(${tn},${pr},${children.join(',')})`
+  const c = children.join(',')
+  const res = `h(${tn},${pr}${c ? `,${c}` : ''})`
   return res
 }
 

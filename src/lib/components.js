@@ -14,15 +14,15 @@ import { getProps } from '.'
  * @param {string} input
  */
 const t = (input) => {
-  const bl = detectJSX(input)
-  if (!bl) return input
+  const position = detectJSX(input)
+  if (!position) return input
 
-  const s = input.slice(bl)
+  const s = input.slice(position)
   const { props = '', content, tagName, string: { length } } = extract(s)
   const children = parseContent(content)
   const prop = getProps(props)
   const f = pragma(tagName, prop, children)
-  const res = replaceChunk(input, bl, length, f)
+  const res = replaceChunk(input, position, length, f)
   // find another one one
   const newRes = t(res)
   return newRes
@@ -47,6 +47,7 @@ const main = () => {
  * @param {string} content
  */
 export const parseContent = (content) => {
+  if (!content) return []
   const C = content.split('\n')
     // .filter(a => !/^\s*$/.test(a))
     .join('\n')

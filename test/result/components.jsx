@@ -39,9 +39,9 @@ const Element = ({ test, children, id }) => <div id={ 'id' }>
 </div>
 
 /* expected */
-const Element = ({ test, children, id }) => h('div',{id:'id'},`
+const Element = ({ test, children, id }) => h('div',{id: 'id' },`
   Hello, `,test,`! `,children,`
-  `,h('div',{class:'TEST'},`test`),`
+  `,h('div',{class: 'TEST' },`test`),`
 `)
 /**/
 
@@ -61,4 +61,40 @@ const Element2 = () => <div><Element test={'test'+a}>Test</Element></div>
 const a = 'test'
 const Element = ({ test, children }) => h('h1',{},`Hello, `,test,`! `,children)
 const Element2 = () =>      h('div',{},h(Element,{test:'test'+a},`Test`))
+/**/
+
+// uses new lines in the properties
+const Element = () => <div onclick={
+  'test'
+}></div>
+
+/* expected */
+const Element = () =>    h('div',{onclick:
+  'test'
+})
+/**/
+
+// processes a tag with function in props
+const Element = ({ cb }) => <div onclick={() => {
+  return () => {
+    cb('test')
+  }
+}}>Test</div>
+
+/* expected */
+const Element = ({ test }) =>    h('div',{onclick:() => {
+  return () => {
+    cb('test')
+  }
+}
+},`Test`)
+/**/
+
+// processes a tag with function in props
+const Element = ({ test }) => <div onclick={() => {
+  return test
+}}></div>
+
+/* expected */
+OK
 /**/
