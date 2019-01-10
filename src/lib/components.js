@@ -20,15 +20,8 @@ const t = (input) => {
   const s = input.slice(bl)
   const { props = '', content, tagName, string: { length } } = extract(s)
   const children = parseContent(content)
-  let f
-  if (props) {
-    const prop = getProps(props)
-    f = pragma(tagName, prop, children) // `p(tag, { ...props }, children)`
-  } else if (children.length == 1) {
-    f = pragma(tagName, children[0]) // `e(tag, child)`
-  } else if (children.length) {
-    f = newPragma(tagName, ...children) // `e(tag, child, child2)`
-  }
+  const prop = getProps(props)
+  const f = pragma(tagName, prop, children)
   const res = replaceChunk(input, bl, length, f)
   // find another one one
   const newRes = t(res)
@@ -38,6 +31,15 @@ const t = (input) => {
 const main = () => {
 
 }
+
+// let f
+// if (props) {
+//   f = pragma(tagName, prop, children) // `p(tag, { ...props }, children)`
+// } else if (children.length == 1) {
+//   f = pragma(tagName, children[0]) // `e(tag, child)`
+// } else if (children.length) {
+//   f = newPragma(tagName, ...children) // `e(tag, child, child2)`
+// }
 
 // parse the content bro parse it
 /**

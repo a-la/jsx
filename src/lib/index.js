@@ -15,7 +15,7 @@ export const getTagName = (string) => {
 // * const getClass = o => Object.keys(o).join(' ')
 
 /**
- * Parses a string with attributes written in jsx, e.g., `id={id}`.
+ * Parses a string with attributes written in jsx, e.g., `id={id}` into an object.
  * @param {string} props The string with properties in the tag
  * @example
  *
@@ -48,11 +48,11 @@ const makeObjectBody = pp => {
   const pr = length ? `{${Object.keys(pp).reduce((a, k) => {
     const v = pp[k].trim()
     return [...a, `${k}:${v}`]
-  }, []).join(',')}}` : null
+  }, []).join(',')}}` : '{}'
   return pr
 }
 
-export const isComponentName = (tagName) => {
+export const isComponentName = (tagName = '') => {
   const [t] = tagName
   if (!t) throw new Error('No tag name is given')
   return t.toUpperCase() == t
@@ -71,22 +71,22 @@ export const isComponentName = (tagName) => {
  */
 export const pragma = (tagName, props = {}, children = []) => {
   const tn = isComponentName(tagName) ? tagName : `'${tagName}'`
-  if (typeof children == 'string') {
-    const pr = makeObjectBody(props)
-    return    `p(${tn},${pr},${children.join(',')})`
-  } else if     (typeof props == 'string') {
-    return    `e(${tn},${props})`
-  } else     if (Array.isArray(props)) {
-    return    `e(${tn},${props.join(',')})`
-  }
+  // if (typeof children == 'string') {
+  //   const pr = makeObjectBody(props)
+  //   return    `p(${tn},${pr},${children.join(',')})`
+  // } else if     (typeof props == 'string') {
+  //   return    `e(${tn},${props})`
+  // } else     if (Array.isArray(props)) {
+  //   return    `e(${tn},${props.join(',')})`
+  // }
   const pr = makeObjectBody(props)
-  const res = `p(${tn},${pr},${children.join(',')})`
+  const res = `h(${tn},${pr},${children.join(',')})`
   return res
 }
 
-export const newPragma = (tagName, ...args) => {
-  return `e('${tagName}',${args.join(',')})`
-}
+// export const newPragma = (tagName, ...args) => {
+//   return `e('${tagName}',${args.join(',')})`
+// }
 
 // * @todo In strict mode, when the length is more, throws an error. In advanced mode, the replacement should be aligned so it is possible to debug it.
 
