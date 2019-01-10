@@ -21,6 +21,7 @@ const extract = (stringWithTag) => {
     {
       re,
       replacement(m, closing = false, p = '', selfClosing, i) {
+        if (end) return m
         const isSelfClosing = selfClosing.startsWith('/')
         if (!contentStart) {
           contentStart = m.length

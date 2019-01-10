@@ -44,6 +44,17 @@ const Title =   h(Title,{id:'test',callback:() => {
 },class:"TEST"})
 /**/
 
+// processes tag with multiple elements of the same type
+const Element = <div>
+  Hello <span>World</span><span>!</span>
+</div>
+
+/* expected */
+const Element = h('div',{},`
+  Hello `,h('span',{},`World`),h('span',{},`!`),`
+`)
+/**/
+
 // processes a component with a variable
 const Param = ({ test }) => <div>Hello, { test }!</div>
 
