@@ -1,6 +1,8 @@
 let mismatch = require('mismatch'); if (mismatch && mismatch.__esModule) mismatch = mismatch.default;
 const { SyncReplaceable } = require('restream');
 
+const UNDEFINED = Symbol()
+
 /**
  * Returns the name of the opening tag from the string starting with <, or `undefined`.
  * @param {string} string The string where to find the tag.
@@ -56,13 +58,21 @@ const getProps = (props) => {
   ])
   if (stack) throw new Error(`Unbalanced props (level ${stack})`)
   const obj = {}
+  const destructuring = []
   const lastClose = positions.reduce((acc, { open, close }) => {
-    const before = props.slice(acc, open)
+    const before =props.slice(acc, open)
     const [, propName] = /(\S+)\s*=\s*$/.exec(before) || []
-    if (!propName) throw new Error('Could not detect prop name')
     const val = props.slice(open + 1, close)
-    obj[propName] = val
-    const bb = before.slice(0, before.length - propName.length - 1)
+    if (!propName && !/\s*\.\.\./.test(val))
+      throw new Error('Could not detect prop name')
+    if (!propName) {
+      destructuring.push(val)
+    } else {
+      obj[propName] = val
+    }
+    const beforeOrNot = before || '' // when using destructuring
+    const propOrNot = propName || ''
+    const bb = beforeOrNot.slice(0, beforeOrNot.length - propOrNot.length - 1)
     const plain = getPlain(bb)
     Object.assign(obj, plain)
     return close + 1
@@ -70,13 +80,13 @@ const getProps = (props) => {
   // make sure plain attrs are there when no {} are given
   if (!positions.length) {
     const plain = getPlain(props)
-    return plain
+    Object.assign(obj, plain)
   } else {
     const whatsLeft = props.slice(lastClose)
     const plain = getPlain(whatsLeft)
     Object.assign(obj, plain)
   }
-  return obj
+  return { obj, destructuring }
 }
 
 /**
@@ -98,12 +108,13 @@ const getPlain = (string) => {
  * @returns {string|null} Either a JS object body string, or null if no keys were in the object.
  */
 
-const makeObjectBody = pp => {
+const makeObjectBody = (pp, destructuring = []) => {
   const { length } = Object.keys(pp)
-  const pr = length ? `{${Object.keys(pp).reduce((a, k) => {
+  if (!length && !destructuring.length) return '{}'
+  const pr = `{${Object.keys(pp).reduce((a, k) => {
     const v = pp[k]
     return [...a, `${k}:${v}`]
-  }, []).join(',')}}` : '{}'
+  }, destructuring).join(',')}}`
   return pr
 }
 
@@ -124,7 +135,7 @@ const makeObjectBody = pp => {
  * // =>
  * e('div',{ id: 'STATIC_ID' },['Hello, ', test, '!'])
  */
-       const pragma = (tagName, props = {}, children = []) => {
+       const pragma = (tagName, props = {}, children = [], destructuring = []) => {
   const tn = isComponentName(tagName) ? tagName : `'${tagName}'`
   // if (typeof children == 'string') {
   //   const pr = makeObjectBody(props)
@@ -134,10 +145,10 @@ const makeObjectBody = pp => {
   // } else     if (Array.isArray(props)) {
   //   return    `e(${tn},${props.join(',')})`
   // }
-  if (!Object.keys(props).length && !children.length) {
+  if (!Object.keys(props).length && !children.length && !destructuring.length) {
     return `h(${tn})`
   }
-  const pr = makeObjectBody(props)
+  const pr = makeObjectBody(props, destructuring)
   const c = children.join(',')
   const res = `h(${tn},${pr}${c ? `,${c}` : ''})`
   return res

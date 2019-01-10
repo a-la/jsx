@@ -49,24 +49,36 @@ import jsx from '@a-la/jsx'
 ```jsx
 const Title = <title>Example</title>
 
-export const Component = ({ align = 'right' }) => <div>
-  <Title/>
-  <p align={align}>
-    Hello World!
-  </p>
-</div>
+export const Component = ({ align = 'right' }) => {
+  const props = {
+    class: 'example',
+    id: 'id',
+  }
+  return <div>
+    <Title/>
+    <p {...props} align={align}>
+      Hello World!
+    </p>
+  </div>
+}
 ```
 
 *The following result is achieved:*
 ```js
 const Title = h('title',{},`Example`)
 
-export const Component = ({ align = 'right' }) => h('div',{},`
-  `,h(Title),`
-  `,h('p',{align:align},`
-    Hello World!
-  `),`
-`)
+export const Component = ({ align = 'right' }) => {
+  const props = {
+    class: 'example',
+    id: 'id',
+  }
+  return h('div',{},`
+    `,h(Title),`
+    `,h('p',{...props,align:align},`
+      Hello World!
+    `),`
+  `)
+}
 ```
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/2.svg?sanitize=true"></a></p>
