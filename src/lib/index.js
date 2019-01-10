@@ -56,7 +56,7 @@ const getProps = (props) => {
   ])
   if (stack) throw new Error(`Unbalanced props (level ${stack})`)
   const obj = {}
-  positions.reduce((acc, { open, close }) => {
+  const lastClose = positions.reduce((acc, { open, close }) => {
     const before = props.slice(acc, open)
     const [, propName] = /(\S+)\s*=\s*$/.exec(before) || []
     if (!propName) throw new Error('Could not detect prop name')
@@ -71,6 +71,10 @@ const getProps = (props) => {
   if (!positions.length) {
     const plain = getPlain(props)
     return plain
+  } else {
+    const whatsLeft = props.slice(lastClose)
+    const plain = getPlain(whatsLeft)
+    Object.assign(obj, plain)
   }
   return obj
 }

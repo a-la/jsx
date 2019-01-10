@@ -33,6 +33,17 @@ const Static = h('div',{},`
 `)
 /**/
 
+// processes a self-closing component
+const Title = <Title id={'test'} callback={() => {
+  return 'test'
+}} class="TEST"/>
+
+/* expected */
+const Title =   h(Title,{id:'test',callback:() => {
+  return 'test'
+},class:"TEST"})
+/**/
+
 // processes a component with a variable
 const Param = ({ test }) => <div>Hello, { test }!</div>
 

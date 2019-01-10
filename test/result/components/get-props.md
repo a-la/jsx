@@ -29,6 +29,16 @@ id='test' class="Test"
 }
 /**/
 
+// gets plain props after {}
+id={test} class="Test"
+
+/* expected */
+{
+  "id": "test",
+  "class": "\"Test\""
+}
+/**/
+
 // gets multiple props with }
 id="test" callback={() => {}} callback2={() => {
   return () => {
