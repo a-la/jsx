@@ -44,7 +44,21 @@ import jsx from '@a-la/jsx'
   console.log(res)
 })()
 ```
+
+*Given the component's source code:*
 ```jsx
+const Title = <title>Example</title>
+
+export const Component = ({ align = 'right' }) => <div>
+  <Title/>
+  <p align={align}>
+    Hello World!
+  </p>
+</div>
+```
+
+*The following result is achieved:*
+```js
 const Title = h('title',{},`Example`)
 
 export const Component = ({ align = 'right' }) => h('div',{},`
