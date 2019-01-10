@@ -2,7 +2,7 @@
 {
   "tagName": "div",
   "props": { "class": "'Test'" },
-  "children": "'Hello World'"
+  "children": ["'Hello World'"]
 }
 
 /* expected */
@@ -12,7 +12,7 @@ p('div',{class:'Test'},'Hello World')
 // makes a pragma with a string argument
 {
   "tagName": "div",
-  "props": "Hello world"
+  "props": "'Hello world'"
 }
 
 /* expected */

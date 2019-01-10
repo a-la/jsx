@@ -38,7 +38,7 @@ const extract = (stringWithTag) => {
   const content = string.slice(start, e)
   /**
    * The string with the
-   * @type {string }
+   * @type {string}
    */
   const s = string
   return { string: s, props, content, tagName }

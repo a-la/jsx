@@ -2,7 +2,7 @@ import { deepEqual } from 'zoroaster'
 import ExpressionContext from '../context/expression'
 import { parseContent } from '../../src/lib/components'
 
-/** @type {Object.<string, (c: ParseContentContext)} */
+/** @type {Object.<string, (c: ExpressionContext)} */
 const ParseContent = {
   context: ExpressionContext,
   'parses expression'() {

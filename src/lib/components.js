@@ -1,5 +1,6 @@
-import { parseSimpleContent, pragma, newPragma, findIndexByEvaluating, replaceChunk }
-  from '.'
+import { pragma, newPragma, replaceChunk } from '.'
+import { parseSimpleContent } from './parse-content'
+import detectJSX from '@a-la/detect-jsx'
 import extract from './extract'
 import { getProps } from '.'
 
@@ -13,7 +14,7 @@ import { getProps } from '.'
  * @param {string} input
  */
 const t = (input) => {
-  const bl = findIndexByEvaluating(input)
+  const bl = detectJSX(input)
   if (!bl) return input
 
   const s = input.slice(bl)

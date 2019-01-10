@@ -46,7 +46,7 @@ const Element = ({ test, children, id }) =>            p('div',{id:'id'},'  Hell
 const El = <div><Element test={'test'+a}>Test</Element></div>
 
 /* expected */
-const El = () =>    e('div',p(Element,{test:'test'+a},'Test'))
+const El =         e('div',p(Element,{test:'test'+a},'Test'))
 /**/
 
 // processes an inner Component tag
@@ -57,5 +57,5 @@ const Element2 = () => <div><Element test={'test'+a}>Test</Element></div>
 /* expected */
 const a = 'test'
 const Element = ({ test, children }) =>   e('h1','Hello, ',test,'! ',children)
-const Element2 = () =>      e('div',p(Element,{test:'test'+a},'Test'))
+const Element2 = () =>         e('div',p(Element,{test:'test'+a},'Test'))
 /**/

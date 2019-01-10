@@ -1,8 +1,8 @@
 import { deepEqual } from 'zoroaster'
 import ExpressionContext from '../context/expression'
-import { parseSimpleContent } from '../../src/lib'
+import { parseSimpleContent } from '../../src/lib/parse-content'
 
-/** @type {Object.<string, (c: ParseSimpleContentContext)} */
+/** @type {Object.<string, (c: ExpressionContext)} */
 const ParseSimpleContent = {
   context: ExpressionContext,
   'parses content with expressions into an array'({ e, q, a, b }) {

@@ -44,6 +44,7 @@
     "zoroaster": "3.6.6"
   },
   "dependencies": {
+    "@a-la/detect-jsx": "1.0.0",
     "restream": "3.4.1"
   }
 }

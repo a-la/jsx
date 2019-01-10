@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@a-la/detect-jsx@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@a-la/detect-jsx/-/detect-jsx-1.0.0.tgz#a41a78ba5a430195054097d591e95f1cf20548ee"
+  integrity sha512-QZP00N4tl3IqAHv+TpncGZcoiSBU2Hh6rRrVdqs9sGi2w4CxoQdQgPTceWLkkZ1L0Pl1ewDEDgIwwhRyMhwz6A==
+
 "@a-la/export@1.3.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@a-la/export/-/export-1.3.0.tgz#aaa22530315f85557331ddd2fc096b1b20d11afb"
