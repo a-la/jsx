@@ -1,4 +1,4 @@
-import { pragma, newPragma, replaceChunk } from '.'
+import { pragma, replaceChunk } from '.'
 import { parseSimpleContent } from './parse-content'
 import detectJSX from '@a-la/detect-jsx'
 import extract from './extract'
@@ -11,9 +11,10 @@ import { getProps } from '.'
 </div> */
 
 /**
- * @param {string} input
+ * @param {string} input The string to transpile.
+ * @returns {string} The transpiled source code with `h` pragma for hyperscript invocations.
  */
-const t = (input) => {
+const transpileJSX = (input) => {
   const position = detectJSX(input)
   if (!position) return input
 
@@ -24,13 +25,11 @@ const t = (input) => {
   const f = pragma(tagName, prop, children)
   const res = replaceChunk(input, position, length, f)
   // find another one one
-  const newRes = t(res)
+  const newRes = transpileJSX(res)
   return newRes
 }
 
-const main = () => {
-
-}
+export default transpileJSX
 
 // let f
 // if (props) {
@@ -74,13 +73,4 @@ export const parseContent = (content) => {
     p,
     ...after,
   ]
-}
-
-/**
- * Process a JSX file.
- */
-export const jsx = (input) => {
-  const tt = t(input)
-
-  return tt
 }

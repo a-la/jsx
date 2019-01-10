@@ -1,21 +1,12 @@
-import { debuglog } from 'util'
-
-const LOG = debuglog('@a-la/jsx')
+import transpileJSX from './lib/components'
 
 /**
- * The JSX transform for the alamode.
- * @param {Config} [config] Options for the program.
- * @param {boolean} [config.shouldRun=true] A boolean option. Default `true`.
- * @param {string} config.text A text to return.
+ * Process a JSX file.
+ * @param {string} input The source code with JSX to transpile.
  */
-export default async function jsx(config = {}) {
-  const {
-    shouldRun = true,
-    text,
-  } = config
-  if (!shouldRun) return
-  LOG('@a-la/jsx called with %s', text)
-  return text
+export const jsx = (input) => {
+  const tt = transpileJSX(input)
+  return tt
 }
 
 /* documentary types/index.xml */
