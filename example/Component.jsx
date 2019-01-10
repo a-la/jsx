@@ -5,7 +5,11 @@ export const Component = ({ align = 'right' }) => {
     class: 'example',
     id: 'id',
   }
-  return <div>
+  return <div onClick={(e) => {
+    e.preventDefault()
+    alert('Hello World')
+    return false
+  }} role="aria-button">
     <Title/>
     <p {...props} align={align}>
       Hello World!

@@ -54,7 +54,11 @@ export const Component = ({ align = 'right' }) => {
     class: 'example',
     id: 'id',
   }
-  return <div>
+  return <div onClick={(e) => {
+    e.preventDefault()
+    alert('Hello World')
+    return false
+  }} role="aria-button">
     <Title/>
     <p {...props} align={align}>
       Hello World!
@@ -72,7 +76,11 @@ export const Component = ({ align = 'right' }) => {
     class: 'example',
     id: 'id',
   }
-  return h('div',{},`
+  return h('div',{onClick:(e) => {
+    e.preventDefault()
+    alert('Hello World')
+    return false
+  },role:"aria-button"},`
     `,h(Title),`
     `,h('p',{...props,align:align},`
       Hello World!
