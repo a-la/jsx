@@ -44,7 +44,7 @@ import jsx from '@a-la/jsx'
   console.log(res)
 })()
 ```
-```
+```jsx
 const Title = h('title',{},`Example`)
 
 export const Component = ({ align = 'right' }) => h('div',{},`
