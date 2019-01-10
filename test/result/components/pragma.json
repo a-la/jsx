@@ -6,27 +6,7 @@
 }
 
 /* expected */
-p('div',{class:'Test'},'Hello World')
-/**/
-
-// makes a pragma with a string argument
-{
-  "tagName": "div",
-  "props": "'Hello world'"
-}
-
-/* expected */
-e('div','Hello world')
-/**/
-
-// makes a pragma with an array argument
-{
-  "tagName": "div",
-  "props": ["'Hello, '","test","'world'"]
-}
-
-/* expected */
-e('div','Hello, ',test,'world')
+h('div',{class:'Test'},'Hello World')
 /**/
 
 // makes a pragma function
@@ -43,5 +23,5 @@ e('div','Hello, ',test,'world')
 }
 
 /* expected */
-p('div',{id:'STATIC_ID'},'Hello, ',test,'!')
+h('div',{id:'STATIC_ID'},'Hello, ',test,'!')
 /**/

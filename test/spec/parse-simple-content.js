@@ -10,6 +10,14 @@ const ParseSimpleContent = {
     const res = parseSimpleContent(`${b}${exp}${a}`)
     deepEqual(res, [q`Hello, `, 'test', q`!`])
   },
+  'parses content with new lines'({ q }) {
+    const res = parseSimpleContent(`
+    {test}
+    `)
+    deepEqual(res, [q`
+    `, 'test', q`
+    `])
+  },
   'starts with expression'({ e, q, a }) {
     const exp = e`test`
     const res = parseSimpleContent(`${exp}${a}`)
@@ -25,11 +33,11 @@ const ParseSimpleContent = {
     const res = parseSimpleContent(exp)
     deepEqual(res, ['test'])
   },
-  'does not push the empty space at the end.'({ e }) {
-    const exp = e`test`
-    const res = parseSimpleContent(`${exp}   `)
-    deepEqual(res, ['test'])
-  },
+  // 'does not push the empty space at the end.'({ e }) {
+  //   const exp = e`test`
+  //   const res = parseSimpleContent(`${exp}   `)
+  //   deepEqual(res, ['test'])
+  // },
   'returns quoted string when no expression is present'({ b, q }) {
     const res = parseSimpleContent(b)
     deepEqual(res, [q`Hello, `])

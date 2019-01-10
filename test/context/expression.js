@@ -13,7 +13,7 @@ export default class ExpressionContext {
    * @example
    * q`test` // => 'test'
    */
-  get q() { return ({ raw: [r] }) => `'${r}'` }
+  get q() { return ({ raw: [r] }) => `\`${r}\`` }
   /** The expression to insert before the expression. */
   get b() { return 'Hello, ' }
   /** The expression to insert after the expression. */

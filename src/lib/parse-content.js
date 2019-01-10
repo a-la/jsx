@@ -5,7 +5,7 @@
  * getQuoted('The mind always seeks to equilibrium.')
  * // => 'The mind always seeks to equilibrium.'
  */
-export const getQuoted = (s) => `'${s}'`
+export const getQuoted = (s) => `\`${s}\``
 
 /**
  * Returns the array of children for an element by extracting the parts in `{}`.
@@ -41,7 +41,8 @@ const getTemps = (string, temps) => {
     return acc
   }, [])
   if (lastTo < string.length) {
-    const a = string.slice(lastTo, string.length).trim()
+    const a = string.slice(lastTo, string.length)
+    // .trim()
     if (a) ar.push(getQuoted(a))
   }
   return ar

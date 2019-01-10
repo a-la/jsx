@@ -15,14 +15,14 @@ const Element = ({ test, children, id }) => `<div id="${id}">
 const Static = <div>Hello, World</div>
 
 /* expected */
-const Static = h('div',{},'Hello, World')
+const Static = h('div',{},`Hello, World`)
 /**/
 
 // processes a component with a variable
 const Param = ({ test }) => <div>Hello, { test }!</div>
 
 /* expected */
-const Param = ({ test }) => h('div',{},'Hello, ',test,'!')
+const Param = ({ test }) => h('div',{},`Hello, `,test,`!`)
 /**/
 
 // processes a component with property and variable
@@ -39,14 +39,17 @@ const Element = ({ test, children, id }) => <div id={ 'id' }>
 </div>
 
 /* expected */
-const Element = ({ test, children, id }) =>            h('div',{id:'id'},'  Hello, ',test,'! ',children,h('div',{class:'TEST'},'test'))
+const Element = ({ test, children, id }) => h('div',{id:'id'},`
+  Hello, `,test,`! `,children,`
+  `,h('div',{class:'TEST'},`test`),`
+`)
 /**/
 
 // processes a Component
 const El = <div><Element test={'test'+a}>Test</Element></div>
 
 /* expected */
-const El =      h('div',{},h(Element,{test:'test'+a},'Test'))
+const El =      h('div',{},h(Element,{test:'test'+a},`Test`))
 /**/
 
 // processes an inner Component tag
@@ -56,6 +59,6 @@ const Element2 = () => <div><Element test={'test'+a}>Test</Element></div>
 
 /* expected */
 const a = 'test'
-const Element = ({ test, children }) => h('h1',{},'Hello, ',test,'! ',children)
-const Element2 = () =>      h('div',{},h(Element,{test:'test'+a},'Test'))
+const Element = ({ test, children }) => h('h1',{},`Hello, `,test,`! `,children)
+const Element2 = () =>      h('div',{},h(Element,{test:'test'+a},`Test`))
 /**/

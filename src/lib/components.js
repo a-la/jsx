@@ -47,7 +47,9 @@ const main = () => {
  * @param {string} content
  */
 export const parseContent = (content) => {
-  const C = content.split('\n').filter(a => !/^\s*$/.test(a)).join('\n')
+  const C = content.split('\n')
+    // .filter(a => !/^\s*$/.test(a))
+    .join('\n')
   const bl = C.indexOf('<')
   if (bl == -1) {
     const c = parseSimpleContent(C)
