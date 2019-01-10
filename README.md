@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/%40a-la%2Fjsx.svg)](https://npmjs.org/package/@a-la/jsx)
 
-`@a-la/jsx` is The JSX transform for the alamode.
+`@a-la/jsx` is The JSX transform For ÀLamode And Other Packages.
 
 ```sh
 yarn add -E @a-la/jsx
@@ -85,14 +85,16 @@ export const Component = ({ align = 'right' }) => {
 
 ## The Transform
 
-The transform is the Reg-Exp alternative to Babel's implementation of the JSX transform. We're not aware of any other alternatives, however this approach provides a light-weight solution for transforming `JSX` syntax for front-end and back-end rendering and static website generation. The lit-html is based on template strings, and does not provide html highlighting which is enabled in `.jsx` files. This makes JSX the standard of modern HTML templating. The service using the JSX does not have to be a react page, so that the transform can be used to server-side rendering which will always require serving HTML using a template.
+The transform is the Reg-Exp alternative to Babel's implementation of the JSX transform. We're not aware of any other alternatives, however this approach provides a light-weight solution for transforming `JSX` syntax for front-end and back-end rendering and static website generation. The lit-html is based on template strings, and does not provide html highlighting which is enabled in `.jsx` files. This makes JSX the standard of modern HTML templating. The service using the JSX does not have to be a react page, so that the transform can be used to server-side rendering which will always require serving HTML using a template. To achieve this in Node.js, the ÀLaMode transpiler can be used, whereas this package just exports a single function to perform the translation of the code.
+
+The `import` and `export` statements will be temporally commented out when transpiling, otherwise V8 will throw an error when trying to detect where JSX syntax starts (see the method).
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/3.svg?sanitize=true"></a></p>
 
 
 ## The Dynamic Method
 
-This package will try to create a new Script (an import from the `vm` module) to find out where JSX syntax failed (firts `<`). The location of the opening tag is therefore found out and the name of the tag extracted. With the name of the tag, the closing tag name can be found (with all opening nodes with the same name incrementing the internal stack by 1), and the contents inside parsed.
+This package will try to create a new Script (an import from the `vm` module) to find out where JSX syntax failed (first `<`). The location of the opening tag is therefore found out and the name of the tag extracted. With the name of the tag, the closing tag name can be found, and the contents inside parsed.
 
 ```html
 /Users/zavr/a-la/jsx/test/fixture/Component.jsx:2
@@ -116,7 +118,7 @@ SyntaxError: Unexpected token <
 
 ## Copyright
 
-(c) [À La Mode][1] 2018
+(c) [À La Mode][1] 2019
 
 [1]: https://alamode.cc
 

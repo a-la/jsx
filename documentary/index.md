@@ -2,7 +2,7 @@
 
 %NPM: @a-la/jsx%
 
-`@a-la/jsx` is The JSX transform for the alamode.
+`@a-la/jsx` is The JSX transform For ÀLamode And Other Packages.
 
 ```sh
 yarn add -E @a-la/jsx

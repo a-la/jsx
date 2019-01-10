@@ -1,6 +1,6 @@
 ## The Dynamic Method
 
-This package will try to create a new Script (an import from the `vm` module) to find out where JSX syntax failed (firts `<`). The location of the opening tag is therefore found out and the name of the tag extracted. With the name of the tag, the closing tag name can be found (with all opening nodes with the same name incrementing the internal stack by 1), and the contents inside parsed.
+This package will try to create a new Script (an import from the `vm` module) to find out where JSX syntax failed (first `<`). The location of the opening tag is therefore found out and the name of the tag extracted. With the name of the tag, the closing tag name can be found, and the contents inside parsed.
 
 ```html
 /Users/zavr/a-la/jsx/test/fixture/Component.jsx:2

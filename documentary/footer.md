@@ -4,7 +4,7 @@
 
 ## Copyright
 
-(c) [À La Mode][1] 2018
+(c) [À La Mode][1] 2019
 
 [1]: https://alamode.cc
 

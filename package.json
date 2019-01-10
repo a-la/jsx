@@ -1,7 +1,7 @@
 {
   "name": "@a-la/jsx",
   "version": "0.0.0",
-  "description": "The JSX transform for the alamode.",
+  "description": "The JSX Transform For ÀLaMode And Other Packages.",
   "main": "build",
   "scripts": {
     "t": "zoroaster -a",
@@ -28,7 +28,11 @@
   },
   "keywords": [
     "jsx",
-    "a-la"
+    "transpile",
+    "compile",
+    "react",
+    "a-la",
+    "alamode"
   ],
   "author": "Anton <anton@adc.sh>",
   "license": "MIT",
