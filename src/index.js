@@ -6,7 +6,7 @@ import { SyncReplaceable,
  * Process a JSX file.
  * @param {string} input The source code with JSX to transpile.
  */
-const jsx = (input) => {
+const jsx = (input, config = {}) => {
   const { e, i, ias } = makeMarkers({
     e: /^ *export\s+(?:default\s+)?/mg,
     i: /^ *import(\s+([^\s,]+)\s*,?)?(\s*{(?:[^}]+)})?\s+from\s+['"].+['"]/gm,
@@ -21,7 +21,7 @@ const jsx = (input) => {
   })
   const s = SyncReplaceable(input, [makeCutRule(e),
     makeCutRule(i), makeCutRule(ias)])
-  const tt = transpileJSX(s)
+  const tt = transpileJSX(s, config)
   const as = SyncReplaceable(tt, [makePasteRule(e),
     makePasteRule(i), makePasteRule(ias)])
   return as

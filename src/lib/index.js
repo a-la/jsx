@@ -1,8 +1,6 @@
 import mismatch from 'mismatch'
 import { SyncReplaceable } from 'restream'
 
-const UNDEFINED = Symbol()
-
 /**
  * Returns the name of the opening tag from the string starting with <, or `undefined`.
  * @param {string} string The string where to find the tag.
@@ -108,12 +106,13 @@ const getPlain = (string) => {
  * @returns {string|null} Either a JS object body string, or null if no keys were in the object.
  */
 export
-const makeObjectBody = (pp, destructuring = []) => {
+const makeObjectBody = (pp, destructuring = [], quoteProps = false) => {
   const { length } = Object.keys(pp)
   if (!length && !destructuring.length) return '{}'
   const pr = `{${Object.keys(pp).reduce((a, k) => {
     const v = pp[k]
-    return [...a, `${k}:${v}`]
+    const kk = quoteProps ? `'${k}'` : k
+    return [...a, `${kk}:${v}`]
   }, destructuring).join(',')}}`
   return pr
 }
@@ -129,13 +128,15 @@ export const isComponentName = (tagName = '') => {
  * @param {string} tagName The name of the tag to create, or a reference to a component function.
  * @param {Object.<string, string>} props The properties of the element. The properties' values can be passed as strings or references as the `e` function will be called under the scope in which the JSX is written, e.g., when creating components `const C = ({ reference }) => <div id={reference} class="String"/>`.
  * @param {string[]} children The array with the child nodes which are strings, but encode either a reference, a string or an invocation the the `e` function again. Thus the jsx is parsed recursively depth-first.
+ * @param {string[]} [destructuring] Any properties for destructuring.
+ * @param {boolean} [quoteProps=false] Whether to quote the properties' keys (for Closure compiler).
  * @example
  *
  * const r = pragma('div', { id: "'STATIC_ID'" }, ["'Hello, '", "test", "'!'"])
  * // =>
  * e('div',{ id: 'STATIC_ID' },['Hello, ', test, '!'])
  */
-export const pragma = (tagName, props = {}, children = [], destructuring = []) => {
+export const pragma = (tagName, props = {}, children = [], destructuring = [], quoteProps = false) => {
   const tn = isComponentName(tagName) ? tagName : `'${tagName}'`
   // if (typeof children == 'string') {
   //   const pr = makeObjectBody(props)
@@ -148,7 +149,7 @@ export const pragma = (tagName, props = {}, children = [], destructuring = []) =
   if (!Object.keys(props).length && !children.length && !destructuring.length) {
     return `h(${tn})`
   }
-  const pr = makeObjectBody(props, destructuring)
+  const pr = makeObjectBody(props, destructuring, quoteProps)
   const c = children.join(',')
   const res = `h(${tn},${pr}${c ? `,${c}` : ''})`
   return res

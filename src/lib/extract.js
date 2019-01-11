@@ -27,14 +27,14 @@ const extract = (stringWithTag) => {
           contentStart = m.length
           props = p
         }
-        if (isSelfClosing) {
+        if (isSelfClosing && !stack) {
           contentEnd = contentStart
           end = i + m.length
           return m
         }
         if (!stack && closing)
           throw new Error('The tag closed before opening.')
-        stack += closing ? -1 : 1
+        if (!isSelfClosing) stack += closing ? -1 : 1
         if (stack == 0) {
           contentEnd = i
           end = i + m.length

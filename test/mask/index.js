@@ -10,6 +10,15 @@ const Components = makeTestSuite('test/result/components.jsx', {
 })
 
 export
+const ComponentsClosure = makeTestSuite('test/result/components-closure.jsx', {
+  getResults(input) {
+    return jsx(input, {
+      quoteProps: true,
+    })
+  },
+})
+
+export
 const ReplaceChunk = makeTestSuite('test/result/components/replace-chunk.json', {
   getResults(input) {
     const { input: i, index, length, chunk } = JSON.parse(input)
