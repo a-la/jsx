@@ -1,3 +1,10 @@
+## 11 December 2018
+
+### 1.1.0
+
+- [feature] `quoteProps` to enable better _Google Closure_ compilation.
+- [fix] Correctly parse code with self-closing tag inside elements with the same name.
+
 ## 10 December 2018
 
 ### 1.0.0
