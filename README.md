@@ -12,7 +12,8 @@ yarn add -E @a-la/jsx
 
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
-- [`jsx(string: string): string`](#jsxstring-string-string)
+- [`jsx(string: string, config: Config): string`](#jsxstring-stringconfig-config-string)
+  * [`Config`](#type-config)
 - [The Transform](#the-transform)
 - [The Dynamic Method](#the-dynamic-method)
 - [Copyright](#copyright)
@@ -29,9 +30,15 @@ import jsx from '@a-la/jsx'
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/1.svg?sanitize=true"></a></p>
 
-## `jsx(`<br/>&nbsp;&nbsp;`string: string,`<br/>`): string`
+## `jsx(`<br/>&nbsp;&nbsp;`string: string,`<br/>&nbsp;&nbsp;`config: Config,`<br/>`): string`
 
 Returns the transpiled JSX code into `h` pragma calls.
+
+__<a name="type-config">`Config`</a>__: Options for the program.
+
+|    Name    |   Type    |                                      Description                                       | Default |
+| ---------- | --------- | -------------------------------------------------------------------------------------- | ------- |
+| quoteProps | _boolean_ | Whether to surround property names with quotes, e.g., for the Google Closure Compiler. | `false` |
 
 ```js
 /* yarn example/ */

@@ -10,13 +10,14 @@ import jsx from '@a-la/jsx'
 
 ```## jsx => string
 [
-  ["string", "string"]
+  ["string", "string"],
+  ["config", "Config"]
 ]
 ```
 
 Returns the transpiled JSX code into `h` pragma calls.
 
-<!-- %TYPEDEF types/index.xml% -->
+%TYPEDEF types/index.xml%
 
 %EXAMPLE: example/example.js, ../src => @a-la/jsx%
 

@@ -1,10 +1,7 @@
 <types>
   <type name="Config" desc="Options for the program.">
-    <prop boolean name="shouldRun" default="true">
-      A boolean option.
-    </prop>
-    <prop string name="text">
-      A text to return.
+    <prop boolean name="quoteProps" default="false">
+      Whether to surround property names with quotes, e.g., for the Google Closure Compiler.
     </prop>
   </type>
 </types>
