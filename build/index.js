@@ -5,8 +5,10 @@ const { SyncReplaceable,
 /**
  * Process a JSX file.
  * @param {string} input The source code with JSX to transpile.
+ * @param {Config} config Options for the program.
+ * @param {boolean} [config.quoteProps=false] Whether to surround property names with quotes, e.g., for the Google Closure Compiler. Default `false`.
  */
-const jsx = (input) => {
+const jsx = (input, config = {}) => {
   const { e, i, ias } = makeMarkers({
     e: /^ *export\s+(?:default\s+)?/mg,
     i: /^ *import(\s+([^\s,]+)\s*,?)?(\s*{(?:[^}]+)})?\s+from\s+['"].+['"]/gm,
@@ -21,7 +23,7 @@ const jsx = (input) => {
   })
   const s = SyncReplaceable(input, [makeCutRule(e),
     makeCutRule(i), makeCutRule(ias)])
-  const tt = transpileJSX(s)
+  const tt = transpileJSX(s, config)
   const as = SyncReplaceable(tt, [makePasteRule(e),
     makePasteRule(i), makePasteRule(ias)])
   return as
@@ -32,6 +34,5 @@ module.exports=jsx
 /* documentary types/index.xml */
 /**
  * @typedef {Object} Config Options for the program.
- * @prop {boolean} [shouldRun=true] A boolean option. Default `true`.
- * @prop {string} text A text to return.
+ * @prop {boolean} [quoteProps=false] Whether to surround property names with quotes, e.g., for the Google Closure Compiler. Default `false`.
  */
