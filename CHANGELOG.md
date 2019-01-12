@@ -1,5 +1,9 @@
 ## 12 December 2018
 
+### 1.1.2
+
+- [fix] Ignore simple imports like `import '/style.css'`.
+
 ### 1.1.1
 
 - [fix] Process self-closing with a space before `/`.
