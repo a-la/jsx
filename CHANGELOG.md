@@ -1,4 +1,8 @@
-## 12 December 2018
+## 12 January 2019
+
+### 1.1.3
+
+- [fix] Do ignore simple imports.
 
 ### 1.1.2
 
@@ -9,14 +13,14 @@
 - [fix] Process self-closing with a space before `/`.
 - [fix] Disable length warning.
 
-## 11 December 2018
+## 11 January 2019
 
 ### 1.1.0
 
 - [feature] `quoteProps` to enable better _Google Closure_ compilation.
 - [fix] Correctly parse code with self-closing tag inside elements with the same name.
 
-## 10 December 2018
+## 10 January 2019
 
 ### 1.0.0
 
