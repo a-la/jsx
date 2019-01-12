@@ -1,3 +1,10 @@
+## 12 December 2018
+
+### 1.1.1
+
+- [fix] Process self-closing with a space before `/`.
+- [fix] Disable length warning.
+
 ## 11 December 2018
 
 ### 1.1.0
