@@ -187,3 +187,12 @@ h('div',{},`
   `,h('span',{},`Test`),`
 `)
 /**/
+
+// ignores imports
+import './style.css'
+<div/>
+
+/* expected */
+import './style.css'
+h('div')
+/**/
