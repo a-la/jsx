@@ -54,6 +54,8 @@ import jsx from '@a-la/jsx'
 
 *Given the component's source code:*
 ```jsx
+import RichTextArea from 'richtext'
+
 const Title = <title>Example</title>
 
 export const Component = ({ align = 'right' }) => {
@@ -67,6 +69,7 @@ export const Component = ({ align = 'right' }) => {
     return false
   }} role="aria-button">
     <Title/>
+    <RichTextArea />
     <p {...props} align={align}>
       Hello World!
     </p>
@@ -76,6 +79,8 @@ export const Component = ({ align = 'right' }) => {
 
 *The following result is achieved:*
 ```js
+import RichTextArea from 'richtext'
+
 const Title = h('title',{},`Example`)
 
 export const Component = ({ align = 'right' }) => {
@@ -89,6 +94,7 @@ export const Component = ({ align = 'right' }) => {
     return false
   },role:"aria-button"},`
     `,h(Title),`
+    `,h(RichTextArea),`
     `,h('p',{...props,align:align},`
       Hello World!
     `),`

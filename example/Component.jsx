@@ -1,3 +1,5 @@
+import RichTextArea from 'richtext'
+
 const Title = <title>Example</title>
 
 export const Component = ({ align = 'right' }) => {
@@ -11,6 +13,7 @@ export const Component = ({ align = 'right' }) => {
     return false
   }} role="aria-button">
     <Title/>
+    <RichTextArea />
     <p {...props} align={align}>
       Hello World!
     </p>
