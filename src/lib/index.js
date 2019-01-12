@@ -174,8 +174,8 @@ const replaceChunk = (input, index, length, chunk) => {
   const before = input.slice(0, index)
   const after = input.slice(index + length)
   const ld = length - chunk.length
-  if (ld < 0)
-    console.warn('The chunks length is more that replaced input')
+  // if (ld < 0)
+    // console.warn('The chunks length is more that replaced input')
     // throw new Error('The length of the chunk cannot be more than of the replaced value.')
   let p = chunk
   if (ld > 0) {

@@ -172,3 +172,18 @@ h('div',{},`
 /* expected */
 h('div',{...props,id:test})
 /**/
+
+// processes self-closing without props
+<div>
+  <RichTextArea/>
+  <RichTextArea />
+  <span>Test</span>
+</div>
+
+/* expected */
+h('div',{},`
+  `,h(RichTextArea),`
+  `,h(RichTextArea),`
+  `,h('span',{},`Test`),`
+`)
+/**/

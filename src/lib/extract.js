@@ -23,6 +23,7 @@ const extract = (stringWithTag) => {
       replacement(m, closing = false, p = '', selfClosing, i) {
         if (end) return m
         const isSelfClosing = selfClosing.startsWith('/')
+          || p.endsWith('/') // non-greedy regex is greedy for (/>|>)
         if (!contentStart) {
           contentStart = m.length
           props = p
