@@ -13,7 +13,7 @@ const jsx = (input, config = {}) => {
     e: /^ *export\s+(?:default\s+)?/mg,
     i: /^ *import(\s+([^\s,]+)\s*,?)?(\s*{(?:[^}]+)})?\s+from\s+['"].+['"]/gm,
     ias: /^ *import\s+(?:(.+?)\s*,\s*)?\*\s+as\s+.+?\s+from\s+['"].+['"]/gm,
-    ii: /^ *import\s+['"].+['"]/,
+    ii: /^ *import\s+['"].+['"]/gm,
   }, {
     getReplacement(name, index) {
       return `/*%%_RESTREAM_${name.toUpperCase()}_REPLACEMENT_${index}_%%*/`

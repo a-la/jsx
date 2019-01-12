@@ -189,10 +189,12 @@ h('div',{},`
 /**/
 
 // ignores imports
+import test from 'test'
 import './style.css'
 <div/>
 
 /* expected */
+import test from 'test'
 import './style.css'
 h('div')
 /**/
