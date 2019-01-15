@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@a-la/detect-jsx@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@a-la/detect-jsx/-/detect-jsx-1.0.0.tgz#a41a78ba5a430195054097d591e95f1cf20548ee"
-  integrity sha512-QZP00N4tl3IqAHv+TpncGZcoiSBU2Hh6rRrVdqs9sGi2w4CxoQdQgPTceWLkkZ1L0Pl1ewDEDgIwwhRyMhwz6A==
+"@a-la/detect-jsx@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@a-la/detect-jsx/-/detect-jsx-1.0.1.tgz#ef36b5f3c129e0901d5752a86999a9910f6b5e7a"
+  integrity sha512-ZxWfYmzeFt0CUDylMM8ZiZwSDOrZHyDnf5iVkimZKOfB5VwNEhC52NZCv5zctMFI2y3H4+jsePq6fXHc46FrFw==
 
 "@a-la/export@1.3.0":
   version "1.3.0"
@@ -25,6 +25,11 @@
 "@artdeco/clean-stack@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@artdeco/clean-stack/-/clean-stack-1.0.0.tgz#36ff9c9f66e6cb1eb0bfa90341be21cba70c7ea6"
+
+"@artdeco/clean-stack@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@artdeco/clean-stack/-/clean-stack-1.0.1.tgz#7e4d3bb1b0ac62173b00e4bba7091f7847cdb088"
+  integrity sha512-ZSavD8NpWA1/1SRCKrx8LZ5WfbKS1kRUIFOERJvR1jXqCAcbM3xWSP2VdCKEh4lCwWghSWQkotbpK6n+o1Y/xQ==
 
 "@wrote/clone@1.0.1":
   version "1.0.1"
@@ -46,12 +51,12 @@
   dependencies:
     makepromise "2.0.0"
 
-"@wrote/read@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@wrote/read/-/read-1.0.0.tgz#ab57de1def7af1ec0b63853b63147ed641ba0db0"
-  integrity sha512-oUI1SAvdlTVYlbro4sfm5OzsT6GSuisqrJsi2YqaAgVNykqm5flPXsnttOeDksjvMD9LjHXPMkTtmytmzfoluQ==
+"@wrote/read@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@wrote/read/-/read-1.0.2.tgz#6d1d2b2f3e2e1830007384b06c31fb58ec77cf21"
+  integrity sha512-Db4j0GimaxxK4oudPvtlyirgNzmVgadiBv2pu1qWYWQM9M2/Pt53cnbSaJplnORZV19908NWm2x18g5XZNoKDQ==
   dependencies:
-    catchment "3.1.1"
+    catchment "3.2.1"
 
 "@zoroaster/fork@1.0.0":
   version "1.0.0"
@@ -89,6 +94,24 @@ alamode@1.6.0:
     usually "1.0.0"
     which-stream "1.0.1"
 
+alamode@1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/alamode/-/alamode-1.6.1.tgz#9786829ee444f4537ee84e1b67b0b6a2246b2ecb"
+  integrity sha512-XEVYXHjR7zVVxextZVe4zLv7uEFgWzq6Rl1ArX8uCqBlvONcDWyFfvyYpk5NGfE6ve+88M0Lof6+5U0cRN+H1Q==
+  dependencies:
+    "@a-la/export" "1.3.0"
+    "@a-la/import" "1.7.0"
+    "@a-la/markers" "1.0.3"
+    "@wrote/ensure-path" "1.0.3"
+    "@wrote/read-dir-structure" "1.0.1"
+    argufy "1.2.1"
+    catchment "3.2.0"
+    pirates "4.0.0"
+    restream "3.4.1"
+    source-map "0.7.3"
+    usually "1.1.0"
+    which-stream "1.0.1"
+
 argufy@1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/argufy/-/argufy-1.2.1.tgz#34985fe1087dee7fd96c92fad17c0dd137991d95"
@@ -121,6 +144,22 @@ catchment@3.1.1:
   dependencies:
     "@artdeco/clean-stack" "1.0.0"
     erotic "2.0.1"
+
+catchment@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/catchment/-/catchment-3.2.0.tgz#1b846c4a4acd488061b1b054274edd2f5111cd8d"
+  integrity sha512-mGhiTkSgPaKAEeB0lVLRM+TWlzkoPq5SGvAgsjNayfBzQjqwRdPIUs2Y1ksvU5WsP5JdtcPVFyyGLM6K8xnQqA==
+  dependencies:
+    "@artdeco/clean-stack" "1.0.0"
+    erotic "2.0.1"
+
+catchment@3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/catchment/-/catchment-3.2.1.tgz#43b1aa1f183538fb8fc556b5dc5e0885bfe707d1"
+  integrity sha512-ITAsJ2U7YAZgref9E8TtpVU+xdkHLa7xWoj5XCGS7oE1OV/4c/MLiaDUE3x7tbJIpd3ADEvKLtfwBHGHl/Xk1g==
+  dependencies:
+    "@artdeco/clean-stack" "1.0.1"
+    erotic "2.0.2"
 
 catchment@^1.0.0:
   version "1.0.0"
@@ -187,6 +226,13 @@ erotic@2.0.1:
   resolved "https://registry.yarnpkg.com/erotic/-/erotic-2.0.1.tgz#bcb45bf61e5a3a9006bbee2cf998515a56f3961b"
   dependencies:
     "@artdeco/clean-stack" "1.0.0"
+
+erotic@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/erotic/-/erotic-2.0.2.tgz#22d611ea49bcacdc577abb9fbff3af67cbc5c1e3"
+  integrity sha512-iH9zPUi+/Y6vuzSz7EBRKI25UiBliDz4/lH1+BubsZZBBBZ77xV3iUlkUT0xKOBHbOOWOoH5J5xeSVDqWR3ivQ==
+  dependencies:
+    "@artdeco/clean-stack" "1.0.1"
 
 erte@1.1.4:
   version "1.1.4"
@@ -303,6 +349,11 @@ typal@1.2.0:
 usually@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/usually/-/usually-1.0.0.tgz#3ace5b09471ddf35cccca85971ca178b5255d4b0"
+
+usually@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/usually/-/usually-1.1.0.tgz#c79965c264596cd3ead181f84dae64dee24b60d6"
+  integrity sha512-xGl7nUfT/DifxhZg97MTwjsl795RX0UiNWPvaItg8viTSRujH2D4jSi93yeuKxLDhJyEMId6cnyiD2SdEQ2jLw==
 
 which-stream@1.0.1:
   version "1.0.1"

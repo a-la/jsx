@@ -1,8 +1,7 @@
-import { pragma, replaceChunk } from '.'
+import { pragma, replaceChunk, getProps } from './'
 import { parseSimpleContent } from './parse-content'
 import detectJSX from '@a-la/detect-jsx'
 import extract from './extract'
-import { getProps } from '.'
 
 
 /* <div id={'id'}>

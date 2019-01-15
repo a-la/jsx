@@ -1,8 +1,7 @@
-const { pragma, replaceChunk } = require('.');
+const { pragma, replaceChunk, getProps } = require('./');
 const { parseSimpleContent } = require('./parse-content');
 let detectJSX = require('@a-la/detect-jsx'); if (detectJSX && detectJSX.__esModule) detectJSX = detectJSX.default;
 const extract = require('./extract');
-const { getProps } = require('.');
 
 
 /* <div id={'id'}>
