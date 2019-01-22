@@ -1,3 +1,9 @@
+## 22 January 2019
+
+### 1.2.0
+
+- [feature] Implement iterators in JSX.
+
 ## 15 January 2019
 
 ### 1.1.4
