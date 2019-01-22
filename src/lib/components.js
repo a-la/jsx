@@ -1,7 +1,8 @@
-import { pragma, replaceChunk, getProps } from './'
-import { parseSimpleContent } from './parse-content'
 import detectJSX from '@a-la/detect-jsx'
-import extract from './extract'
+import { SyncReplaceable } from 'restream'
+import { parseSimpleContent } from './parse-content'
+import { pragma, replaceChunk, getProps } from './'
+import extract, { ExtractedJSX } from './extract'
 
 
 /* <div id={'id'}>
@@ -51,27 +52,27 @@ export const parseContent = (content, quoteProps = false) => {
   if (!content) return []
   // const C = content
   // .split('\n').filter(a => !/^\s*$/.test(a)).join('\n')
-  const bl = content.indexOf('<')
-  if (bl == -1) {
-    const c = parseSimpleContent(content)
-    return c
-  }
-
-  const b = content.slice(0, bl)
-  const before = b ? parseSimpleContent(b) : []
-
-  const trim = content.slice(bl)
-  const { string: { length }, props = '', content: jsx, tagName } = extract(trim)
-  const { obj, destructuring } = getProps(props)
-  const children = parseContent(jsx, quoteProps)
-  const p = pragma(tagName, obj, children, destructuring, quoteProps)
-
-  const a = content.slice(bl + length)
-  const after = a ? parseContent(a, quoteProps) : []
-
-  return [
-    ...before,
-    p,
-    ...after,
-  ]
+  const contents = parseSimpleContent(content) // split by expressions
+  const jsx = contents.reduce((acc, string) => {
+    if (string instanceof ExtractedJSX) {
+      const { props = '', content: part, tagName } = string
+      const { obj, destructuring } = getProps(props)
+      const children = parseContent(part, quoteProps)
+      const p = pragma(tagName, obj, children, destructuring, quoteProps)
+      return [...acc, p]
+    }
+    const j = detectJSX(string)
+    if (j) {
+      const s = string.slice(j)
+      const { string: { length }, props = '', content: part, tagName } = extract(s)
+      const { obj, destructuring } = getProps(props)
+      const children = parseContent(part, quoteProps)
+      const p = pragma(tagName, obj, children, destructuring, quoteProps)
+      const strBefore = string.slice(0, j)
+      const strAfter = string.slice(j + length)
+      return [...acc, `${strBefore}${p}${strAfter}`]
+    }
+    return [...acc, string]
+  }, [])
+  return jsx
 }

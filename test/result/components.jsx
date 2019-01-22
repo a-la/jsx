@@ -59,14 +59,14 @@ const Element = h('div',{},`
 const Param = ({ test }) => <div>Hello, { test }!</div>
 
 /* expected */
-const Param = ({ test }) => h('div',{},`Hello, `,test,`!`)
+const Param = ({ test }) => h('div',{},`Hello, `, test ,`!`)
 /**/
 
 // processes a component with property and variable
 const A = ({ title, href }) => <a href={href}>{ title }</a>
 
 /* expected */
-const A = ({ title, href }) =>     h('a',{href:href},title)
+const A = ({ title, href }) =>   h('a',{href:href}, title )
 /**/
 
 // processes a simple component
@@ -77,7 +77,7 @@ const Element = ({ test, children, id }) => <div id={ 'id' }>
 
 /* expected */
 const Element = ({ test, children, id }) => h('div',{id: 'id' },`
-  Hello, `,test,`! `,children,`
+  Hello, `, test ,`! `, children ,`
   `,h('div',{class: 'TEST' },`test`),`
 `)
 /**/
@@ -96,7 +96,7 @@ const Element2 = () => <div><Element test={'test'+a}>Test</Element></div>
 
 /* expected */
 const a = 'test'
-const Element = ({ test, children }) => h('h1',{},`Hello, `,test,`! `,children)
+const Element = ({ test, children }) => h('h1',{},`Hello, `, test ,`! `, children )
 const Element2 = () =>      h('div',{},h(Element,{test:'test'+a},`Test`))
 /**/
 
@@ -197,4 +197,38 @@ import './style.css'
 import test from 'test'
 import './style.css'
 h('div')
+/**/
+
+// processes simple map
+export const StoriesMenu = ({ pages }) => {
+  return <ul className="AjaxNav">
+    {pages.map(({ title, url }, i) => `test-${title}`)}
+  </ul>
+}
+
+/* expected */
+export const StoriesMenu = ({ pages }) => {
+  return h('ul',{className:"AjaxNav"},`
+    `,pages.map(({ title, url }, i) => `test-${title}`),`
+  `)
+}
+/**/
+
+// processes map
+export const StoriesMenu = ({ pages }) => {
+  return <ul className="AjaxNav">
+    {pages.map(({ title, url }, i) =>
+      <a key={i} href={url}>{title}</a>
+    )}
+  </ul>
+}
+
+/* expected */
+export const StoriesMenu = ({ pages }) => {
+  return h('ul',{className:"AjaxNav"},`
+    `,pages.map(({ title, url }, i) =>
+      h('a',{key:i,href:url},title)
+    ),`
+  `)
+}
 /**/

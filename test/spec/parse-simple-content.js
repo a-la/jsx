@@ -42,6 +42,10 @@ const ParseSimpleContent = {
     const res = parseSimpleContent(b)
     deepEqual(res, [q`Hello, `])
   },
+  'parses the expression with curly brackets'({ b, q }) {
+    const res = parseSimpleContent(`${b}{test.map(({ t }) => t)}`)
+    deepEqual(res, [q`Hello, `, 'test.map(({ t }) => t)'])
+  },
 }
 
 export default ParseSimpleContent
