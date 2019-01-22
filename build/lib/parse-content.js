@@ -1,3 +1,7 @@
+const { SyncReplaceable, makeMarkers, makeCutRule } = require('restream');
+const { getTagName } = require('.');;
+const extract = require('./extract');;
+
 /**
  * Make a quoted string to interpret by JS.
  * @example
@@ -16,10 +20,38 @@
        const parseSimpleContent = (string) => {
   const temps = []
   // let prev = 0
-  string.replace(/{\s*(.*?)\s*}/g, ({ length }, expression, i) => {
-    const a = { from: i, to: i + length, expression }
-    temps.push(a)
-  })
+  let current = {}
+  let expressionStack = 0
+  let jsxStack = 0
+  SyncReplaceable(string, [{
+    re: /[<{}]/g,
+    replacement(m, i) {
+      if (i < jsxStack) return // blocked by jsx
+      const isExpression = /[{}]/.test(m)
+      let opening
+      if (isExpression) {
+        opening = m == '{'
+        expressionStack += opening ? 1 : -1
+        if (expressionStack == 1 && !current.from) current.from = i
+        else if (expressionStack == 0) {
+          current.to = i + 1
+          current.expression = string.slice(current.from + 1, i)
+          temps.push(current)
+          current = {}
+        }
+      } else {
+        if (expressionStack) return m
+        const extractedJsx = extract(string.slice(i))
+        jsxStack = i + extractedJsx.string.length
+        current.extractedJsx = extractedJsx
+        current.to = jsxStack
+        current.from = i
+        temps.push(current)
+        current = {}
+      }
+    },
+  }, {
+  }])
   const res = temps.length ? getTemps(string, temps) : [getQuoted(string)]
   return res
 }
@@ -33,11 +65,12 @@
  */
 const getTemps = (string, temps) => {
   let lastTo = 0
-  const ar = temps.reduce((acc, { from, to, expression }) => {
+  const ar = temps.reduce((acc, { from, to, expression, extractedJsx }) => {
     const b = string.slice(lastTo, from)
     if (b) acc.push(getQuoted(b))
     lastTo = to
-    acc.push(expression)
+    if (expression) acc.push(expression)
+    else if (extractedJsx) acc.push(extractedJsx)
     return acc
   }, [])
   if (lastTo < string.length) {

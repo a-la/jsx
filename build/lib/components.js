@@ -1,7 +1,8 @@
-const { pragma, replaceChunk, getProps } = require('./');
-const { parseSimpleContent } = require('./parse-content');
 let detectJSX = require('@a-la/detect-jsx'); if (detectJSX && detectJSX.__esModule) detectJSX = detectJSX.default;
-const extract = require('./extract');
+const { SyncReplaceable } = require('restream');
+const { parseSimpleContent } = require('./parse-content');
+const { pragma, replaceChunk, getProps } = require('./');
+const extract = require('./extract'); const { ExtractedJSX } = extract;
 
 
 /* <div id={'id'}>
@@ -51,29 +52,29 @@ module.exports=transpileJSX
   if (!content) return []
   // const C = content
   // .split('\n').filter(a => !/^\s*$/.test(a)).join('\n')
-  const bl = content.indexOf('<')
-  if (bl == -1) {
-    const c = parseSimpleContent(content)
-    return c
-  }
-
-  const b = content.slice(0, bl)
-  const before = b ? parseSimpleContent(b) : []
-
-  const trim = content.slice(bl)
-  const { string: { length }, props = '', content: jsx, tagName } = extract(trim)
-  const { obj, destructuring } = getProps(props)
-  const children = parseContent(jsx, quoteProps)
-  const p = pragma(tagName, obj, children, destructuring, quoteProps)
-
-  const a = content.slice(bl + length)
-  const after = a ? parseContent(a, quoteProps) : []
-
-  return [
-    ...before,
-    p,
-    ...after,
-  ]
+  const contents = parseSimpleContent(content) // split by expressions
+  const jsx = contents.reduce((acc, string) => {
+    if (string instanceof ExtractedJSX) {
+      const { props = '', content: part, tagName } = string
+      const { obj, destructuring } = getProps(props)
+      const children = parseContent(part, quoteProps)
+      const p = pragma(tagName, obj, children, destructuring, quoteProps)
+      return [...acc, p]
+    }
+    const j = detectJSX(string)
+    if (j) {
+      const s = string.slice(j)
+      const { string: { length }, props = '', content: part, tagName } = extract(s)
+      const { obj, destructuring } = getProps(props)
+      const children = parseContent(part, quoteProps)
+      const p = pragma(tagName, obj, children, destructuring, quoteProps)
+      const strBefore = string.slice(0, j)
+      const strAfter = string.slice(j + length)
+      return [...acc, `${strBefore}${p}${strAfter}`]
+    }
+    return [...acc, string]
+  }, [])
+  return jsx
 }
 
 module.exports.parseContent = parseContent

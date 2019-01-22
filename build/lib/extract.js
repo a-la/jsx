@@ -55,8 +55,15 @@ const extract = (stringWithTag) => {
   const s = string.replace(arrow.regExp, '=>')
   const pp = props.replace(arrow.regExp, '=>')
   const c = content.replace(arrow.regExp, '=>')
-  return { string: s, props: pp, content: c, tagName }
+  return new ExtractedJSX({ string: s, props: pp, content: c, tagName })
 }
 
+       class ExtractedJSX {
+  constructor(properties) {
+    Object.assign(this, properties)
+  }
+}
 
 module.exports=extract
+
+module.exports.ExtractedJSX = ExtractedJSX
