@@ -27,7 +27,7 @@ const transpileJSX = (input, config = {}) => {
   const f = pragma(tagName, obj, children, destructuring, quoteProps)
   const res = replaceChunk(input, position, length, f)
   // find another one one
-  const newRes = transpileJSX(res)
+  const newRes = transpileJSX(res, config)
   return newRes
 }
 
