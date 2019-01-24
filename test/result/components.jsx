@@ -232,3 +232,11 @@ export const StoriesMenu = ({ pages }) => {
   `)
 }
 /**/
+
+// processes jsx with export from
+const Component = () => <div/>
+export { Test } from './test'
+/* expected */
+const Component = () => h('div')
+export { Test } from './test'
+/**/
