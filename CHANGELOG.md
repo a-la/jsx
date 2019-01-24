@@ -1,5 +1,10 @@
 ## 24 January 2019
 
+### 1.2.2
+
+- [fix] Ignore `export from` statements.
+- [doc] Add [Tech Nation Visa](https://www.technation.sucks) footer.
+
 ### 1.2.1
 
 - [fix] Pass the options to recursive calls.
