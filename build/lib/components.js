@@ -1,5 +1,4 @@
 let detectJSX = require('@a-la/detect-jsx'); if (detectJSX && detectJSX.__esModule) detectJSX = detectJSX.default;
-const { SyncReplaceable } = require('restream');
 const { parseSimpleContent } = require('./parse-content');
 const { pragma, replaceChunk, getProps } = require('./');
 const extract = require('./extract'); const { ExtractedJSX } = extract;

@@ -1,6 +1,5 @@
-const { SyncReplaceable, makeMarkers, makeCutRule } = require('restream');
-const { getTagName } = require('.');;
-const extract = require('./extract');;
+const { SyncReplaceable } = require('restream');
+const extract = require('./extract');
 
 /**
  * Make a quoted string to interpret by JS.
