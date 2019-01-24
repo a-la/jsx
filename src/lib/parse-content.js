@@ -1,6 +1,5 @@
-import { SyncReplaceable, makeMarkers, makeCutRule } from 'restream'
-import { getTagName } from '.';
-import extract from './extract';
+import { SyncReplaceable } from 'restream'
+import extract from './extract'
 
 /**
  * Make a quoted string to interpret by JS.

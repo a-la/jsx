@@ -1,5 +1,4 @@
 import detectJSX from '@a-la/detect-jsx'
-import { SyncReplaceable } from 'restream'
 import { parseSimpleContent } from './parse-content'
 import { pragma, replaceChunk, getProps } from './'
 import extract, { ExtractedJSX } from './extract'
