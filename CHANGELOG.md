@@ -1,3 +1,9 @@
+## 24 January 2019
+
+### 1.2.1
+
+- [fix] Pass the options to recursive calls.
+
 ## 22 January 2019
 
 ### 1.2.0
