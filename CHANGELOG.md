@@ -1,3 +1,9 @@
+## 28 January 2019
+
+### 1.2.3
+
+- [fix] Fix parsing when tag's children start with an expression.
+
 ## 24 January 2019
 
 ### 1.2.2
