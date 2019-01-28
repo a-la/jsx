@@ -2,7 +2,9 @@ import RichTextArea from 'richtext'
 
 const Title = <title>Example</title>
 
-export const Component = ({ align = 'right', tabs }) => {
+export const Component = ({
+  align = 'right', tabs, img,
+}) => {
   const props = {
     class: 'example',
     id: 'id',
@@ -17,6 +19,7 @@ export const Component = ({ align = 'right', tabs }) => {
     {tabs.map((tab, i) => <span key={i}>{tab}</span>)}
     <p {...props} align={align}>
       Hello World!
+      {img && <img src={img}/>}
     </p>
   </div>
 }
