@@ -240,3 +240,20 @@ export { Test } from './test'
 const Component = () => h('div')
 export { Test } from './test'
 /**/
+
+// test
+const Item = ({ img, title }) => {
+  return <tr className="IndexItem my-1">
+    <td>{img && <img src={img}/>}</td>
+    <td><h3>{title}</h3></td>
+  </tr>
+}
+
+/* expected */
+const Item = ({ img, title }) => {
+  return h('tr',{className:"IndexItem my-1"},`
+    `,h('td',{},img && h('img',{src:img})),`
+    `,h('td',{},h('h3',{},title)),`
+  `)
+}
+/**/

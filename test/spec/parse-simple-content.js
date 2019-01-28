@@ -46,6 +46,10 @@ const ParseSimpleContent = {
     const res = parseSimpleContent(`${b}{test.map(({ t }) => t)}`)
     deepEqual(res, [q`Hello, `, 'test.map(({ t }) => t)'])
   },
+  'parses the expression that starts with {'() {
+    const res = parseSimpleContent('{img && <img src={img}/>}')
+    deepEqual(res, ['img && <img src={img}/>'])
+  },
 }
 
 export default ParseSimpleContent

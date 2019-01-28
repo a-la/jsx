@@ -31,7 +31,7 @@ const extract = require('./extract');
       if (isExpression) {
         opening = m == '{'
         expressionStack += opening ? 1 : -1
-        if (expressionStack == 1 && !current.from) current.from = i
+        if (expressionStack == 1 && current.from == undefined) current.from = i
         else if (expressionStack == 0) {
           current.to = i + 1
           current.expression = string.slice(current.from + 1, i)
