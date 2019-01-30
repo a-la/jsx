@@ -53,6 +53,7 @@
   },
   "dependencies": {
     "@a-la/detect-jsx": "1.0.1",
+    "mismatch": "1.0.3",
     "restream": "3.4.1"
   }
 }
