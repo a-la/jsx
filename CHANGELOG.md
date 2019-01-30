@@ -1,3 +1,9 @@
+## 30 January 2019
+
+### 1.2.4
+
+- [fix] Add missing `mismatch` dependency.
+
 ## 28 January 2019
 
 ### 1.2.3
