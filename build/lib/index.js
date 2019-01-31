@@ -54,7 +54,7 @@ const getProps = (props) => {
       },
     },
   ])
-  if (stack) throw new Error(`Unbalanced props (level ${stack})`)
+  if (stack) throw new Error(`Unbalanced props (level ${stack}) ${props}`)
   const obj = {}
   const destructuring = []
   const lastClose = positions.reduce((acc, { open, close }) => {
