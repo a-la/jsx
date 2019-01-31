@@ -1,125 +1,125 @@
 // returns normal JS if JSX is not found.
-const Element = ({ test, children, id }) => `<div id="${id}">
+var Element = ({ test, children, id }) => `<div id="${id}">
   Hello, ${test}! ${children}
   <div class={'TEST'} id=${id}>test</div>
 </div>`
 
 /* expected */
-const Element = ({ test, children, id }) => `<div id="${id}">
+var Element = ({ test, children, id }) => `<div id="${id}">
   Hello, ${test}! ${children}
   <div class={'TEST'} id=${id}>test</div>
 </div>`
 /**/
 
 // processes a very simple component
-const Static = <div>Hello, World</div>
+var Static = <div>Hello, World</div>
 
 /* expected */
-const Static = h('div',{},`Hello, World`)
+var Static = h('div',{},`Hello, World`)
 /**/
 
 // processes a component with another component
-const Title = () => <h1>Title</h1>
-const Static = <div>
+var Title = () => <h1>Title</h1>
+var Static = <div>
   <Title></Title>
   Hello, World
 </div>
 
 /* expected */
-const Title = () => h('h1',{},`Title`)
-const Static = h('div',{},`
+var Title = () => h('h1',{},`Title`)
+var Static = h('div',{},`
   `,h(Title),`
   Hello, World
 `)
 /**/
 
 // processes a self-closing component
-const Title = <Title id={'test'} callback={() => {
+var Title = <Title id={'test'} callback={() => {
   return 'test'
 }} class="TEST"/>
 
 /* expected */
-const Title =   h(Title,{id:'test',callback:() => {
+var Title =   h(Title,{id:'test',callback:() => {
   return 'test'
 },class:"TEST"})
 /**/
 
 // processes tag with multiple elements of the same type
-const Element = <div>
+var Element = <div>
   Hello <span>World</span><span>!</span>
 </div>
 
 /* expected */
-const Element = h('div',{},`
+var Element = h('div',{},`
   Hello `,h('span',{},`World`),h('span',{},`!`),`
 `)
 /**/
 
 // processes a component with a variable
-const Param = ({ test }) => <div>Hello, { test }!</div>
+var Param = ({ test }) => <div>Hello, { test }!</div>
 
 /* expected */
-const Param = ({ test }) => h('div',{},`Hello, `, test ,`!`)
+var Param = ({ test }) => h('div',{},`Hello, `, test ,`!`)
 /**/
 
 // processes a component with property and variable
-const A = ({ title, href }) => <a href={href}>{ title }</a>
+var A = ({ title, href }) => <a href={href}>{ title }</a>
 
 /* expected */
-const A = ({ title, href }) =>   h('a',{href:href}, title )
+var A = ({ title, href }) =>   h('a',{href:href}, title )
 /**/
 
 // processes a simple component
-const Element = ({ test, children, id }) => <div id={ 'id' }>
+var Element = ({ test, children, id }) => <div id={ 'id' }>
   Hello, { test }! { children }
   <div class={ 'TEST' }>test</div>
 </div>
 
 /* expected */
-const Element = ({ test, children, id }) => h('div',{id: 'id' },`
+var Element = ({ test, children, id }) => h('div',{id: 'id' },`
   Hello, `, test ,`! `, children ,`
   `,h('div',{class: 'TEST' },`test`),`
 `)
 /**/
 
 // processes a Component
-const El = <div><Element test={'test'+a}>Test</Element></div>
+var El = <div><Element test={'test'+a}>Test</Element></div>
 
 /* expected */
-const El =      h('div',{},h(Element,{test:'test'+a},`Test`))
+var El =      h('div',{},h(Element,{test:'test'+a},`Test`))
 /**/
 
 // processes an inner Component tag
-const a = 'test'
-const Element = ({ test, children }) => <h1>Hello, { test }! { children }</h1>
-const Element2 = () => <div><Element test={'test'+a}>Test</Element></div>
+var a = 'test'
+var Element = ({ test, children }) => <h1>Hello, { test }! { children }</h1>
+var Element2 = () => <div><Element test={'test'+a}>Test</Element></div>
 
 /* expected */
-const a = 'test'
-const Element = ({ test, children }) => h('h1',{},`Hello, `, test ,`! `, children )
-const Element2 = () =>      h('div',{},h(Element,{test:'test'+a},`Test`))
+var a = 'test'
+var Element = ({ test, children }) => h('h1',{},`Hello, `, test ,`! `, children )
+var Element2 = () =>      h('div',{},h(Element,{test:'test'+a},`Test`))
 /**/
 
 // uses new lines in the properties
-const Element = () => <div onclick={
+var Element = () => <div onclick={
   'test'
 }></div>
 
 /* expected */
-const Element = () =>    h('div',{onclick:
+var Element = () =>    h('div',{onclick:
   'test'
 })
 /**/
 
 // processes a tag with function in props
-const Element = ({ cb }) => <div onclick={() => {
+var Element = ({ cb }) => <div onclick={() => {
   return () => {
     cb('test')
   }
 }}>Test</div>
 
 /* expected */
-const Element = ({ cb }) => h('div',{onclick:() => {
+var Element = ({ cb }) => h('div',{onclick:() => {
   return () => {
     cb('test')
   }
@@ -127,18 +127,18 @@ const Element = ({ cb }) => h('div',{onclick:() => {
 /**/
 
 // processes a tag with function in props (2)
-const Element = ({ test }) => <div onclick={() => {
+var Element = ({ test }) => <div onclick={() => {
   return test
 }}></div>
 
 /* expected */
-const Element = ({ test }) =>    h('div',{onclick:() => {
+var Element = ({ test }) =>    h('div',{onclick:() => {
   return test
 }})
 /**/
 
 // processes content with arrow functions
-<div>
+var C = <div>
   <img src={profilePicture} width="50"/>
   Hello, {firstName} {lastName}!
   <a href="#" onClick={(e) => {
@@ -152,7 +152,7 @@ const Element = ({ test }) =>    h('div',{onclick:() => {
 </div>
 
 /* expected */
-h('div',{},`
+var C = h('div',{},`
   `,h('img',{src:profilePicture,width:"50"}),`
   Hello, `,firstName,` `,lastName,`!
   `,h('a',{onClick:(e) => {
@@ -167,21 +167,21 @@ h('div',{},`
 /**/
 
 // destructures the properties
-<div {...props} id={test}/>
+var C = <div {...props} id={test}/>
 
 /* expected */
-h('div',{...props,id:test})
+var C = h('div',{...props,id:test})
 /**/
 
 // processes self-closing without props
-<div>
+var C = <div>
   <RichTextArea/>
   <RichTextArea />
   <span>Test</span>
 </div>
 
 /* expected */
-h('div',{},`
+var C = h('div',{},`
   `,h(RichTextArea),`
   `,h(RichTextArea),`
   `,h('span',{},`Test`),`
@@ -191,23 +191,23 @@ h('div',{},`
 // ignores imports
 import test from 'test'
 import './style.css'
-<div/>
+var C = <div/>
 
 /* expected */
 import test from 'test'
 import './style.css'
-h('div')
+var C = h('div')
 /**/
 
 // processes simple map
-export const StoriesMenu = ({ pages }) => {
+export var StoriesMenu = ({ pages }) => {
   return <ul className="AjaxNav">
     {pages.map(({ title, url }, i) => `test-${title}`)}
   </ul>
 }
 
 /* expected */
-export const StoriesMenu = ({ pages }) => {
+export var StoriesMenu = ({ pages }) => {
   return h('ul',{className:"AjaxNav"},`
     `,pages.map(({ title, url }, i) => `test-${title}`),`
   `)
@@ -215,7 +215,7 @@ export const StoriesMenu = ({ pages }) => {
 /**/
 
 // processes map
-export const StoriesMenu = ({ pages }) => {
+export var StoriesMenu = ({ pages }) => {
   return <ul className="AjaxNav">
     {pages.map(({ title, url }, i) =>
       <a key={i} href={url}>{title}</a>
@@ -224,7 +224,7 @@ export const StoriesMenu = ({ pages }) => {
 }
 
 /* expected */
-export const StoriesMenu = ({ pages }) => {
+export var StoriesMenu = ({ pages }) => {
   return h('ul',{className:"AjaxNav"},`
     `,pages.map(({ title, url }, i) =>
       h('a',{key:i,href:url},title)
@@ -234,15 +234,15 @@ export const StoriesMenu = ({ pages }) => {
 /**/
 
 // processes jsx with export from
-const Component = () => <div/>
+var Component = () => <div/>
 export { Test } from './test'
 /* expected */
-const Component = () => h('div')
+var Component = () => h('div')
 export { Test } from './test'
 /**/
 
-// test
-const Item = ({ img, title }) => {
+// processes tags that start with {
+var Item = ({ img, title }) => {
   return <tr className="IndexItem my-1">
     <td>{img && <img src={img}/>}</td>
     <td><h3>{title}</h3></td>
@@ -250,10 +250,41 @@ const Item = ({ img, title }) => {
 }
 
 /* expected */
-const Item = ({ img, title }) => {
+var Item = ({ img, title }) => {
   return h('tr',{className:"IndexItem my-1"},`
     `,h('td',{},img && h('img',{src:img})),`
     `,h('td',{},h('h3',{},title)),`
   `)
 }
+/**/
+
+// works with inner self-closing tags
+<ListItem active={1} left={
+  <Icon
+    name="bookmark-o"
+    size="xsmall"
+  />
+}>HelloWorld</ListItem>
+
+/* expected */
+         h(ListItem,{active:1,left:
+           h(Icon,{name:"bookmark-o",size:"xsmall"})
+},`HelloWorld`)
+/**/
+
+// works with multiple inner self-closing tags
+var C = <div active={1}>
+  <div className="test">
+    HelloWorld
+    <div id="App"/>
+  </div>
+</div>
+
+/* expected */
+var C = h('div',{active:1},`
+  `,h('div',{className:"test"},`
+    HelloWorld
+    `,h('div',{id:"App"}),`
+  `),`
+`)
 /**/
