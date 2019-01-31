@@ -1,3 +1,9 @@
+## 31 January 2019
+
+### 1.2.5
+
+- [fix] Rewrite `extract` to parse inner self-closing properly.
+
 ## 30 January 2019
 
 ### 1.2.4
