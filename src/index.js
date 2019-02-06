@@ -6,7 +6,7 @@ import { SyncReplaceable,
  * Process a JSX file.
  * @param {string} input The source code with JSX to transpile.
  * @param {Config} config Options for the program.
- * @param {boolean} [config.quoteProps=false] Whether to surround property names with quotes, e.g., for the Google Closure Compiler. Default `false`.
+ * @param {(true|'dom')} [config.quoteProps=false] Whether to surround property names with quotes, e.g., for the Google Closure Compiler. When `dom` is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter. Default `false`.
  */
 const jsx = (input, config = {}) => {
   const { e, ef, i, ias, ii } = makeMarkers({
@@ -38,5 +38,5 @@ export default jsx
 /* documentary types/index.xml */
 /**
  * @typedef {Object} Config Options for the program.
- * @prop {boolean} [quoteProps=false] Whether to surround property names with quotes, e.g., for the Google Closure Compiler. Default `false`.
+ * @prop {(true|'dom')} [quoteProps=false] Whether to surround property names with quotes, e.g., for the Google Closure Compiler. When `dom` is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter. Default `false`.
  */

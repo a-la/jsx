@@ -36,9 +36,9 @@ Returns the transpiled JSX code into `h` pragma calls.
 
 __<a name="type-config">`Config`</a>__: Options for the program.
 
-|    Name    |   Type    |                                      Description                                       | Default |
-| ---------- | --------- | -------------------------------------------------------------------------------------- | ------- |
-| quoteProps | _boolean_ | Whether to surround property names with quotes, e.g., for the Google Closure Compiler. | `false` |
+|    Name    |      Type       |                                                                                                     Description                                                                                                     | Default |
+| ---------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| quoteProps | _(true\|'dom')_ | Whether to surround property names with quotes, e.g., for the Google Closure Compiler. When `dom` is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter. | `false` |
 
 ```js
 /* yarn example/ */

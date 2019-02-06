@@ -1,3 +1,9 @@
+## 6 February 2019
+
+### 1.3.0
+
+- [feature] `dom` value for the `quoteProps` option.
+
 ## 31 January 2019
 
 ### 1.2.5

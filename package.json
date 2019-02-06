@@ -2,7 +2,7 @@
   "name": "@a-la/jsx",
   "version": "1.2.5",
   "description": "The JSX Transform For ÀLaMode And Other Packages.",
-  "main": "build",
+  "main": "build/index.js",
   "module": "src/index.js",
   "scripts": {
     "t": "zoroaster -a",
