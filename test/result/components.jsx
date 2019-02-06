@@ -288,3 +288,10 @@ var C = h('div',{active:1},`
   `),`
 `)
 /**/
+
+// quotes props with dash
+var C = <div data-active={1}/>
+
+/* expected */
+var C = h('div',{'data-active':1})
+/**/

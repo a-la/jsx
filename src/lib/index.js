@@ -111,7 +111,7 @@ const makeObjectBody = (pp, destructuring = [], quoteProps = false) => {
   if (!length && !destructuring.length) return '{}'
   const pr = `{${Object.keys(pp).reduce((a, k) => {
     const v = pp[k]
-    const kk = quoteProps ? `'${k}'` : k
+    const kk = quoteProps || k.indexOf('-') != -1 ? `'${k}'` : k
     return [...a, `${kk}:${v}`]
   }, destructuring).join(',')}}`
   return pr
@@ -137,7 +137,8 @@ export const isComponentName = (tagName = '') => {
  * e('div',{ id: 'STATIC_ID' },['Hello, ', test, '!'])
  */
 export const pragma = (tagName, props = {}, children = [], destructuring = [], quoteProps = false) => {
-  const tn = isComponentName(tagName) ? tagName : `'${tagName}'`
+  const cn = isComponentName(tagName)
+  const tn = cn ? tagName : `'${tagName}'`
   // if (typeof children == 'string') {
   //   const pr = makeObjectBody(props)
   //   return    `p(${tn},${pr},${children.join(',')})`
@@ -149,7 +150,11 @@ export const pragma = (tagName, props = {}, children = [], destructuring = [], q
   if (!Object.keys(props).length && !children.length && !destructuring.length) {
     return `h(${tn})`
   }
-  const pr = makeObjectBody(props, destructuring, quoteProps)
+  const qp = cn && quoteProps == 'dom' ? false : quoteProps
+  if (!cn && destructuring.length && !quoteProps) {
+    console.warn('JSX: destructuring %s is used without quoted props on HTML %s\nMake sure to pass props in quotes if using Closure Compiler.', destructuring.join(' '), tagName)
+  }
+  const pr = makeObjectBody(props, destructuring, qp)
   const c = children.join(',')
   const res = `h(${tn},${pr}${c ? `,${c}` : ''})`
   return res
