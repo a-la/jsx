@@ -1,3 +1,9 @@
+## 7 February 2019
+
+### 1.3.1
+
+- [feature] Pass `warn` function to correctly warn of destructuring on dom elements for GCC.
+
 ## 6 February 2019
 
 ### 1.3.0
