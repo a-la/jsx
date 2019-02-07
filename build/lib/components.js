@@ -15,15 +15,15 @@ const extract = require('./extract'); const { ExtractedJSX } = extract;
  * @returns {string} The transpiled source code with `h` pragma for hyperscript invocations.
  */
 const transpileJSX = (input, config = {}) => {
-  const { quoteProps } = config
+  const { quoteProps, warn } = config
   const position = detectJSX(input)
   if (position === null) return input
 
   const s = input.slice(position)
   const { props = '', content, tagName, string: { length } } = extract(s)
-  const children = parseContent(content, quoteProps)
+  const children = parseContent(content, quoteProps, warn)
   const { obj, destructuring } = getProps(props)
-  const f = pragma(tagName, obj, children, destructuring, quoteProps)
+  const f = pragma(tagName, obj, children, destructuring, quoteProps, warn)
   const res = replaceChunk(input, position, length, f)
   // find another one one
   const newRes = transpileJSX(res, config)
@@ -47,7 +47,7 @@ module.exports=transpileJSX
  * @param {string} content
  * @param {boolean} [quoteProps=false] Whether to quote properties.
  */
-       const parseContent = (content, quoteProps = false) => {
+       const parseContent = (content, quoteProps = false, warn) => {
   if (!content) return []
   // const C = content
   // .split('\n').filter(a => !/^\s*$/.test(a)).join('\n')
@@ -56,8 +56,8 @@ module.exports=transpileJSX
     if (string instanceof ExtractedJSX) {
       const { props = '', content: part, tagName } = string
       const { obj, destructuring } = getProps(props)
-      const children = parseContent(part, quoteProps)
-      const p = pragma(tagName, obj, children, destructuring, quoteProps)
+      const children = parseContent(part, quoteProps, warn)
+      const p = pragma(tagName, obj, children, destructuring, quoteProps, warn)
       return [...acc, p]
     }
     const j = detectJSX(string)
@@ -65,8 +65,8 @@ module.exports=transpileJSX
       const s = string.slice(j)
       const { string: { length }, props = '', content: part, tagName } = extract(s)
       const { obj, destructuring } = getProps(props)
-      const children = parseContent(part, quoteProps)
-      const p = pragma(tagName, obj, children, destructuring, quoteProps)
+      const children = parseContent(part, quoteProps, warn)
+      const p = pragma(tagName, obj, children, destructuring, quoteProps, warn)
       const strBefore = string.slice(0, j)
       const strAfter = string.slice(j + length)
       return [...acc, `${strBefore}${p}${strAfter}`]

@@ -7,6 +7,7 @@ const { SyncReplaceable,
  * @param {string} input The source code with JSX to transpile.
  * @param {Config} config Options for the program.
  * @param {(true|'dom')} [config.quoteProps=false] Whether to surround property names with quotes, e.g., for the Google Closure Compiler. When `dom` is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter. Default `false`.
+ * @param {function} [config.warn] The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).
  */
 const jsx = (input, config = {}) => {
   const { e, ef, i, ias, ii } = makeMarkers({
@@ -39,4 +40,5 @@ module.exports=jsx
 /**
  * @typedef {Object} Config Options for the program.
  * @prop {(true|'dom')} [quoteProps=false] Whether to surround property names with quotes, e.g., for the Google Closure Compiler. When `dom` is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter. Default `false`.
+ * @prop {function} [warn] The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).
  */

@@ -3,5 +3,8 @@
     <prop type="(true|'dom')" name="quoteProps" default="false">
       Whether to surround property names with quotes, e.g., for the Google Closure Compiler. When `dom` is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter.
     </prop>
+    <prop opt type="function" name="warn">
+      The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).
+    </prop>
   </type>
 </types>

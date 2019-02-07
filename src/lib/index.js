@@ -136,7 +136,7 @@ export const isComponentName = (tagName = '') => {
  * // =>
  * e('div',{ id: 'STATIC_ID' },['Hello, ', test, '!'])
  */
-export const pragma = (tagName, props = {}, children = [], destructuring = [], quoteProps = false) => {
+export const pragma = (tagName, props = {}, children = [], destructuring = [], quoteProps = false, warn) => {
   const cn = isComponentName(tagName)
   const tn = cn ? tagName : `'${tagName}'`
   // if (typeof children == 'string') {
@@ -151,8 +151,8 @@ export const pragma = (tagName, props = {}, children = [], destructuring = [], q
     return `h(${tn})`
   }
   const qp = cn && quoteProps == 'dom' ? false : quoteProps
-  if (!cn && destructuring.length && !quoteProps) {
-    console.warn('JSX: destructuring %s is used without quoted props on HTML %s\nMake sure to pass props in quotes if using Closure Compiler.', destructuring.join(' '), tagName)
+  if (!cn && destructuring.length && (!quoteProps || quoteProps == 'dom')) {
+    warn && warn(`JSX: destructuring ${destructuring.join(' ')} is used without quoted props on HTML ${tagName}.`)
   }
   const pr = makeObjectBody(props, destructuring, qp)
   const c = children.join(',')

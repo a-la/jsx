@@ -45,8 +45,8 @@
   "homepage": "https://github.com/a-la/jsx#readme",
   "devDependencies": {
     "@wrote/read": "1.0.2",
-    "alamode": "1.6.1",
-    "documentary": "1.20.1",
+    "alamode": "1.7.3",
+    "documentary": "1.21.1",
     "eslint-config-artdeco": "1.0.1",
     "yarn-s": "1.1.0",
     "zoroaster": "3.6.6"
@@ -54,6 +54,6 @@
   "dependencies": {
     "@a-la/detect-jsx": "1.0.1",
     "mismatch": "1.0.3",
-    "restream": "3.4.1"
+    "restream": "3.5.0"
   }
 }
