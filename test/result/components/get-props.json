@@ -24,7 +24,7 @@ id='test' class="Test"
 
 /* expected */
 {
-  "id": "'test'",
+  "id": "\"test\"",
   "class": "\"Test\""
 }
 /**/
