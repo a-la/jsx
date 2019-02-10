@@ -1,6 +1,5 @@
-import mismatch from 'mismatch'
 import { SyncReplaceable } from 'restream'
-import { extractProps } from './attributes';
+import { extractProps } from 'rexml'
 
 /**
  * Returns the name of the opening tag from the string starting with <, or `undefined`.
@@ -93,7 +92,7 @@ const getProps = (props) => {
  * @param {string} string The string with plain attributes.
  */
 const getPlain = (string) => {
-  const e = extractProps(string)
+  const e = extractProps(string, false)
   const props = Object.keys(e).reduce((acc, key) => {
     const val = e[key]
     acc[key] = typeof val == 'boolean' ? Number(val) : `"${val}"`
