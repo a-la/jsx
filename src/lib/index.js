@@ -1,5 +1,4 @@
 import { SyncReplaceable } from 'restream'
-import { extractProps } from 'rexml'
 
 /**
  * Returns the name of the opening tag from the string starting with <, or `undefined`.
@@ -92,13 +91,22 @@ const getProps = (props) => {
  * @param {string} string The string with plain attributes.
  */
 const getPlain = (string) => {
-  const e = extractProps(string, false)
-  const props = Object.keys(e).reduce((acc, key) => {
-    const val = e[key]
-    acc[key] = typeof val == 'boolean' ? Number(val) : `"${val}"`
+  const r = []
+  const res = string.replace(/(\S+)\s*=\s*(["'])([\s\S]+?)\2/g, (m, name, q, val, i) => {
+    r.push({ i, name, val: `${q}${val}${q}` })
+    return ' '.repeat(m.length)
+  })
+  res.replace(/(\S+)/, (m, name, i) => {
+    r.push({ i, name, val: 1 })
+  })
+  const obj = [...r.reduce((acc, { i, name, val }) => {
+    acc[i] = [name, val]
+    return acc
+  }, [])].filter(Boolean).reduce((acc, [name, val]) => {
+    acc[name] = val
     return acc
   }, {})
-  return props
+  return obj
 }
 
 /**
@@ -181,8 +189,8 @@ const replaceChunk = (input, index, length, chunk) => {
   const after = input.slice(index + length)
   const ld = length - chunk.length
   // if (ld < 0)
-    // console.warn('The chunks length is more that replaced input')
-    // throw new Error('The length of the chunk cannot be more than of the replaced value.')
+  // console.warn('The chunks length is more that replaced input')
+  // throw new Error('The length of the chunk cannot be more than of the replaced value.')
   let p = chunk
   if (ld > 0) {
     p = `${' '.repeat(ld)}${p}`

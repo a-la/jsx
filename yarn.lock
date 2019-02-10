@@ -440,11 +440,6 @@ rexml@1.2.0:
   resolved "https://registry.yarnpkg.com/rexml/-/rexml-1.2.0.tgz#f78ada4db77b77b5ade1c16ba9e7da6975192438"
   integrity sha512-kXVHg5xCKMgtuy9jiCHHzwVQyokla58YQ9Y5JIK6cLcuUWx9dh+D91RRzHybN/4UfEY9QC93C/gP+btRM99EaQ==
 
-rexml@1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/rexml/-/rexml-1.3.0.tgz#70d773c2e69da392112784e5ef7a65e77bef9612"
-  integrity sha512-FCoo+tfyqX7cw0ruRaCIz2rLoDL1IRNmCUF6e1P8v2G/RPB6t0EiJPZ2A8DxNJfGG5Hc9PPF7JRnm18Q0pKbIg==
-
 source-map@0.7.3:
   version "0.7.3"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.7.3.tgz#5302f8169031735226544092e64981f751750383"

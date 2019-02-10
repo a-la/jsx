@@ -296,7 +296,7 @@ var C = <div data-active={1}/>
 var C = h('div',{'data-active':1})
 /**/
 
-// writes boolean attribute
+// !writes boolean attribute
 var C = <div id="test" required className="test"/>
 
 /* expected */
