@@ -148,14 +148,6 @@ export const isComponentName = (tagName = '') => {
 export const pragma = (tagName, props = {}, children = [], destructuring = [], quoteProps = false, warn) => {
   const cn = isComponentName(tagName)
   const tn = cn ? tagName : `'${tagName}'`
-  // if (typeof children == 'string') {
-  //   const pr = makeObjectBody(props)
-  //   return    `p(${tn},${pr},${children.join(',')})`
-  // } else if     (typeof props == 'string') {
-  //   return    `e(${tn},${props})`
-  // } else     if (Array.isArray(props)) {
-  //   return    `e(${tn},${props.join(',')})`
-  // }
   if (!Object.keys(props).length && !children.length && !destructuring.length) {
     return `h(${tn})`
   }
@@ -164,7 +156,11 @@ export const pragma = (tagName, props = {}, children = [], destructuring = [], q
     warn && warn(`JSX: destructuring ${destructuring.join(' ')} is used without quoted props on HTML ${tagName}.`)
   }
   const pr = makeObjectBody(props, destructuring, qp)
-  const c = children.join(',')
+  const c = children.reduce((acc, cc, i) => {
+    const prev = children[i-1]
+    const comma = prev && /\S/.test(prev) ? ',' : ''
+    return `${acc}${comma}${cc}`
+  }, '')
   const res = `h(${tn},${pr}${c ? `,${c}` : ''})`
   return res
 }
