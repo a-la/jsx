@@ -5,8 +5,8 @@
 </div>
 
 /* expected */
-h('div',{'className':"test"},`
-  `,h('div',{'onClick':() => {}}),`
-  `,h(C,{randomProp:"test"}),`
-`)
+h('div',{'className':"test"},
+  h('div',{'onClick':() => {}}),
+  h(C,{randomProp:"test"}),
+)
 /**/

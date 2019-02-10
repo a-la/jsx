@@ -9,12 +9,12 @@ const ParseContent = {
     const c = parseContent('{test}')
     deepEqual(c, ['test'])
   },
-  'parses expression with new lines'({ q }) {
+  'parses expression with new lines'() {
     const c = parseContent(`
     {test}
     `)
-    deepEqual(c, [q`
-    `, 'test', q`
+    deepEqual(c, [`
+    `, 'test', `
     `])
   },
   'parses content before'({ b, q }) {

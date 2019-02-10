@@ -4,7 +4,7 @@
 </div>
 
 /* expected */
-h('div',{'className':"test"},`
-  `,h('div',{'onClick':() => {}}),`
-`)
+h('div',{'className':"test"},
+  h('div',{'onClick':() => {}}),
+)
 /**/

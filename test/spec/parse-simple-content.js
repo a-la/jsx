@@ -10,12 +10,12 @@ const ParseSimpleContent = {
     const res = parseSimpleContent(`${b}${exp}${a}`)
     deepEqual(res, [q`Hello, `, 'test', q`!`])
   },
-  'parses content with new lines'({ q }) {
+  'parses content with new lines'() {
     const res = parseSimpleContent(`
     {test}
     `)
-    deepEqual(res, [q`
-    `, 'test', q`
+    deepEqual(res, [`
+    `, 'test', `
     `])
   },
   'starts with expression'({ e, q, a }) {

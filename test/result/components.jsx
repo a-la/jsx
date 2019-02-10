@@ -27,10 +27,10 @@ var Static = <div>
 
 /* expected */
 var Title = () => h('h1',{},`Title`)
-var Static = h('div',{},`
-  `,h(Title),`
-  Hello, World
-`)
+var Static =    h('div',{},
+  h(Title),
+  `Hello, World`
+)
 /**/
 
 // processes a self-closing component
@@ -50,9 +50,9 @@ var Element = <div>
 </div>
 
 /* expected */
-var Element = h('div',{},`
-  Hello `,h('span',{},`World`),h('span',{},`!`),`
-`)
+var Element = h('div',{},
+  `Hello `,h('span',{},`World`),h('span',{},`!`),
+)
 /**/
 
 // processes a component with a variable
@@ -76,10 +76,10 @@ var Element = ({ test, children, id }) => <div id={ 'id' }>
 </div>
 
 /* expected */
-var Element = ({ test, children, id }) => h('div',{id: 'id' },`
-  Hello, `, test ,`! `, children ,`
-  `,h('div',{class: 'TEST' },`test`),`
-`)
+var Element = ({ test, children, id }) => h('div',{id: 'id' },
+  `Hello, `, test ,`! `, children ,
+  h('div',{class: 'TEST' },`test`),
+)
 /**/
 
 // processes a Component
@@ -152,18 +152,18 @@ var C = <div>
 </div>
 
 /* expected */
-var C = h('div',{},`
-  `,h('img',{src:profilePicture,width:"50"}),`
-  Hello, `,firstName,` `,lastName,`!
-  `,h('a',{onClick:(e) => {
+var C = h('div',{},
+  h('img',{src:profilePicture,width:"50"}),
+  `Hello, `,firstName,` `,lastName,`!`
+  ,h('a',{onClick:(e) => {
     e.preventDefault()
     signOut(host, csrf, (err) => {
       if (err) alert(`Could not sign out: ${err}. Please refresh the page and try again. Alternatively, clear your cookies.`)
       else onSignout()
     })
     return false
-  },href:"#"},`Sign Out`),`
-`)
+  },href:"#"},`Sign Out`),
+)
 /**/
 
 // destructures the properties
@@ -181,11 +181,11 @@ var C = <div>
 </div>
 
 /* expected */
-var C = h('div',{},`
-  `,h(RichTextArea),`
-  `,h(RichTextArea),`
-  `,h('span',{},`Test`),`
-`)
+var C = h('div',{},
+  h(RichTextArea),
+  h(RichTextArea),
+  h('span',{},`Test`),
+)
 /**/
 
 // ignores imports
@@ -208,9 +208,9 @@ export var StoriesMenu = ({ pages }) => {
 
 /* expected */
 export var StoriesMenu = ({ pages }) => {
-  return h('ul',{className:"AjaxNav"},`
-    `,pages.map(({ title, url }, i) => `test-${title}`),`
-  `)
+  return h('ul',{className:"AjaxNav"},
+    pages.map(({ title, url }, i) => `test-${title}`),
+  )
 }
 /**/
 
@@ -225,11 +225,11 @@ export var StoriesMenu = ({ pages }) => {
 
 /* expected */
 export var StoriesMenu = ({ pages }) => {
-  return h('ul',{className:"AjaxNav"},`
-    `,pages.map(({ title, url }, i) =>
+  return     h('ul',{className:"AjaxNav"},
+    pages.map(({ title, url }, i) =>
       h('a',{key:i,href:url},title)
-    ),`
-  `)
+    ),
+  )
 }
 /**/
 
@@ -251,10 +251,10 @@ var Item = ({ img, title }) => {
 
 /* expected */
 var Item = ({ img, title }) => {
-  return h('tr',{className:"IndexItem my-1"},`
-    `,h('td',{},img && h('img',{src:img})),`
-    `,h('td',{},h('h3',{},title)),`
-  `)
+  return h('tr',{className:"IndexItem my-1"},
+    h('td',{},img && h('img',{src:img})),
+    h('td',{},h('h3',{},title)),
+  )
 }
 /**/
 
@@ -281,12 +281,12 @@ var C = <div active={1}>
 </div>
 
 /* expected */
-var C = h('div',{active:1},`
-  `,h('div',{className:"test"},`
-    HelloWorld
-    `,h('div',{id:"App"}),`
-  `),`
-`)
+var C = h('div',{active:1},
+  h('div',{className:"test"},
+    `HelloWorld`
+    ,h('div',{id:"App"}),
+  ),
+)
 /**/
 
 // quotes props with dash
@@ -301,4 +301,19 @@ var C = <div id="test" required className="test"/>
 
 /* expected */
 var C = h('div',{id:"test",required:1,className:"test"})
+/**/
+
+// does not add new lines
+var C = <div>
+  <a href="#">
+    {123} Hello World
+  </a>
+</div>
+
+/* expected */
+var C = h('div',{},
+  h('a',{href:"#"},
+    123,` Hello World`
+  ),
+)
 /**/
