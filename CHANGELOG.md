@@ -1,3 +1,10 @@
+## 11 February 2019
+
+### 1.4.0
+
+- [feature] Parse boolean attributes, e.g., `<Component required />`.
+- [fix] Trim blank lines but preserve line order.
+
 ## 7 February 2019
 
 ### 1.3.1

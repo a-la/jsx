@@ -296,6 +296,13 @@ var C = <div data-active={1}/>
 var C = h('div',{'data-active':1})
 /**/
 
+// writes boolean attribute 2
+var C = <div required/>
+
+/* expected */
+var C = h('div',{required:1})
+/**/
+
 // writes boolean attribute
 var C = <div id="test" required className="test"/>
 
