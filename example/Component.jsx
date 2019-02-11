@@ -15,7 +15,7 @@ export const Component = ({
     return false
   }} role="aria-button">
     <Title/>
-    <RichTextArea />
+    <RichTextArea dynamic />
     {tabs.map((tab, i) => <span key={i}>{tab}</span>)}
     <p {...props} align={align}>
       Hello World!

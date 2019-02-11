@@ -3,18 +3,35 @@ const extract = require('./extract');
 
 /**
  * Make a quoted string to interpret by JS.
+ * @param {string} s
  * @example
  *
  * getQuoted('The mind always seeks to equilibrium.')
- * // => 'The mind always seeks to equilibrium.'
+ * // result:
+ * `The mind always seeks to equilibrium.`
  */
-       const getQuoted = (s) => `\`${s}\``
+       const getQuoted = (s) => {
+  let _b = '', _a = ''
+  const r = s
+    .replace(/^(\n\s*)([\s\S]+)?/, (m, b, v = '') => {
+      _b = b
+      return v
+    })
+    .replace(/([\s\S]+?)?(\n\s*)$/, (m, v = '', a) => {
+      _a = a
+      return v
+    })
+  const rr = r ? `\`${r}\`` : ''
+  return `${_b}${rr}${_a}`
+}
 
 /**
  * Returns the array of children for an element by extracting the parts in `{}`.
  * @param {string} string
  * @example
- * parseSimpleContent('Hello, {test}!') // ['Hello, ', test, '!']
+ * parseSimpleContent('Hello, {test}!')
+ * // result:
+ * [`Hello, `, test, `!`]
  */
        const parseSimpleContent = (string) => {
   const temps = []

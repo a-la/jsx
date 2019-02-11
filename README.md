@@ -39,6 +39,7 @@ __<a name="type-config">`Config`</a>__: Options for the program.
 |    Name    |      Type       |                                                                                                     Description                                                                                                     | Default |
 | ---------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
 | quoteProps | _(true\|'dom')_ | Whether to surround property names with quotes, e.g., for the Google Closure Compiler. When `dom` is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter. | `false` |
+| warn       | _function_      | The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).                                                                                            | -       |
 
 ```js
 /* yarn example/ */
@@ -71,7 +72,7 @@ export const Component = ({
     return false
   }} role="aria-button">
     <Title/>
-    <RichTextArea />
+    <RichTextArea dynamic />
     {tabs.map((tab, i) => <span key={i}>{tab}</span>)}
     <p {...props} align={align}>
       Hello World!
@@ -98,15 +99,15 @@ export const Component = ({
     e.preventDefault()
     alert('Hello World')
     return false
-  },role:"aria-button"},`
-    `,h(Title),`
-    `,h(RichTextArea),`
-    `,tabs.map((tab, i) => h('span',{key:i},tab)),`
-    `,h('p',{...props,align:align},`
-      Hello World!
-      `,img && h('img',{src:img}),`
-    `),`
-  `)
+  },role:"aria-button"},
+    h(Title),
+    h(RichTextArea,{dynamic:1}),
+    tabs.map((tab, i) => h('span',{key:i},tab)),
+    h('p',{...props,align:align},
+      `Hello World!`
+      ,img && h('img',{src:img}),
+    ),
+  )
 }
 ```
 

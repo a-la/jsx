@@ -1,4 +1,3 @@
-let mismatch = require('mismatch'); if (mismatch && mismatch.__esModule) mismatch = mismatch.default;
 const { SyncReplaceable } = require('restream');
 
 /**
@@ -92,12 +91,22 @@ const getProps = (props) => {
  * @param {string} string The string with plain attributes.
  */
 const getPlain = (string) => {
-  const res = mismatch(/(\S+)\s*=\s*(["'])([\s\S]+?)\2/g, string, ['n', 'q', 'v'])
-    .reduce((acc, { n, v, q }) => {
-      acc[n] = `${q}${v}${q}`
-      return acc
-    }, {})
-  return res
+  const r = []
+  const res = string.replace(/(\S+)\s*=\s*(["'])([\s\S]+?)\2/g, (m, name, q, val, i) => {
+    r.push({ i, name, val: `${q}${val}${q}` })
+    return ' '.repeat(m.length)
+  })
+  res.replace(/(\S+)/, (m, name, i) => {
+    r.push({ i, name, val: 1 })
+  })
+  const obj = [...r.reduce((acc, { i, name, val }) => {
+    acc[i] = [name, val]
+    return acc
+  }, [])].filter(Boolean).reduce((acc, [name, val]) => {
+    acc[name] = val
+    return acc
+  }, {})
+  return obj
 }
 
 /**
@@ -139,14 +148,6 @@ const makeObjectBody = (pp, destructuring = [], quoteProps = false) => {
        const pragma = (tagName, props = {}, children = [], destructuring = [], quoteProps = false, warn) => {
   const cn = isComponentName(tagName)
   const tn = cn ? tagName : `'${tagName}'`
-  // if (typeof children == 'string') {
-  //   const pr = makeObjectBody(props)
-  //   return    `p(${tn},${pr},${children.join(',')})`
-  // } else if     (typeof props == 'string') {
-  //   return    `e(${tn},${props})`
-  // } else     if (Array.isArray(props)) {
-  //   return    `e(${tn},${props.join(',')})`
-  // }
   if (!Object.keys(props).length && !children.length && !destructuring.length) {
     return `h(${tn})`
   }
@@ -155,7 +156,11 @@ const makeObjectBody = (pp, destructuring = [], quoteProps = false) => {
     warn && warn(`JSX: destructuring ${destructuring.join(' ')} is used without quoted props on HTML ${tagName}.`)
   }
   const pr = makeObjectBody(props, destructuring, qp)
-  const c = children.join(',')
+  const c = children.reduce((acc, cc, i) => {
+    const prev = children[i-1]
+    const comma = prev && /\S/.test(prev) ? ',' : ''
+    return `${acc}${comma}${cc}`
+  }, '')
   const res = `h(${tn},${pr}${c ? `,${c}` : ''})`
   return res
 }
@@ -180,8 +185,8 @@ const replaceChunk = (input, index, length, chunk) => {
   const after = input.slice(index + length)
   const ld = length - chunk.length
   // if (ld < 0)
-    // console.warn('The chunks length is more that replaced input')
-    // throw new Error('The length of the chunk cannot be more than of the replaced value.')
+  // console.warn('The chunks length is more that replaced input')
+  // throw new Error('The length of the chunk cannot be more than of the replaced value.')
   let p = chunk
   if (ld > 0) {
     p = `${' '.repeat(ld)}${p}`
