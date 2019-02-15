@@ -1,5 +1,9 @@
 ## 15 February 2019
 
+### 1.4.2
+
+- [fix] Extract multiple boolean attributes.
+
 ### 1.4.1
 
 - [fix] Empty values for boolean attributes.
