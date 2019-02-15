@@ -300,14 +300,14 @@ var C = h('div',{'data-active':1})
 var C = <div required/>
 
 /* expected */
-var C = h('div',{required:1})
+var C = h('div',{required:''})
 /**/
 
 // writes boolean attribute
 var C = <div id="test" required className="test"/>
 
 /* expected */
-var C = h('div',{id:"test",required:1,className:"test"})
+var C = h('div',{id:"test",required:'',className:"test"})
 /**/
 
 // does not add new lines

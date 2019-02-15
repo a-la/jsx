@@ -97,7 +97,7 @@ const getPlain = (string) => {
     return ' '.repeat(m.length)
   })
   res.replace(/(\S+)/, (m, name, i) => {
-    r.push({ i, name, val: 1 })
+    r.push({ i, name, val: '\'\'' }) // boolean
   })
   const obj = [...r.reduce((acc, { i, name, val }) => {
     acc[i] = [name, val]
