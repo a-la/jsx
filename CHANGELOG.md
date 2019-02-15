@@ -1,3 +1,9 @@
+## 15 February 2019
+
+### 1.4.1
+
+- [fix] Empty values for boolean attributes.
+
 ## 11 February 2019
 
 ### 1.4.0
