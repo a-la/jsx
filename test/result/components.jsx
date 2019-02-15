@@ -324,3 +324,10 @@ var C = h('div',{},
   ),
 )
 /**/
+
+// multiple boolean attrs
+var C = <div required data-test/>
+
+/* expected */
+var C = h('div',{required:'','data-test':''})
+/**/
