@@ -1,0 +1,9 @@
+{
+  "rules": {
+    "quote-props": "off",
+    "quotes": "off",
+    "object-curly-spacing": "off",
+    "comma-dangle": "off",
+    "semi": "off"
+  }
+}

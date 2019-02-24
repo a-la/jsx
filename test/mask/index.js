@@ -12,18 +12,20 @@ const Components = makeTestSuite('test/result/components.jsx', {
 export
 const ComponentsClosure = makeTestSuite('test/result/components-closure.jsx', {
   getResults(input) {
-    return jsx(input, {
+    const res = jsx(input, {
       quoteProps: true,
     })
+    return res
   },
 })
 
 export
 const ComponentsClosureDom = makeTestSuite('test/result/components-closure-dom.jsx', {
   getResults(input) {
-    return jsx(input, {
+    const res = jsx(input, {
       quoteProps: 'dom',
     })
+    return res.replace(/^\(/, '').replace(/\)$/, '') + ';'
   },
 })
 
