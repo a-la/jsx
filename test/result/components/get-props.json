@@ -53,3 +53,25 @@ id="test" callback={() => {}} callback2={() => {
   "callback2": "() => {\n  return () => {\n    return 'test'\n  }\n}"
 }
 /**/
+
+// returns the whitespace
+the test={ok}
+
+/* expected */
+{
+  "the": "''",
+  "test": "ok"
+}
+/**/
+/* expectedWhitespace */
+{
+  "the": {
+    "before": ""
+  },
+  "test": {
+    "before": " ",
+    "beforeAssign": "",
+    "afterAssign": ""
+  }
+}
+/**/

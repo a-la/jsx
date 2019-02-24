@@ -39,9 +39,9 @@ var Title = <Title id={'test'} callback={() => {
 }} class="TEST"/>
 
 /* expected */
-var Title =   h(Title,{id:'test',callback:() => {
+var Title = h(Title,{id:'test', callback:() => {
   return 'test'
-},class:"TEST"})
+}, class:"TEST"})
 /**/
 
 // processes tag with multiple elements of the same type
@@ -170,7 +170,7 @@ var C = h('div',{},
 var C = <div {...props} id={test}/>
 
 /* expected */
-var C = h('div',{...props,id:test})
+var C = h('div',{...props, id:test})
 /**/
 
 // processes self-closing without props
@@ -267,8 +267,11 @@ var Item = ({ img, title }) => {
 }>HelloWorld</ListItem>
 
 /* expected */
-         h(ListItem,{active:1,left:
-           h(Icon,{name:"bookmark-o",size:"xsmall"})
+        h(ListItem,{active:1, left:
+  h(Icon,{
+    name:"bookmark-o",
+    size:"xsmall"
+  })
 },`HelloWorld`)
 /**/
 
@@ -307,7 +310,7 @@ var C = h('div',{required:''})
 var C = <div id="test" required className="test"/>
 
 /* expected */
-var C = h('div',{id:"test",required:'',className:"test"})
+var C = h('div',{id:"test", required:'', className:"test"})
 /**/
 
 // does not add new lines
@@ -329,5 +332,5 @@ var C = h('div',{},
 var C = <div required data-test/>
 
 /* expected */
-var C = h('div',{required:'','data-test':''})
+var C = h('div',{required:'', 'data-test':''})
 /**/

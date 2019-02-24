@@ -1,11 +1,16 @@
 import { makeTestSuite } from 'zoroaster'
+import { deepEqual } from 'zoroaster/assert'
 import { getProps } from '../../../src/lib'
 
 export
 const GetProps = makeTestSuite('test/result/components/get-props.json', {
   getResults(input) {
-    const { obj } = getProps(input)
-    return obj
+    const { obj, whitespace } = getProps(input)
+    return { obj, whitespace }
   },
-  jsonProps: ['expected'],
+  mapActual: ({ obj }) => obj,
+  assertResults({ whitespace }, { expectedWhitespace }) {
+    if (expectedWhitespace) deepEqual(whitespace, expectedWhitespace)
+  },
+  jsonProps: ['expected', 'expectedWhitespace'],
 })
