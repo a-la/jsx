@@ -56,9 +56,10 @@ const getProps = (props) => {
   if (stack) throw new Error(`Unbalanced props (level ${stack}) ${props}`)
   const obj = {}
   const destructuring = []
+  const whitespace = {}
   const lastClose = positions.reduce((acc, { open, close }) => {
-    const before =props.slice(acc, open)
-    const [, propName] = /(\S+)\s*=\s*$/.exec(before) || []
+    const before = props.slice(acc, open)
+    const [, wsBefore, propName, wsBeforeAssign, afterAssign] = /(\s*)(\S+)(\s*)=(\s*)$/.exec(before) || []
     const val = props.slice(open + 1, close)
     if (!propName && !/\s*\.\.\./.test(val))
       throw new Error('Could not detect prop name')
@@ -67,23 +68,27 @@ const getProps = (props) => {
     } else {
       obj[propName] = val
     }
+    whitespace[propName] = { before: wsBefore, beforeAssign: wsBeforeAssign, afterAssign }
     const beforeOrNot = before || '' // when using destructuring
     const propOrNot = propName || ''
     const bb = beforeOrNot.slice(0, beforeOrNot.length - propOrNot.length - 1)
-    const plain = getPlain(bb)
+    const { plain, whitespace: ws } = getPlain(bb)
     Object.assign(obj, plain)
+    Object.assign(whitespace, ws)
     return close + 1
   }, 0)
   // make sure plain attrs are there when no {} are given
   if (!positions.length) {
-    const plain = getPlain(props)
+    const { plain, whitespace: ws } = getPlain(props)
     Object.assign(obj, plain)
+    Object.assign(whitespace, ws)
   } else {
     const whatsLeft = props.slice(lastClose)
-    const plain = getPlain(whatsLeft)
+    const { plain, whitespace: ws } = getPlain(whatsLeft)
     Object.assign(obj, plain)
+    Object.assign(whitespace, ws)
   }
-  return { obj, destructuring }
+  return { obj, destructuring, whitespace }
 }
 
 /**
@@ -92,11 +97,14 @@ const getProps = (props) => {
  */
 const getPlain = (string) => {
   const r = []
-  const res = string.replace(/(\S+)\s*=\s*(["'])([\s\S]+?)\2/g, (m, name, q, val, i) => {
+  const whitespace = {}
+  const res = string.replace(/(\s*)(\S+)(\s*)=(\s*)(["'])([\s\S]+?)\5/g, (m, wsBefore, name, wsBeforeAssign, wsAfterAssign, q, val, i) => {
+    whitespace[name] = { before: wsBefore, beforeAssign: wsBeforeAssign, afterAssign: wsAfterAssign }
     r.push({ i, name, val: `${q}${val}${q}` })
-    return ' '.repeat(m.length)
+    return '%'.repeat(m.length)
   })
-  res.replace(/(\S+)/g, (m, name, i) => {
+  res.replace(/(\s*)([^\s%]+)/g, (m, ws, name, i) => {
+    whitespace[name] = { before: ws }
     r.push({ i, name, val: '\'\'' }) // boolean
   })
   const obj = [...r.reduce((acc, { i, name, val }) => {
@@ -106,7 +114,7 @@ const getPlain = (string) => {
     acc[name] = val
     return acc
   }, {})
-  return obj
+  return { plain: obj, whitespace }
 }
 
 /**
@@ -115,14 +123,15 @@ const getPlain = (string) => {
  * @returns {string|null} Either a JS object body string, or null if no keys were in the object.
  */
 
-const makeObjectBody = (pp, destructuring = [], quoteProps = false) => {
+const makeObjectBody = (pp, destructuring = [], quoteProps = false, whitespace = {}, beforeCloseWs = '') => {
   const { length } = Object.keys(pp)
   if (!length && !destructuring.length) return '{}'
   const pr = `{${Object.keys(pp).reduce((a, k) => {
     const v = pp[k]
     const kk = quoteProps || k.indexOf('-') != -1 ? `'${k}'` : k
-    return [...a, `${kk}:${v}`]
-  }, destructuring).join(',')}}`
+    const { before = '', beforeAssign = '', afterAssign = '' } = whitespace[k] || {}
+    return [...a, `${before}${kk}${beforeAssign}:${afterAssign}${v}`]
+  }, destructuring).join(',')}${beforeCloseWs}}`
   return pr
 }
 
@@ -145,7 +154,7 @@ const makeObjectBody = (pp, destructuring = [], quoteProps = false) => {
  * // =>
  * e('div',{ id: 'STATIC_ID' },['Hello, ', test, '!'])
  */
-       const pragma = (tagName, props = {}, children = [], destructuring = [], quoteProps = false, warn) => {
+       const pragma = (tagName, props = {}, children = [], destructuring = [], quoteProps = false, warn, whitespace, beforeCloseWs) => {
   const cn = isComponentName(tagName)
   const tn = cn ? tagName : `'${tagName}'`
   if (!Object.keys(props).length && !children.length && !destructuring.length) {
@@ -155,7 +164,7 @@ const makeObjectBody = (pp, destructuring = [], quoteProps = false) => {
   if (!cn && destructuring.length && (!quoteProps || quoteProps == 'dom')) {
     warn && warn(`JSX: destructuring ${destructuring.join(' ')} is used without quoted props on HTML ${tagName}.`)
   }
-  const pr = makeObjectBody(props, destructuring, qp)
+  const pr = makeObjectBody(props, destructuring, qp, whitespace, beforeCloseWs)
   const c = children.reduce((acc, cc, i) => {
     const prev = children[i-1]
     const comma = prev && /\S/.test(prev) ? ',' : ''

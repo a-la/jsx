@@ -22,8 +22,9 @@ const transpileJSX = (input, config = {}) => {
   const s = input.slice(position)
   const { props = '', content, tagName, string: { length } } = extract(s)
   const children = parseContent(content, quoteProps, warn)
-  const { obj, destructuring } = getProps(props)
-  const f = pragma(tagName, obj, children, destructuring, quoteProps, warn)
+  const { obj, destructuring, whitespace } = getProps(props.replace(/^ */, ''))
+  const beforeCloseWs = /\s*$/.exec(props) || ['']
+  const f = pragma(tagName, obj, children, destructuring, quoteProps, warn, whitespace, beforeCloseWs)
   const res = replaceChunk(input, position, length, f)
   // find another one one
   const newRes = transpileJSX(res, config)
