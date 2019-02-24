@@ -1,3 +1,9 @@
+## 25 February 2019
+
+### 1.4.3
+
+- [feature] Preserve new lines in attributes.
+
 ## 15 February 2019
 
 ### 1.4.2
