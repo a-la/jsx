@@ -99,7 +99,7 @@ export const Component = ({
     e.preventDefault()
     alert('Hello World')
     return false
-  },role:"aria-button"},
+  }, role:"aria-button"},
     h(Title),
     h(RichTextArea,{dynamic:''}),
     tabs.map((tab, i) => h('span',{key:i},tab)),
