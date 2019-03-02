@@ -18,7 +18,7 @@
     "build": "yarn-s d b doc",
     "rec": "NODE_DEBUG=appshot appshot -T 23 -a Terminal -y 150 -f",
     "e": "node example",
-    "depack": "depack depack/index.jsx -c -o depack.js -I 2018 -a -p -w -S",
+    "depack": "depack depack/index.js -c -o depack.js -I 2018 -a -p -w -S",
     "example/": "yarn e example/example.js"
   },
   "files": [

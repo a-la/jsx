@@ -1,20 +1,19 @@
 #!/usr/bin/env node
-const vm = require('vm');
 const stream = require('stream');
 const os = require('os');
-function n(a) {
+function h(a) {
   var b = 0;
   return function() {
     return b < a.length ? {done:!1, value:a[b++]} : {done:!0};
   };
 }
-function p(a) {
+function m(a) {
   var b = "undefined" != typeof Symbol && Symbol.iterator && a[Symbol.iterator];
-  return b ? b.call(a) : {next:n(a)};
+  return b ? b.call(a) : {next:h(a)};
 }
-function r(a) {
+function n(a) {
   if (!(a instanceof Array)) {
-    a = p(a);
+    a = m(a);
     for (var b, c = []; !(b = a.next()).done;) {
       c.push(b.value);
     }
@@ -27,22 +26,22 @@ var aa = "function" == typeof Object.create ? Object.create : function(a) {
   }
   b.prototype = a;
   return new b;
-}, t;
+}, p;
 if ("function" == typeof Object.setPrototypeOf) {
-  t = Object.setPrototypeOf;
+  p = Object.setPrototypeOf;
 } else {
-  var u;
+  var r;
   a: {
-    var ba = {P:!0}, v = {};
+    var ba = {A:!0}, u = {};
     try {
-      v.__proto__ = ba;
-      u = v.P;
+      u.__proto__ = ba;
+      r = u.A;
       break a;
     } catch (a) {
     }
-    u = !1;
+    r = !1;
   }
-  t = u ? function(a, b) {
+  p = r ? function(a, b) {
     a.__proto__ = b;
     if (a.__proto__ !== b) {
       throw new TypeError(a + " is not extensible");
@@ -50,45 +49,45 @@ if ("function" == typeof Object.setPrototypeOf) {
     return a;
   } : null;
 }
-var w = t;
-function y(a, b) {
+var v = p;
+function w(a, b) {
   a.prototype = aa(b.prototype);
   a.prototype.constructor = a;
-  if (w) {
-    w(a, b);
+  if (v) {
+    v(a, b);
   } else {
     for (var c in b) {
       if ("prototype" != c) {
         if (Object.defineProperties) {
-          var f = Object.getOwnPropertyDescriptor(b, c);
-          f && Object.defineProperty(a, c, f);
+          var d = Object.getOwnPropertyDescriptor(b, c);
+          d && Object.defineProperty(a, c, d);
         } else {
           a[c] = b[c];
         }
       }
     }
   }
-  a.ia = b.prototype;
+  a.V = b.prototype;
 }
-var z = "undefined" != typeof window && window === this ? this : "undefined" != typeof global && null != global ? global : this, A = "function" == typeof Object.defineProperties ? Object.defineProperty : function(a, b, c) {
+var x = "undefined" != typeof window && window === this ? this : "undefined" != typeof global && null != global ? global : this, y = "function" == typeof Object.defineProperties ? Object.defineProperty : function(a, b, c) {
   a != Array.prototype && a != Object.prototype && (a[b] = c.value);
 };
-function B(a, b) {
+function A(a, b) {
   if (b) {
-    var c = z;
+    var c = x;
     a = a.split(".");
-    for (var f = 0; f < a.length - 1; f++) {
-      var d = a[f];
-      d in c || (c[d] = {});
-      c = c[d];
+    for (var d = 0; d < a.length - 1; d++) {
+      var e = a[d];
+      e in c || (c[e] = {});
+      c = c[e];
     }
     a = a[a.length - 1];
-    f = c[a];
-    b = b(f);
-    b != f && null != b && A(c, a, {configurable:!0, writable:!0, value:b});
+    d = c[a];
+    b = b(d);
+    b != d && null != b && y(c, a, {configurable:!0, writable:!0, value:b});
   }
 }
-B("Promise", function(a) {
+A("Promise", function(a) {
   function b(a) {
     this.b = 0;
     this.g = void 0;
@@ -96,14 +95,14 @@ B("Promise", function(a) {
     var b = this.c();
     try {
       a(b.resolve, b.reject);
-    } catch (k) {
-      b.reject(k);
+    } catch (z) {
+      b.reject(z);
     }
   }
   function c() {
     this.a = null;
   }
-  function f(a) {
+  function d(a) {
     return a instanceof b ? a : new b(function(b) {
       b(a);
     });
@@ -121,9 +120,9 @@ B("Promise", function(a) {
     }
     this.a.push(a);
   };
-  var d = z.setTimeout;
+  var e = x.setTimeout;
   c.prototype.c = function(a) {
-    d(a, 0);
+    e(a, 0);
   };
   c.prototype.g = function() {
     for (; this.a && this.a.length;) {
@@ -134,8 +133,8 @@ B("Promise", function(a) {
         a[b] = null;
         try {
           c();
-        } catch (h) {
-          this.f(h);
+        } catch (l) {
+          this.f(l);
         }
       }
     }
@@ -153,14 +152,14 @@ B("Promise", function(a) {
       };
     }
     var b = this, c = !1;
-    return {resolve:a(this.aa), reject:a(this.f)};
+    return {resolve:a(this.K), reject:a(this.f)};
   };
-  b.prototype.aa = function(a) {
+  b.prototype.K = function(a) {
     if (a === this) {
       this.f(new TypeError("A Promise cannot resolve to itself"));
     } else {
       if (a instanceof b) {
-        this.ba(a);
+        this.N(a);
       } else {
         a: {
           switch(typeof a) {
@@ -174,19 +173,19 @@ B("Promise", function(a) {
               c = !1;
           }
         }
-        c ? this.Y(a) : this.h(a);
+        c ? this.H(a) : this.h(a);
       }
     }
   };
-  b.prototype.Y = function(a) {
+  b.prototype.H = function(a) {
     var b = void 0;
     try {
       b = a.then;
-    } catch (k) {
-      this.f(k);
+    } catch (z) {
+      this.f(z);
       return;
     }
-    "function" == typeof b ? this.ca(b, a) : this.h(a);
+    "function" == typeof b ? this.O(b, a) : this.h(a);
   };
   b.prototype.f = function(a) {
     this.j(2, a);
@@ -200,50 +199,50 @@ B("Promise", function(a) {
     }
     this.b = a;
     this.g = b;
-    this.B();
+    this.o();
   };
-  b.prototype.B = function() {
+  b.prototype.o = function() {
     if (null != this.a) {
       for (var a = 0; a < this.a.length; ++a) {
-        e.b(this.a[a]);
+        f.b(this.a[a]);
       }
       this.a = null;
     }
   };
-  var e = new c;
-  b.prototype.ba = function(a) {
+  var f = new c;
+  b.prototype.N = function(a) {
     var b = this.c();
-    a.v(b.resolve, b.reject);
+    a.m(b.resolve, b.reject);
   };
-  b.prototype.ca = function(a, b) {
+  b.prototype.O = function(a, b) {
     var c = this.c();
     try {
       a.call(b, c.resolve, c.reject);
-    } catch (h) {
-      c.reject(h);
+    } catch (l) {
+      c.reject(l);
     }
   };
   b.prototype.then = function(a, c) {
     function d(a, b) {
       return "function" == typeof a ? function(b) {
         try {
-          f(a(b));
-        } catch (la) {
-          e(la);
+          e(a(b));
+        } catch (ma) {
+          f(ma);
         }
       } : b;
     }
-    var f, e, g = new b(function(a, b) {
-      f = a;
-      e = b;
+    var e, f, g = new b(function(a, b) {
+      e = a;
+      f = b;
     });
-    this.v(d(a, f), d(c, e));
+    this.m(d(a, e), d(c, f));
     return g;
   };
   b.prototype.catch = function(a) {
     return this.then(void 0, a);
   };
-  b.prototype.v = function(a, b) {
+  b.prototype.m = function(a, b) {
     function c() {
       switch(d.b) {
         case 1:
@@ -257,9 +256,9 @@ B("Promise", function(a) {
       }
     }
     var d = this;
-    null == this.a ? e.b(c) : this.a.push(c);
+    null == this.a ? f.b(c) : this.a.push(c);
   };
-  b.resolve = f;
+  b.resolve = d;
   b.reject = function(a) {
     return new b(function(b, c) {
       c(a);
@@ -267,15 +266,15 @@ B("Promise", function(a) {
   };
   b.race = function(a) {
     return new b(function(b, c) {
-      for (var d = p(a), e = d.next(); !e.done; e = d.next()) {
-        f(e.value).v(b, c);
+      for (var e = m(a), f = e.next(); !f.done; f = e.next()) {
+        d(f.value).m(b, c);
       }
     });
   };
   b.all = function(a) {
-    var c = p(a), d = c.next();
-    return d.done ? f([]) : new b(function(a, b) {
-      function e(b) {
+    var c = m(a), e = c.next();
+    return e.done ? d([]) : new b(function(a, b) {
+      function f(b) {
         return function(c) {
           g[b] = c;
           k--;
@@ -284,16 +283,16 @@ B("Promise", function(a) {
       }
       var g = [], k = 0;
       do {
-        g.push(void 0), k++, f(d.value).v(e(g.length - 1), b), d = c.next();
-      } while (!d.done);
+        g.push(void 0), k++, d(e.value).m(f(g.length - 1), b), e = c.next();
+      } while (!e.done);
     });
   };
   return b;
 });
-function C() {
-  C = function() {
+function B() {
+  B = function() {
   };
-  z.Symbol || (z.Symbol = ca);
+  x.Symbol || (x.Symbol = ca);
 }
 var ca = function() {
   var a = 0;
@@ -301,96 +300,96 @@ var ca = function() {
     return "jscomp_symbol_" + (b || "") + a++;
   };
 }();
-function D() {
-  C();
-  var a = z.Symbol.iterator;
-  a || (a = z.Symbol.iterator = z.Symbol("iterator"));
-  "function" != typeof Array.prototype[a] && A(Array.prototype, a, {configurable:!0, writable:!0, value:function() {
-    return da(n(this));
+function C() {
+  B();
+  var a = x.Symbol.iterator;
+  a || (a = x.Symbol.iterator = x.Symbol("iterator"));
+  "function" != typeof Array.prototype[a] && y(Array.prototype, a, {configurable:!0, writable:!0, value:function() {
+    return da(h(this));
   }});
-  D = function() {
+  C = function() {
   };
 }
 function da(a) {
-  D();
+  C();
   a = {next:a};
-  a[z.Symbol.iterator] = function() {
+  a[x.Symbol.iterator] = function() {
     return this;
   };
   return a;
 }
-function E() {
+function D() {
   this.h = !1;
   this.b = null;
   this.f = void 0;
   this.a = 1;
-  this.B = this.g = 0;
+  this.o = this.g = 0;
   this.c = null;
 }
-function F(a) {
+function E(a) {
   if (a.h) {
     throw new TypeError("Generator is already running");
   }
   a.h = !0;
 }
-E.prototype.j = function(a) {
+D.prototype.j = function(a) {
   this.f = a;
 };
-function G(a, b) {
-  a.c = {K:b, X:!0};
-  a.a = a.g || a.B;
+function F(a, b) {
+  a.c = {v:b, G:!0};
+  a.a = a.g || a.o;
 }
-E.prototype.return = function(a) {
+D.prototype.return = function(a) {
   this.c = {return:a};
-  this.a = this.B;
+  this.a = this.o;
 };
-function H(a, b, c) {
+function G(a, b, c) {
   a.a = c;
   return {value:b};
 }
-function I(a, b) {
+function H(a, b) {
   a.a = b;
   a.g = 0;
 }
-function J(a) {
+function I(a) {
   a.g = 0;
-  var b = a.c.K;
+  var b = a.c.v;
   a.c = null;
   return b;
 }
 function ea(a) {
-  this.a = new E;
+  this.a = new D;
   this.b = a;
 }
 function fa(a, b) {
-  F(a.a);
+  E(a.a);
   var c = a.a.b;
   if (c) {
-    return K(a, "return" in c ? c["return"] : function(a) {
+    return J(a, "return" in c ? c["return"] : function(a) {
       return {value:a, done:!0};
     }, b, a.a.return);
   }
   a.a.return(b);
-  return L(a);
+  return K(a);
 }
-function K(a, b, c, f) {
+function J(a, b, c, d) {
   try {
-    var d = b.call(a.a.b, c);
-    if (!(d instanceof Object)) {
-      throw new TypeError("Iterator result " + d + " is not an object");
+    var e = b.call(a.a.b, c);
+    if (!(e instanceof Object)) {
+      throw new TypeError("Iterator result " + e + " is not an object");
     }
-    if (!d.done) {
-      return a.a.h = !1, d;
+    if (!e.done) {
+      return a.a.h = !1, e;
     }
-    var e = d.value;
+    var f = e.value;
   } catch (g) {
-    return a.a.b = null, G(a.a, g), L(a);
+    return a.a.b = null, F(a.a, g), K(a);
   }
   a.a.b = null;
-  f.call(a.a, e);
-  return L(a);
+  d.call(a.a, f);
+  return K(a);
 }
-function L(a) {
+function K(a) {
   for (; a.a.a;) {
     try {
       var b = a.b(a.a);
@@ -398,15 +397,15 @@ function L(a) {
         return a.a.h = !1, {value:b.value, done:!1};
       }
     } catch (c) {
-      a.a.f = void 0, G(a.a, c);
+      a.a.f = void 0, F(a.a, c);
     }
   }
   a.a.h = !1;
   if (a.a.c) {
     b = a.a.c;
     a.a.c = null;
-    if (b.X) {
-      throw b.K;
+    if (b.G) {
+      throw b.v;
     }
     return {value:b.return, done:!0};
   }
@@ -414,19 +413,19 @@ function L(a) {
 }
 function ha(a) {
   this.next = function(b) {
-    F(a.a);
-    a.a.b ? b = K(a, a.a.b.next, b, a.a.j) : (a.a.j(b), b = L(a));
+    E(a.a);
+    a.a.b ? b = J(a, a.a.b.next, b, a.a.j) : (a.a.j(b), b = K(a));
     return b;
   };
   this.throw = function(b) {
-    F(a.a);
-    a.a.b ? b = K(a, a.a.b["throw"], b, a.a.j) : (G(a.a, b), b = L(a));
+    E(a.a);
+    a.a.b ? b = J(a, a.a.b["throw"], b, a.a.j) : (F(a.a, b), b = K(a));
     return b;
   };
   this.return = function(b) {
     return fa(a, b);
   };
-  D();
+  C();
   this[Symbol.iterator] = function() {
     return this;
   };
@@ -438,36 +437,36 @@ function ia(a) {
   function c(b) {
     return a.throw(b);
   }
-  return new Promise(function(f, d) {
-    function e(a) {
-      a.done ? f(a.value) : Promise.resolve(a.value).then(b, c).then(e, d);
+  return new Promise(function(d, e) {
+    function f(a) {
+      a.done ? d(a.value) : Promise.resolve(a.value).then(b, c).then(f, e);
     }
-    e(a.next());
+    f(a.next());
   });
 }
-function M(a) {
+function L(a) {
   return ia(new ha(new ea(a)));
 }
 var ja = "function" == typeof Object.assign ? Object.assign : function(a, b) {
   for (var c = 1; c < arguments.length; c++) {
-    var f = arguments[c];
-    if (f) {
-      for (var d in f) {
-        Object.prototype.hasOwnProperty.call(f, d) && (a[d] = f[d]);
+    var d = arguments[c];
+    if (d) {
+      for (var e in d) {
+        Object.prototype.hasOwnProperty.call(d, e) && (a[e] = d[e]);
       }
     }
   }
   return a;
 };
-B("Object.assign", function(a) {
+A("Object.assign", function(a) {
   return a || ja;
 });
-B("Object.is", function(a) {
+A("Object.is", function(a) {
   return a ? a : function(a, c) {
     return a === c ? 0 !== a || 1 / a === 1 / c : a !== a && c !== c;
   };
 });
-function N(a, b, c) {
+function M(a, b, c) {
   if (null == a) {
     throw new TypeError("The 'this' value for String.prototype." + c + " must not be null or undefined");
   }
@@ -476,52 +475,37 @@ function N(a, b, c) {
   }
   return a + "";
 }
-B("String.prototype.includes", function(a) {
+A("String.prototype.includes", function(a) {
   return a ? a : function(a, c) {
-    return -1 !== N(this, a, "includes").indexOf(a, c || 0);
+    return -1 !== M(this, a, "includes").indexOf(a, c || 0);
   };
 });
-B("String.prototype.repeat", function(a) {
-  return a ? a : function(a) {
-    var b = N(this, null, "repeat");
-    if (0 > a || 1342177279 < a) {
-      throw new RangeError("Invalid count value");
-    }
-    a |= 0;
-    for (var f = ""; a;) {
-      if (a & 1 && (f += b), a >>>= 1) {
-        b += b;
-      }
-    }
-    return f;
-  };
-});
-B("String.prototype.endsWith", function(a) {
+A("String.prototype.endsWith", function(a) {
   return a ? a : function(a, c) {
-    var b = N(this, a, "endsWith");
+    var b = M(this, a, "endsWith");
     void 0 === c && (c = b.length);
     c = Math.max(0, Math.min(c | 0, b.length));
-    for (var d = a.length; 0 < d && 0 < c;) {
-      if (b[--c] != a[--d]) {
+    for (var e = a.length; 0 < e && 0 < c;) {
+      if (b[--c] != a[--e]) {
         return !1;
       }
     }
-    return 0 >= d;
+    return 0 >= e;
   };
 });
-var O = stream.Transform;
+var N = stream.Transform;
 function ka(a) {
   if ("object" != typeof a) {
     return !1;
   }
-  var b = -1 != ["string", "function"].indexOf(typeof a.s);
+  var b = -1 != ["string", "function"].indexOf(typeof a.l);
   return a.i instanceof RegExp && b;
 }
-function P(a, b) {
+function O(a, b) {
   if (!(b instanceof Error)) {
     throw b;
   }
-  a = p(a.stack.split("\n", 3));
+  a = m(a.stack.split("\n", 3));
   a.next();
   a.next();
   a = a.next().value;
@@ -533,27 +517,27 @@ function P(a, b) {
   b.stack = a.substr(0, a.lastIndexOf("\n"));
   throw b;
 }
-;var Q = this;
-function ma(a, b) {
+;var P = this;
+function la(a, b) {
   return b.filter(ka).reduce(function(a, b) {
     var c = b.i;
-    b = b.s;
-    if (Q.a) {
+    b = b.l;
+    if (P.a) {
       return a;
     }
     if ("string" == typeof b) {
       a = a.replace(c, b);
     } else {
-      var f = b.bind(Q), g;
+      var d = b.bind(P), g;
       return a.replace(c, function(a, b) {
-        for (var c = [], d = 1; d < arguments.length; ++d) {
-          c[d - 1] = arguments[d];
+        for (var c = [], e = 1; e < arguments.length; ++e) {
+          c[e - 1] = arguments[e];
         }
         g = Error();
         try {
-          return Q.a ? a : f.apply(null, [a].concat(r(c)));
+          return P.a ? a : d.apply(null, [a].concat(n(c)));
         } catch (q) {
-          P(g, q);
+          O(g, q);
         }
       });
     }
@@ -566,40 +550,42 @@ function oa(a, b) {
   return "%%_RESTREAM_" + a.toUpperCase() + "_REPLACEMENT_" + b + "_%%";
 }
 function pa(a, b) {
-  return Object.keys(a).reduce(function(c, f) {
-    var d = {}, e = void 0 === b ? {} : b;
-    return Object.assign({}, c, (d[f] = {name:f, i:a[f], J:(void 0 === e.L ? na : e.L)(f), w:void 0 === e.w ? oa : e.w, map:{}, lastIndex:0}, d));
+  return Object.keys(a).reduce(function(c, d) {
+    var e = a[d], f = void 0 === b ? {} : b, g = void 0 === f.s ? oa : f.s;
+    f = (void 0 === f.D ? na : f.D)(d);
+    var k = {};
+    return Object.assign({}, c, (k[d] = {name:d, i:e, u:f, s:g, map:{}, lastIndex:0}, k));
   }, {});
 }
 function qa(a, b) {
   b = void 0 === b ? [] : b;
   var c = a.map;
-  return {i:a.J, s:function(a, d) {
-    a = c[d];
-    delete c[d];
-    return ma(a, Array.isArray(b) ? b : [b]);
+  return {i:a.u, l:function(a, e) {
+    a = c[e];
+    delete c[e];
+    return la(a, Array.isArray(b) ? b : [b]);
   }};
 }
 function ra(a) {
-  var b = a.map, c = a.w, f = a.name;
-  return {i:a.i, s:function(d) {
-    var e = a.lastIndex;
-    b[e] = d;
+  var b = a.map, c = a.s, d = a.name;
+  return {i:a.i, l:function(e) {
+    var f = a.lastIndex;
+    b[f] = e;
     a.lastIndex += 1;
-    return c(f, e);
+    return c(d, f);
   }};
 }
 ;var sa = /\s+at.*(?:\(|\s)(.*)\)?/, ta = /^(?:(?:(?:node|(?:internal\/[\w/]*|.*node_modules\/(?:IGNORED_MODULES)\/.*)?\w+)\.js:\d+:\d+)|native)/, ua = os.homedir();
 function va(a) {
   var b = void 0 === b ? {} : b;
-  var c = void 0 === b.$ ? !1 : b.$, f = new RegExp(ta.source.replace("IGNORED_MODULES", (void 0 === b.V ? ["pirates"] : b.V).join("|")));
+  var c = void 0 === b.M ? !1 : b.M, d = new RegExp(ta.source.replace("IGNORED_MODULES", (void 0 === b.F ? ["pirates"] : b.F).join("|")));
   return a.replace(/\\/g, "/").split("\n").filter(function(a) {
     a = a.match(sa);
     if (null === a || !a[1]) {
       return !0;
     }
     a = a[1];
-    return a.includes(".app/Contents/Resources/electron.asar") || a.includes(".app/Contents/Resources/default_app.asar") ? !1 : !f.test(a);
+    return a.includes(".app/Contents/Resources/electron.asar") || a.includes(".app/Contents/Resources/default_app.asar") ? !1 : !d.test(a);
   }).filter(function(a) {
     return "" !== a.trim();
   }).map(function(a) {
@@ -608,353 +594,152 @@ function va(a) {
     }) : a;
   }).join("\n");
 }
-;function R(a) {
-  var b = O.call(this) || this;
+;function Q(a) {
+  var b = N.call(this) || this;
   a = (Array.isArray(a) ? a : [a]).filter(ka);
   b.b = a;
   return b;
 }
-y(R, O);
-R.prototype.reduce = function(a) {
+w(Q, N);
+Q.prototype.reduce = function(a) {
   var b = this, c;
-  return M(function(f) {
-    if (1 == f.a) {
-      return H(f, b.b.reduce(function(a, c) {
-        var d = c.i, f = c.s, e, h, m, q, x, U, V;
-        return M(function(c) {
+  return L(function(d) {
+    if (1 == d.a) {
+      return G(d, b.b.reduce(function(a, c) {
+        var d = c.i, e = c.l, f, l, t, q, S, T, U;
+        return L(function(c) {
           switch(c.a) {
             case 1:
-              return H(c, a, 2);
+              return G(c, a, 2);
             case 2:
-              e = c.f;
+              f = c.f;
               if (b.a) {
-                return c.return(e);
+                return c.return(f);
               }
-              if ("string" == typeof f) {
-                e = e.replace(d, f);
+              if ("string" == typeof e) {
+                f = f.replace(d, e);
                 c.a = 3;
                 break;
               }
-              h = f.bind(b);
-              m = [];
-              x = e.replace(d, function(a, c) {
-                for (var d = [], f = 1; f < arguments.length; ++f) {
-                  d[f - 1] = arguments[f];
+              l = e.bind(b);
+              t = [];
+              S = f.replace(d, function(a, c) {
+                for (var d = [], e = 1; e < arguments.length; ++e) {
+                  d[e - 1] = arguments[e];
                 }
                 q = Error();
                 try {
                   if (b.a) {
                     return a;
                   }
-                  var e = h.apply(null, [a].concat(r(d)));
-                  e instanceof Promise && m.push(e);
-                  return e;
-                } catch (Ba) {
-                  P(q, Ba);
+                  var f = l.apply(null, [a].concat(n(d)));
+                  f instanceof Promise && t.push(f);
+                  return f;
+                } catch (Ca) {
+                  O(q, Ca);
                 }
               });
-              if (!m.length) {
-                e = x;
+              if (!t.length) {
+                f = S;
                 c.a = 3;
                 break;
               }
               c.g = 5;
-              return H(c, Promise.all(m), 7);
+              return G(c, Promise.all(t), 7);
             case 7:
-              U = c.f;
-              e = e.replace(d, function() {
-                return U.shift();
+              T = c.f;
+              f = f.replace(d, function() {
+                return T.shift();
               });
-              I(c, 3);
+              H(c, 3);
               break;
             case 5:
-              V = J(c), P(q, V);
+              U = I(c), O(q, U);
             case 3:
-              return c.return(e);
+              return c.return(f);
           }
         });
       }, "" + a), 2);
     }
-    c = f.f;
-    return f.return(c);
+    c = d.f;
+    return d.return(c);
   });
 };
-R.prototype._transform = function(a, b, c) {
-  var f = this, d, e, g;
-  return M(function(b) {
+Q.prototype._transform = function(a, b, c) {
+  var d = this, e, f, g;
+  return L(function(b) {
     if (1 == b.a) {
-      return b.g = 2, H(b, f.reduce(a), 4);
+      return b.g = 2, G(b, d.reduce(a), 4);
     }
     if (2 != b.a) {
-      return d = b.f, f.push(d), c(), I(b, 0);
+      return e = b.f, d.push(e), c(), H(b, 0);
     }
-    e = J(b);
-    g = va(e.stack);
-    e.stack = g;
-    c(e);
+    f = I(b);
+    g = va(f.stack);
+    f.stack = g;
+    c(f);
     b.a = 0;
   });
 };
 function wa(a) {
-  a = R.call(this, a) || this;
+  a = Q.call(this, a) || this;
   a.c = Promise.resolve();
   return a;
 }
-y(wa, R);
-var S = {get M() {
+w(wa, Q);
+var R = {get J() {
   return pa;
-}, get l() {
+}, get I() {
   return ra;
-}, get o() {
+}, get S() {
   return qa;
-}, get da() {
-  return R;
-}, get ea() {
+}, get P() {
+  return Q;
+}, get R() {
   return wa;
-}, get C() {
-  return ma;
+}, get w() {
+  return la;
 }};
-var xa = vm.Script;
-function ya(a, b) {
-  var c = p(a.split("\n"));
-  a = c.next().value;
-  c.next();
-  c = c.next().value;
-  a = parseInt(a.replace(/.+?(\d+)$/, function(a, b) {
-    return b;
-  })) - 1;
-  c = c.indexOf("^");
-  return b.split("\n").slice(0, a).join("\n").length + c + (a ? 1 : 0);
-}
-;function za(a) {
-  try {
-    new xa(a);
-  } catch (f) {
-    var b = f, c = b.stack;
-    if ("Unexpected token <" != b.message) {
-      throw f;
-    }
-    return ya(c, a);
-  }
-  return null;
-}
-;function T(a) {
-  var b = [], c = {}, f = [], d = {}, e = b.reduce(function(b, e) {
-    var g = e.open;
-    e = e.close;
-    var h = a.slice(b, g), l = p(/(\s*)(\S+)(\s*)=(\s*)$/.exec(h) || []);
-    l.next();
-    var q = l.next().value;
-    b = l.next().value;
-    var x = l.next().value;
-    l = l.next().value;
-    g = a.slice(g + 1, e);
-    if (!b && !/\s*\.\.\./.test(g)) {
-      throw Error("Could not detect prop name");
-    }
-    b ? c[b] = g : f.push(g);
-    d[b] = {before:q, F:x, D:l};
-    g = h || "";
-    g = g.slice(0, g.length - (b || "").length - 1);
-    g = W(g);
-    b = g.u;
-    Object.assign(c, g.I);
-    Object.assign(d, b);
-    return e + 1;
-  }, 0);
-  b.length ? (b = a.slice(e), b = W(b), e = b.u, Object.assign(c, b.I), Object.assign(d, e)) : (b = W(a), e = b.u, Object.assign(c, b.I), Object.assign(d, e));
-  return {H:c, G:f, u:d};
-}
-function W(a) {
-  var b = [], c = {};
-  a.replace(/(\s*)(\S+)(\s*)=(\s*)(["'])([\s\S]+?)\5/g, function(a, d, e, g, l, k, h, m) {
-    c[e] = {before:d, F:g, D:l};
-    b.push({A:m, name:e, O:"" + k + h + k});
-    return "%".repeat(a.length);
-  }).replace(/(\s*)([^\s%]+)/g, function(a, d, e, g) {
-    c[e] = {before:d};
-    b.push({A:g, name:e, O:"true"});
-  });
-  return {I:[].concat(r(b.reduce(function(a, b) {
-    a[b.A] = [b.name, b.O];
-    return a;
-  }, []))).filter(Boolean).reduce(function(a, b) {
-    var c = p(b);
-    b = c.next().value;
-    c = c.next().value;
-    a[b] = c;
-    return a;
-  }, {}), u:c};
-}
-function Aa(a, b, c, f, d) {
-  b = void 0 === b ? [] : b;
-  c = void 0 === c ? !1 : c;
-  f = void 0 === f ? {} : f;
-  d = void 0 === d ? "" : d;
-  return Object.keys(a).length || b.length ? "{" + Object.keys(a).reduce(function(b, d) {
-    var e = a[d], g = c || -1 != d.indexOf("-") ? "'" + d + "'" : d, h = f[d] || {};
-    d = void 0 === h.before ? "" : h.before;
-    var m = void 0 === h.F ? "" : h.F;
-    h = void 0 === h.D ? "" : h.D;
-    return [].concat(r(b), ["" + d + g + m + ":" + h + e]);
-  }, b).join(",") + d + "}" : "{}";
-}
-function Ca(a) {
-  a = p(void 0 === a ? "" : a).next().value;
-  if (!a) {
-    throw Error("No tag name is given");
-  }
-  return a.toUpperCase() == a;
-}
-function X(a, b, c, f, d, e, g, l) {
-  b = void 0 === b ? {} : b;
-  c = void 0 === c ? [] : c;
-  f = void 0 === f ? [] : f;
-  d = void 0 === d ? !1 : d;
-  var k = Ca(a), h = k ? a : "'" + a + "'";
-  if (!Object.keys(b).length && !c.length && !f.length) {
-    return "h(" + h + ")";
-  }
-  var m = k && "dom" == d ? !1 : d;
-  k || !f.length || d && "dom" != d || e && e("JSX: destructuring " + f.join(" ") + " is used without quoted props on HTML " + a + ".");
-  a = Aa(b, f, m, g, l);
-  b = c.reduce(function(a, b, d) {
-    d = (d = c[d - 1]) && /\S/.test(d) ? "," : "";
-    return "" + a + d + b;
-  }, "");
-  return "h(" + h + "," + a + (b ? "," + b : "") + ")";
-}
-;function Da(a, b) {
-  b = void 0 === b ? [] : b;
-  var c = 0, f;
-  a = S.C(a, [].concat(r(b), [{i:/[<>]/g, s:function(a, b) {
-    if (f) {
+function xa() {
+  var a = [R.I(V)];
+  a = void 0 === a ? [] : a;
+  var b = 0, c;
+  a = R.w("<App>\n</App>", [].concat(n(a), [{i:/[<>]/g, l:function(a, e) {
+    if (c) {
       return a;
     }
     var d = "<" == a;
-    c += d ? 1 : -1;
-    0 == c && !d && (f = b);
+    b += d ? 1 : -1;
+    0 == b && !d && (c = e);
     return a;
   }}]));
-  if (c) {
+  if (b) {
     throw Error(1);
   }
-  return {Z:a, S:f};
+  return {L:a, C:c};
 }
-function Ea(a) {
-  var b = p(/<\s*(.+?)(?:\s+[\s\S]+)?\s*\/?\s*>/.exec(a) || []);
-  b.next();
-  b = b.next().value;
-  var c = S.M({R:/=>/g}).R;
-  try {
-    var f = Da(a, [S.l(c)]);
-    var d = f.Z;
-    var e = f.S;
-  } catch (g) {
-    if (1 === g) {
-      throw Error("Could not find the matching closing > for " + b + ".");
-    }
-  }
-  a = d.slice(0, e + 1);
-  e = a.replace(/<\s*[^\s/>]+/, "");
-  if (/\/\s*>$/.test(e)) {
-    return e = e.replace(/\/\s*>$/, ""), new Fa({N:a.replace(c.J, "=>"), m:e.replace(c.J, "=>"), content:"", tagName:b});
-  }
-  e.replace(/>$/, "");
-  throw Error("Could not find the matching closing </" + b + ">.");
-}
-function Fa(a) {
+function ya() {
+  var a = {U:za.replace(V.u, "=>"), T:W.replace(V.u, "=>"), content:"", tagName:X};
   Object.assign(this, a);
 }
-;function Y(a) {
-  var b = "", c = "";
-  a = a.replace(/^(\n\s*)([\s\S]+)?/, function(a, c, e) {
-    b = c;
-    return void 0 === e ? "" : e;
-  }).replace(/([\s\S]+?)?(\n\s*)$/, function(a, b, e) {
-    c = e;
-    return void 0 === b ? "" : b;
-  });
-  return "" + b + (a ? "`" + a + "`" : "") + c;
-}
-function Ga(a) {
-  var b = [];
-  return b.length ? Ha(a, b) : [Y(a)];
-}
-function Ha(a, b) {
-  var c = 0;
-  b = b.reduce(function(b, e) {
-    var d = e.ja, f = e.fa, k = e.ga;
-    (e = a.slice(c, e.from)) && b.push(Y(e));
-    c = d;
-    f ? b.push(f) : k && b.push(k);
-    return b;
-  }, []);
-  if (c < a.length) {
-    var f = a.slice(c, a.length);
-    f && b.push(Y(f));
+;var Aa;
+var Ba = m(/<\s*(.+?)(?:\s+[\s\S]+)?\s*\/?\s*>/.exec("<App>\n</App>") || []);
+Ba.next();
+var X = Ba.next().value, Y, W, V = R.J({B:/=>/g}).B, Da;
+try {
+  var Ea = xa();
+  Da = Ea.L;
+  Y = Ea.C;
+} catch (a) {
+  if (1 === a) {
+    throw Error("Could not find the matching closing > for " + X + ".");
   }
-  return b;
 }
-;function Ia(a, b) {
-  var c = b = void 0 === b ? {} : b, f = c.ha, d = c.warn;
-  c = za(a);
-  if (null === c) {
-    return a;
-  }
-  var e = a.slice(c), g = Ea(e), l = void 0 === g.m ? "" : g.m, k = g.tagName;
-  e = g.N.length;
-  g = Z(g.content, f, d);
-  var h = T(l.replace(/^ */, "")), m = h.H, q = h.G;
-  h = h.u;
-  l = /\s*$/.exec(l) || [""];
-  d = X(k, m, g, q, f, d, h, l);
-  f = a.slice(0, c);
-  a = a.slice(c + e);
-  c = e - d.length;
-  e = d;
-  0 < c && (e = " ".repeat(c) + e);
-  return Ia(f + e + a, b);
+var za = Da.slice(0, Y + 1), Z = za.replace(/<\s*[^\s/>]+/, "");
+if (/\/\s*>$/.test(Z)) {
+  W = Z.replace(/\/\s*>$/, ""), Z = "", Aa = new ya;
+} else {
+  throw W = Z.replace(/>$/, ""), Y = !1, Error("Could not find the matching closing </" + X + ">.");
 }
-function Z(a, b, c) {
-  b = void 0 === b ? !1 : b;
-  return a ? Ga(a).reduce(function(a, d) {
-    if (d instanceof Fa) {
-      var e = d.content, f = d.tagName, l = T(void 0 === d.m ? "" : d.m);
-      d = l.H;
-      l = l.G;
-      e = Z(e, b, c);
-      d = X(f, d, e, l, b, c);
-      return [].concat(r(a), [d]);
-    }
-    if (f = za(d)) {
-      e = d.slice(f);
-      var k = Ea(e);
-      e = k.N.length;
-      var h = k.content;
-      l = k.tagName;
-      var m = T(void 0 === k.m ? "" : k.m);
-      k = m.H;
-      m = m.G;
-      h = Z(h, b, c);
-      l = X(l, k, h, m, b, c);
-      h = d.slice(0, f);
-      d = d.slice(f + e);
-      return [].concat(r(a), ["" + h + l + d]);
-    }
-    return [].concat(r(a), [d]);
-  }, []) : [];
-}
-;var Ja = function(a, b) {
-  b = void 0 === b ? {} : b;
-  var c = S.M({e:/^ *export\s+(?:default\s+)?/mg, T:/^ *export\s+{[^}]+}\s+from\s+(['"])(?:.+?)\1/mg, A:/^ *import(\s+([^\s,]+)\s*,?)?(\s*{(?:[^}]+)})?\s+from\s+['"].+['"]/gm, U:/^ *import\s+(?:(.+?)\s*,\s*)?\*\s+as\s+.+?\s+from\s+['"].+['"]/gm, W:/^ *import\s+['"].+['"]/gm}, {w:function(a, b) {
-    return "/*%%_RESTREAM_" + a.toUpperCase() + "_REPLACEMENT_" + b + "_%%*/";
-  }, L:function(a) {
-    return new RegExp("/\\*%%_RESTREAM_" + a.toUpperCase() + "_REPLACEMENT_(\\d+)_%%\\*/", "g");
-  }}), f = c.e, d = c.T, e = c.A, g = c.U;
-  c = c.W;
-  a = Ia(S.C(a, [S.l(d), S.l(f), S.l(e), S.l(g), S.l(c)]), b);
-  return S.C(a, [S.o(d), S.o(f), S.o(e), S.o(g), S.o(c)]);
-}("<App>\n</App>");
-console.log(Ja);
+console.log(Aa);
 
