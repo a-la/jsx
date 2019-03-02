@@ -1,3 +1,9 @@
+## 2 March 2019
+
+### 1.4.4
+
+- [fix] Pass `true` to boolean attributes.
+
 ## 25 February 2019
 
 ### 1.4.3
