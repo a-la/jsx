@@ -101,7 +101,7 @@ export const Component = ({
     return false
   }, role:"aria-button"},
     h(Title),
-    h(RichTextArea,{dynamic:''}),
+    h(RichTextArea,{dynamic:true}),
     tabs.map((tab, i) => h('span',{key:i},tab)),
     h('p',{...props,align:align},
       `Hello World!`
