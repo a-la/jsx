@@ -105,7 +105,7 @@ const getPlain = (string) => {
   })
   res.replace(/(\s*)([^\s%]+)/g, (m, ws, name, i) => {
     whitespace[name] = { before: ws }
-    r.push({ i, name, val: '\'\'' }) // boolean
+    r.push({ i, name, val: 'true' }) // boolean
   })
   const obj = [...r.reduce((acc, { i, name, val }) => {
     acc[i] = [name, val]

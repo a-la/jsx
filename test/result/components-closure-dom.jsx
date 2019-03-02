@@ -23,7 +23,7 @@ h('div',{'className':"test"},
 
 /* expected */
 h('div',{'className':"test",
-  'testThis':'',
+  'testThis':true,
   'newArg':"test",
   'required':"required"
 });

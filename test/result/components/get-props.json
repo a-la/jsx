@@ -59,7 +59,7 @@ the test={ok}
 
 /* expected */
 {
-  "the": "''",
+  "the": "true",
   "test": "ok"
 }
 /**/
