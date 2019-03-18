@@ -1,4 +1,4 @@
-import { makeTestSuite } from 'zoroaster'
+import makeTestSuite from '@zoroaster/mask'
 import jsx from '../../src'
 import { replaceChunk } from '../../src/lib'
 

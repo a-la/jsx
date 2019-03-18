@@ -1,4 +1,4 @@
-// extracts the tag without inner
+## extracts the tag without inner
 <div>
   The content.
 </div>
@@ -9,7 +9,7 @@
 </div>
 /**/
 
-// extracts the tag
+## extracts the tag
 <div>
   The content.
   <div>

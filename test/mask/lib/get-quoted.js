@@ -1,4 +1,4 @@
-import { makeTestSuite } from 'zoroaster'
+import makeTestSuite from '@zoroaster/mask'
 import { getQuoted } from '../../../src/lib/parse-content'
 
 export

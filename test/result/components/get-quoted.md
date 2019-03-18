@@ -1,11 +1,11 @@
-// gets quoted
+## gets quoted
 test
 
 /* expected */
 `test`
 /**/
 
-// gets quoted with new lines before
+## gets quoted with new lines before
 
   test
 
@@ -14,7 +14,7 @@ test
   `test`
 /**/
 
-// gets quoted with new lines after
+## gets quoted with new lines after
 test
 
 
@@ -25,7 +25,7 @@ test
 
 /**/
 
-// gets quoted with new lines before and after
+## gets quoted with new lines before and after
 
   test
 
@@ -36,7 +36,7 @@ test
 
 /**/
 
-// gets quoted without any
+## gets quoted without any
 
 
 

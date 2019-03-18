@@ -1,4 +1,4 @@
-import { makeTestSuite } from 'zoroaster'
+import makeTestSuite from '@zoroaster/mask'
 import { pragma, makeObjectBody } from '../../../src/lib'
 
 const Pragma = makeTestSuite('test/result/components/pragma.json', {

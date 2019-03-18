@@ -46,11 +46,11 @@
   "homepage": "https://github.com/a-la/jsx#readme",
   "devDependencies": {
     "@wrote/read": "1.0.2",
-    "alamode": "1.8.2",
-    "documentary": "1.21.2",
+    "alamode": "1.8.5",
+    "documentary": "1.22.0",
     "eslint-config-artdeco": "1.0.1",
     "yarn-s": "1.1.0",
-    "zoroaster": "3.7.3"
+    "zoroaster": "3.9.0"
   },
   "dependencies": {
     "@a-la/detect-jsx": "1.0.1",

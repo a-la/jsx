@@ -1,4 +1,4 @@
-import { makeTestSuite } from 'zoroaster'
+import makeTestSuite from '@zoroaster/mask'
 import { deepEqual } from 'zoroaster/assert'
 import { getProps } from '../../../src/lib'
 
