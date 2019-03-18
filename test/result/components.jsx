@@ -334,3 +334,14 @@ var C = <div required data-test/>
 /* expected */
 var C = h('div',{required:true, 'data-test':true})
 /**/
+
+// finds the ending tag correctly
+var C = <span>
+  <a href="/signout">Sign out</a><span> </span>
+</span>
+
+/* expected */
+var C = h('span',{},
+  h('a',{href:"/signout"},`Sign out`),h('span',{},` `),
+)
+/**/
