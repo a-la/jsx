@@ -64,6 +64,7 @@ const extract = (stringWithTag) => {
   let stack = 1
   let stringEnd
   SyncReplaceable(preString, [{
+    // [\\s\\S] is to not catch the very beginning
     re: new RegExp(`[\\s\\S](?:<\\s*${tagName}(\\s+|>)|/\\s*${tagName}\\s*>)`, 'g'),
     replacement(m, opensClosing, i, s) {
       if (contentEnd) return m
@@ -72,7 +73,11 @@ const extract = (stringWithTag) => {
 
       if (opening) {
         const untilEnd = s.slice(i)
-        const { contentEnd: ce } = findEnding(untilEnd)
+        const { contentEnd: ce } = findEnding(untilEnd
+          .replace(/^[\s\S]/, ' ')
+          // e.g., <span><a /><span></span></span>
+          //                 ^
+        )
         const t = untilEnd.slice(0, ce + 1)
         const tSelfClosing = /\/\s*>$/.test(t)
         if (tSelfClosing) return m
