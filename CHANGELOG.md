@@ -1,3 +1,16 @@
+## 19 March 2019
+
+### 1.4.5
+
+- [fix] A bugfix for incorrect detection of the closing tag.
+
+```jsx
+<span>
+  <a href="/signout">Sign out</a><span> </span>
+  {/*                           ^*/}
+</span>
+```
+
 ## 2 March 2019
 
 ### 1.4.4
