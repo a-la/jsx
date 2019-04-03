@@ -1,6 +1,6 @@
 {
   "name": "@a-la/jsx",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "description": "The JSX Transform For ÀLaMode And Other Packages.",
   "main": "build/index.js",
   "module": "src/index.js",
