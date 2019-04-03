@@ -17,8 +17,8 @@
     "d1": "NODE_DEBUG=doc doc src/index.js -g",
     "build": "yarn-s d b doc",
     "rec": "NODE_DEBUG=appshot appshot -T 23 -a Terminal -y 150 -f",
-    "e": "node example",
-    "depack": "depack depack/index.js -c -o depack.js -O 2017 -a -p -w -S",
+    "e": "alanode",
+    "depack": "depack-dev depack -c -o depack.js -O 2017 -a -p -w",
     "example/": "yarn e example/example.js"
   },
   "files": [
@@ -45,15 +45,15 @@
   },
   "homepage": "https://github.com/a-la/jsx#readme",
   "devDependencies": {
-    "@wrote/read": "1.0.2",
-    "alamode": "1.8.6",
-    "documentary": "1.22.0",
+    "@wrote/read": "1.0.3",
+    "alamode": "1.9.0",
+    "documentary": "1.23.2",
     "eslint-config-artdeco": "1.0.1",
     "yarn-s": "1.1.0",
-    "zoroaster": "3.10.0"
+    "zoroaster": "3.11.2"
   },
   "dependencies": {
     "@a-la/detect-jsx": "1.0.1",
-    "restream": "3.5.0"
+    "restream": "3.5.1"
   }
 }

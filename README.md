@@ -36,10 +36,10 @@ Returns the transpiled JSX code into `h` pragma calls.
 
 __<a name="type-config">`Config`</a>__: Options for the program.
 
-|    Name    |      Type       |                                                                                                     Description                                                                                                     | Default |
-| ---------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| quoteProps | _(true\|'dom')_ | Whether to surround property names with quotes, e.g., for the Google Closure Compiler. When `dom` is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter. | `false` |
-| warn       | _function_      | The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).                                                                                            | -       |
+|    Name    |       Type        |                                                                                                     Description                                                                                                     | Default |
+| ---------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| quoteProps | _(true \| 'dom')_ | Whether to surround property names with quotes, e.g., for the Google Closure Compiler. When `dom` is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter. | `false` |
+| warn       | _function_        | The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).                                                                                            | -       |
 
 ```js
 /* yarn example/ */

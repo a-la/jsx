@@ -19,12 +19,12 @@ Returns the transpiled JSX code into `h` pragma calls.
 
 %TYPEDEF types/index.xml%
 
-%EXAMPLE: example/example.js, ../src => @a-la/jsx%
+%EXAMPLE: example, ../src => @a-la/jsx%
 
 *Given the component's source code:*
-%EXAMPLE: example/Component.jsx, ../src => @a-la/jsx, jsx%
+%EXAMPLE: example/Component, ../src => @a-la/jsx%
 
 *The following result is achieved:*
-%FORK-js example example/example%
+%FORK-js example%
 
 %~%

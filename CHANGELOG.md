@@ -1,3 +1,9 @@
+## 3 April 2019
+
+### [1.4.6](https://github.com/a-la/jsx/compare/v1.4.5...v1.4.6)
+
+- [deps] Update `restream`.
+
 ## 19 March 2019
 
 ### 1.4.5
