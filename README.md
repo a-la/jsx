@@ -16,6 +16,7 @@ yarn add -E @a-la/jsx
   * [`Config`](#type-config)
 - [The Transform](#the-transform)
 - [The Dynamic Method](#the-dynamic-method)
+- [Limitations](#limitations)
 - [Copyright](#copyright)
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/0.svg?sanitize=true"></a></p>
@@ -146,25 +147,50 @@ SyntaxError: Unexpected token <
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/4.svg?sanitize=true"></a></p>
 
+## Limitations
+
+- [ ] No JSX comments support.
+- [ ] Cannot use `<>` in functions, and `{}` in comments e.g.,
+    ```js
+    const C = ({ items }) => <div>
+      {items.map((i, j) => {
+        // stop when { 10 }:
+        if (j > 10) return
+        return <span>{i}</span>
+      })}
+    </div>
+    ```
+- [ ] Cannot define components in `export default { }`, or use anything with `}`, e.g.,
+    ```js
+    export default {
+      'my-component'() {
+        return <div>Hello World</div>
+      },
+      nested: { val: true },
+    }
+    </div>
+    ```
+
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/5.svg?sanitize=true"></a></p>
+
 ## Copyright
 
 <table>
-<tr>
-  <th>
-    <a href="https://artd.eco">
-      <img src="https://github.com/wrote/wrote/raw/master/images/artdeco.png" alt="Art Deco">
-    </a>
-  </th>
-  <th>&copy; <a href="https://artd.eco">Art Deco</a> for <a href="https://alamode.cc">À La Mode</a> 2019</th>
+  <tr>
     <th>
-    <a href="https://www.technation.sucks" title="Tech Nation Visa">
-      <img src="https://github.com/wrote/wrote/raw/master/images/technation.gif" alt="Tech Nation Visa">
-    </a>
-  </th>
-  <th>
-    <a href="https://www.technation.sucks">Tech Nation Visa Sucks</a>
-  </th>
-</tr>
+      <a href="https://artd.eco">
+        <img src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png" alt="Art Deco" />
+      </a>
+    </th>
+    <th>© <a href="https://artd.eco">Art Deco</a> for <a href="https://alamode.cc">À La Mode</a> 2019</th>
+    <th>
+      <a href="https://www.technation.sucks" title="Tech Nation Visa">
+        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif"
+          alt="Tech Nation Visa" />
+      </a>
+    </th>
+    <th><a href="https://www.technation.sucks">Tech Nation Visa Sucks</a></th>
+  </tr>
 </table>
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/-1.svg?sanitize=true"></a></p>

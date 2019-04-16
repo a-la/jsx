@@ -1,31 +1,31 @@
-<!-- ## TODO
+## Limitations
 
-- [ ] Add a new item to the todo list. -->
+- [ ] No JSX comments support.
+- [ ] Cannot use `<>` in functions, and `{}` in comments e.g.,
+    ```js
+    const C = ({ items }) => <div>
+      {items.map((i, j) => {
+        // stop when { 10 }:
+        if (j > 10) return
+        return <span>{i}</span>
+      })}
+    </div>
+    ```
+- [ ] Cannot define components in `export default { }`, or use anything with `}`, e.g.,
+    ```js
+    export default {
+      'my-component'() {
+        return <div>Hello World</div>
+      },
+      nested: { val: true },
+    }
+    </div>
+    ```
+
+%~%
 
 ## Copyright
 
-<table>
-<tr>
-  <th>
-    <a href="https://artd.eco">
-      <img src="https://github.com/wrote/wrote/raw/master/images/artdeco.png" alt="Art Deco">
-    </a>
-  </th>
-  <th>&copy; <a href="https://artd.eco">Art Deco</a> for <a href="https://alamode.cc">À La Mode</a> 2019</th>
-  <!-- <th>
-    <a href="https://alamode.cc">
-      <img src="https://github.com/wrote/wrote/raw/master/images/wrote.jpeg" alt="Wrote Library">
-    </a>
-  </th> -->
-  <th>
-    <a href="https://www.technation.sucks" title="Tech Nation Visa">
-      <img src="https://github.com/wrote/wrote/raw/master/images/technation.gif" alt="Tech Nation Visa">
-    </a>
-  </th>
-  <th>
-    <a href="https://www.technation.sucks">Tech Nation Visa Sucks</a>
-  </th>
-</tr>
-</table>
+<ÀLaModeFooter />
 
 %~ -1%
