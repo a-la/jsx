@@ -3,6 +3,7 @@
 ### [1.4.7](https://github.com/a-la/jsx/compare/v1.4.6...v1.4.7)
 
 - [fix] Fix export default object support.
+- [deps] Update and unfix dependencies.
 
 ## 3 April 2019
 
