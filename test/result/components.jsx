@@ -345,3 +345,16 @@ var C = h('span',{},
   h('a',{href:"/signout"},`Sign out`),h('span',{},` `),
 )
 /**/
+
+// parses export default { }
+const NPMBadge = ({ children }) => <div>{children}</div>
+export default {
+  'npm-badge': NPMBadge,
+}
+
+/* expected */
+const NPMBadge = ({ children }) =>  h('div',{},children)
+export default {
+  'npm-badge': NPMBadge,
+}
+/**/
