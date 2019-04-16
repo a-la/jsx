@@ -1,3 +1,9 @@
+## 16 April 2019
+
+### [1.4.7](https://github.com/a-la/jsx/compare/v1.4.6...v1.4.7)
+
+- [fix] Fix export default object support.
+
 ## 3 April 2019
 
 ### [1.4.6](https://github.com/a-la/jsx/compare/v1.4.5...v1.4.6)

@@ -10,7 +10,8 @@ const { SyncReplaceable,
  * @param {function} [config.warn] The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).
  */
 const jsx = (input, config = {}) => {
-  const { e, ef, i, ias, ii } = makeMarkers({
+  const { e, defObj, ef, i, ias, ii } = makeMarkers({
+    defObj: /^ *export\s+default\s+{[\s\S]+?}/mg,
     e: /^ *export\s+(?:default\s+)?/mg,
     ef: /^ *export\s+{[^}]+}\s+from\s+(['"])(?:.+?)\1/mg,
     i: /^ *import(\s+([^\s,]+)\s*,?)?(\s*{(?:[^}]+)})?\s+from\s+['"].+['"]/gm,
@@ -25,11 +26,11 @@ const jsx = (input, config = {}) => {
     },
   })
   const s = SyncReplaceable(input, [
-    makeCutRule(ef), makeCutRule(e),
+    makeCutRule(ef), makeCutRule(defObj), makeCutRule(e),
     makeCutRule(i), makeCutRule(ias), makeCutRule(ii)])
   const tt = transpileJSX(s, config)
   const as = SyncReplaceable(tt, [
-    makePasteRule(ef), makePasteRule(e),
+    makePasteRule(ef), makePasteRule(defObj), makePasteRule(e),
     makePasteRule(i), makePasteRule(ias), makePasteRule(ii)])
   return as
 }
