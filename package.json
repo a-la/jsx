@@ -13,17 +13,19 @@
     "lint": "eslint .",
     "doc": "NODE_DEBUG=doc doc documentary -o README.md",
     "b": "alamode src -o build -s",
-    "d": "yarn-s d1",
-    "d1": "NODE_DEBUG=doc doc src/index.js -g",
+    "d": "yarn-s d1 externs",
+    "d1": "typal src/index.js -c",
+    "externs": "typal externs.js -e",
     "build": "yarn-s d b doc",
-    "rec": "NODE_DEBUG=appshot appshot -T 23 -a Terminal -y 150 -f",
     "e": "alanode",
+    "dev": "alanode src/jsx",
     "depack": "depack-dev depack -c -o depack.js -O 2017 -a -p -w",
     "example/": "yarn e example/example.js"
   },
   "files": [
     "build",
-    "src"
+    "src",
+    "externs.js"
   ],
   "repository": {
     "type": "git",
@@ -47,13 +49,14 @@
   "devDependencies": {
     "@wrote/read": "^1.0.4",
     "alamode": "^1.9.3",
-    "documentary": "^1.23.4",
+    "argufy": "^1.5.0",
+    "documentary": "^1.24.1",
     "eslint-config-artdeco": "1.0.1",
     "yarn-s": "1.1.0",
-    "zoroaster": "^3.11.5"
+    "zoroaster": "^3.11.6"
   },
   "dependencies": {
     "@a-la/detect-jsx": "^1.0.1",
-    "restream": "^3.6.0"
+    "restream": "^3.7.1"
   }
 }
