@@ -5,9 +5,9 @@ const { SyncReplaceable,
 /**
  * Process a JSX file.
  * @param {string} input The source code with JSX to transpile.
- * @param {Config} config Options for the program.
+ * @param {!_alaJsx.Config} config Options for the program.
  * @param {(true|'dom')} [config.quoteProps=false] Whether to surround property names with quotes, e.g., for the Google Closure Compiler. When `dom` is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter. Default `false`.
- * @param {function} [config.warn] The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).
+ * @param {function(...string)} [config.warn] The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).
  */
 const jsx = (input, config = {}) => {
   const { e, defObj, ef, i, ias, ii } = makeMarkers({
@@ -39,7 +39,12 @@ module.exports=jsx
 
 /* documentary types/index.xml */
 /**
- * @typedef {Object} Config Options for the program.
+ * @suppress {nonStandardJsDocs}
+ * @typedef {_alaJsx.Config} Config Options for the program.
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {Object} _alaJsx.Config Options for the program.
  * @prop {(true|'dom')} [quoteProps=false] Whether to surround property names with quotes, e.g., for the Google Closure Compiler. When `dom` is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter. Default `false`.
- * @prop {function} [warn] The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).
+ * @prop {function(...string)} [warn] The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).
  */

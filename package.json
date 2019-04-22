@@ -27,6 +27,7 @@
     "src",
     "externs.js"
   ],
+  "externs": "externs.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/a-la/jsx.git"

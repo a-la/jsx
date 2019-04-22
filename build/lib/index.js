@@ -144,9 +144,9 @@ const makeObjectBody = (pp, destructuring = [], quoteProps = false, whitespace =
 /**
  * Creates a string invocation of the pragma function.
  * @param {string} tagName The name of the tag to create, or a reference to a component function.
- * @param {Object.<string, string>} props The properties of the element. The properties' values can be passed as strings or references as the `e` function will be called under the scope in which the JSX is written, e.g., when creating components `const C = ({ reference }) => <div id={reference} class="String"/>`.
- * @param {string[]} children The array with the child nodes which are strings, but encode either a reference, a string or an invocation the the `e` function again. Thus the jsx is parsed recursively depth-first.
- * @param {string[]} [destructuring] Any properties for destructuring.
+ * @param {!Object<string, string>} props The properties of the element. The properties' values can be passed as strings or references as the `e` function will be called under the scope in which the JSX is written, e.g., when creating components `const C = ({ reference }) => <div id={reference} class="String"/>`.
+ * @param {!Array<string>} children The array with the child nodes which are strings, but encode either a reference, a string or an invocation the the `e` function again. Thus the jsx is parsed recursively depth-first.
+ * @param {!Array<string>} [destructuring] Any properties for destructuring.
  * @param {boolean} [quoteProps=false] Whether to quote the properties' keys (for Closure compiler).
  * @example
  *

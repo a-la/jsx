@@ -75,8 +75,8 @@ const extract = require('./extract');
 /**
  * Returns the array with broken down string parts either as other strings or expressions.
  * @param {string} string The initial string.
- * @param {{from: number, to: number, expression: string }[]} temps
- * @return {string[]}
+ * @param {Array<!{from: number, to: number, expression: string }>} temps
+ * @return {!Array<string>}
  * @private This is called by parseSimpleContent.
  */
 const getTemps = (string, temps) => {
