@@ -1,3 +1,10 @@
+## 24 April 2019
+
+### [1.5.0](https://github.com/a-la/jsx/compare/v1.4.7...v1.5.0)
+
+- [externs] Add externs.
+- [types] Annotate all types correctly.
+
 ## 16 April 2019
 
 ### [1.4.7](https://github.com/a-la/jsx/compare/v1.4.6...v1.4.7)
