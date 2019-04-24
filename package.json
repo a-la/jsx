@@ -51,10 +51,10 @@
     "@wrote/read": "^1.0.4",
     "alamode": "^1.9.3",
     "argufy": "^1.5.0",
-    "documentary": "^1.24.1",
+    "documentary": "^1.25.0",
     "eslint-config-artdeco": "1.0.1",
     "yarn-s": "1.1.0",
-    "zoroaster": "^3.11.6"
+    "zoroaster": "^3.12.0"
   },
   "dependencies": {
     "@a-la/detect-jsx": "^1.0.1",
