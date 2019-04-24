@@ -17,7 +17,7 @@ const extract = require('./extract');
       _b = b
       return v
     })
-    .replace(/([\s\S]+?)?(\n\s*)$/, (m, v = '', a) => {
+    .replace(/([\s\S]+?)?(\n\s*)$/, (m, v = '', a = '') => {
       _a = a
       return v
     })

@@ -48,7 +48,7 @@ module.exports=transpileJSX
  * @param {string} content
  * @param {boolean} [quoteProps=false] Whether to quote properties.
  */
-       const parseContent = (content, quoteProps = false, warn) => {
+       const parseContent = (content, quoteProps = false, warn = null) => {
   if (!content) return []
   // const C = content
   // .split('\n').filter(a => !/^\s*$/.test(a)).join('\n')

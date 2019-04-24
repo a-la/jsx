@@ -2,6 +2,6 @@
 /** @const */
 var _alaJsx = {}
 /**
- * @typedef {{ quoteProps: ((true|'dom')|undefined), warn: (function(...string)|undefined) }}
+ * @typedef {{ quoteProps: ((boolean|string)|undefined), warn: (function(...string)|undefined) }}
  */
 _alaJsx.Config

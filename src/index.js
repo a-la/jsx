@@ -6,7 +6,7 @@ import { SyncReplaceable,
  * Process a JSX file.
  * @param {string} input The source code with JSX to transpile.
  * @param {!_alaJsx.Config} config Options for the program.
- * @param {(true|'dom')} [config.quoteProps=false] Whether to surround property names with quotes, e.g., for the Google Closure Compiler. When `dom` is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter. Default `false`.
+ * @param {(boolean|string)} [config.quoteProps=false] Whether to surround property names with quotes. When the `dom` string is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter (E.g., for the _Google Closure Compiler_). Default `false`.
  * @param {function(...string)} [config.warn] The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).
  */
 const jsx = (input, config = {}) => {
@@ -45,6 +45,6 @@ export default jsx
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {Object} _alaJsx.Config Options for the program.
- * @prop {(true|'dom')} [quoteProps=false] Whether to surround property names with quotes, e.g., for the Google Closure Compiler. When `dom` is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter. Default `false`.
+ * @prop {(boolean|string)} [quoteProps=false] Whether to surround property names with quotes. When the `dom` string is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter (E.g., for the _Google Closure Compiler_). Default `false`.
  * @prop {function(...string)} [warn] The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).
  */

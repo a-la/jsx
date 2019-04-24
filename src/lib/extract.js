@@ -105,8 +105,14 @@ const extract = (stringWithTag) => {
 }
 
 export class ExtractedJSX {
+  /**
+   * @param {{ string: string, props: string, content: string, tagName: string }} properties
+   */
   constructor(properties) {
-    Object.assign(this, properties)
+    this.string = properties.string
+    this.props = properties.props
+    this.content = properties.content
+    this.tagName = properties.tagName
   }
 }
 

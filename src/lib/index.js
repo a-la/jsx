@@ -119,14 +119,15 @@ const getPlain = (string) => {
 
 /**
  * Accepts the parsed node properties to make a JS object string out of them.
- * @param {Object.<string, string>} pp The properties out of which to make a string object.
+ * @param {!Object<string, string>} pp The properties out of which to make a string object.
  * @returns {string|null} Either a JS object body string, or null if no keys were in the object.
  */
 export
 const makeObjectBody = (pp, destructuring = [], quoteProps = false, whitespace = {}, beforeCloseWs = '') => {
-  const { length } = Object.keys(pp)
+  const keys = Object.keys(pp)
+  const { length } = keys
   if (!length && !destructuring.length) return '{}'
-  const pr = `{${Object.keys(pp).reduce((a, k) => {
+  const pr = `{${keys.reduce((a, k) => {
     const v = pp[k]
     const kk = quoteProps || k.indexOf('-') != -1 ? `'${k}'` : k
     const { before = '', beforeAssign = '', afterAssign = '' } = whitespace[k] || {}
@@ -154,7 +155,7 @@ export const isComponentName = (tagName = '') => {
  * // =>
  * e('div',{ id: 'STATIC_ID' },['Hello, ', test, '!'])
  */
-export const pragma = (tagName, props = {}, children = [], destructuring = [], quoteProps = false, warn, whitespace, beforeCloseWs) => {
+export const pragma = (tagName, props = {}, children = [], destructuring = [], quoteProps = false, warn = null, whitespace = {}, beforeCloseWs = '') => {
   const cn = isComponentName(tagName)
   const tn = cn ? tagName : `'${tagName}'`
   if (!Object.keys(props).length && !children.length && !destructuring.length) {
@@ -183,8 +184,8 @@ export const pragma = (tagName, props = {}, children = [], destructuring = [], q
 /**
  * Replaces a piece of string inside of a string with another chunk.
  * @param {string} input The string inside of which the chunk needs to be replaced.
- * @param {string} index The index of the `<` found with `detect-jsx.findPosition`.
- * @param {string} length The length of the string that needs to be cut out.
+ * @param {number} index The index of the `<` found with `detect-jsx.findPosition`.
+ * @param {number} length The length of the string that needs to be cut out.
  * @param {string} chunk The new string that needs to be placed back into the input.
  *
  */

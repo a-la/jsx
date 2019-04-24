@@ -1,7 +1,7 @@
 <types namespace="_alaJsx">
   <type name="Config" desc="Options for the program.">
-    <prop type="(true|'dom')" name="quoteProps" default="false">
-      Whether to surround property names with quotes, e.g., for the Google Closure Compiler. When `dom` is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter.
+    <prop type="(boolean|string)" name="quoteProps" default="false">
+      Whether to surround property names with quotes. When the `dom` string is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter (E.g., for the _Google Closure Compiler_).
     </prop>
     <prop opt type="function(...string)" name="warn">
       The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).
