@@ -1,3 +1,9 @@
+## 25 April 2019
+
+### [1.6.0](https://github.com/a-la/jsx/compare/v1.5.0...v1.6.0)
+
+- [bin] Add the `binary` to the package.
+
 ## 24 April 2019
 
 ### [1.5.0](https://github.com/a-la/jsx/compare/v1.4.7...v1.5.0)

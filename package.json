@@ -12,7 +12,7 @@
     "test-build": "ALAMODE_ENV=test-build yarn test",
     "lint": "eslint .",
     "doc": "NODE_DEBUG=doc doc documentary -o README.md",
-    "b": "alamode src -o build -s",
+    "b": "alamode src -o build -s -i jsx.js,get-args.js",
     "d": "yarn-s d1 externs",
     "d1": "typal src/index.js -c",
     "externs": "typal externs.js -e",
