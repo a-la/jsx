@@ -1,0 +1,8 @@
+<arguments>
+  <arg command name="input">
+    The location of the file to transpile.
+  </arg>
+  <arg boolean name="preact" short="p">
+    Whether to quote props for _Preact_.
+  </arg>
+</arguments>

@@ -16,16 +16,19 @@
     "d": "yarn-s d1 externs",
     "d1": "typal src/index.js -c",
     "externs": "typal externs.js -e",
+    "depack": "depack-dev src/jsx -c -a -p -o depack/jsx.js --externs externs.js",
     "build": "yarn-s d b doc",
     "e": "alanode",
+    "args": "argufy -o src/get-args.js",
     "dev": "alanode src/jsx",
-    "depack": "depack-dev depack -c -o depack.js -O 2017 -a -p -w",
     "example/": "yarn e example/example.js"
   },
+  "bin": "depack/jsx.js",
   "files": [
     "build",
     "src",
-    "externs.js"
+    "externs.js",
+    "depack"
   ],
   "externs": "externs.js",
   "repository": {
@@ -49,12 +52,12 @@
   "homepage": "https://github.com/a-la/jsx#readme",
   "devDependencies": {
     "@wrote/read": "^1.0.4",
-    "alamode": "^1.9.3",
-    "argufy": "^1.5.0",
-    "documentary": "^1.25.0",
+    "alamode": "^2.0.0",
+    "argufy": "^1.6.3",
+    "documentary": "^1.26.0",
     "eslint-config-artdeco": "1.0.1",
     "yarn-s": "1.1.0",
-    "zoroaster": "^3.12.0"
+    "zoroaster": "^3.13.0"
   },
   "dependencies": {
     "@a-la/detect-jsx": "^1.0.1",

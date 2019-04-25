@@ -358,3 +358,10 @@ export default {
   'npm-badge': NPMBadge,
 }
 /**/
+
+// skips import css
+import './style.css'
+
+/* expected */
+import './style.css'
+/**/
