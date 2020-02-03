@@ -1,3 +1,9 @@
+## 3 February 2020
+
+### [1.6.1](https://github.com/a-la/jsx/compare/v1.6.0...v1.6.1)
+
+- [fix] Upgrade for Node 12.
+
 ## 25 April 2019
 
 ### [1.6.0](https://github.com/a-la/jsx/compare/v1.5.0...v1.6.0)
