@@ -52,15 +52,15 @@
   "homepage": "https://github.com/a-la/jsx#readme",
   "devDependencies": {
     "@wrote/read": "^1.0.4",
-    "alamode": "^2.0.0",
-    "argufy": "^1.6.3",
-    "documentary": "^1.26.0",
+    "alamode": "^3.3.3",
+    "argufy": "^1.7.5",
+    "documentary": "^1.35.11",
     "eslint-config-artdeco": "1.0.1",
-    "yarn-s": "1.1.0",
-    "zoroaster": "^3.13.0"
+    "yarn-s": "1.2.3",
+    "zoroaster": "^4.2.0"
   },
   "dependencies": {
-    "@a-la/detect-jsx": "^1.0.1",
-    "restream": "^3.7.1"
+    "@a-la/detect-jsx": "^1.0.2",
+    "restream": "^3.7.4"
   }
 }
