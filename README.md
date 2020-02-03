@@ -1,6 +1,6 @@
 # @a-la/jsx
 
-[![npm version](https://badge.fury.io/js/%40a-la%2Fjsx.svg)](https://npmjs.org/package/@a-la/jsx)
+[![npm version](https://badge.fury.io/js/%40a-la%2Fjsx.svg)](https://www.npmjs.com/package/@a-la/jsx)
 
 `@a-la/jsx` is The JSX transform For ÀLamode And Other Packages.
 
@@ -13,13 +13,15 @@ yarn add -E @a-la/jsx
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
 - [`jsx(string: string, config: Config): string`](#jsxstring-stringconfig-config-string)
-  * [`Config`](#type-config)
+  * [`_alaJsx.Config`](#type-_alajsxconfig)
 - [The Transform](#the-transform)
 - [The Dynamic Method](#the-dynamic-method)
 - [Limitations](#limitations)
 - [Copyright](#copyright)
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/0.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/0.svg?sanitize=true">
+</a></p>
 
 ## API
 
@@ -29,18 +31,20 @@ The package is available by importing its default function:
 import jsx from '@a-la/jsx'
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/1.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/1.svg?sanitize=true">
+</a></p>
 
-## `jsx(`<br/>&nbsp;&nbsp;`string: string,`<br/>&nbsp;&nbsp;`config: Config,`<br/>`): string`
+## <code><ins>jsx</ins>(</code><sub><br/>&nbsp;&nbsp;`string: string,`<br/>&nbsp;&nbsp;`config: Config,`<br/></sub><code>): <i>string</i></code>
 
 Returns the transpiled JSX code into `h` pragma calls.
 
-__<a name="type-config">`Config`</a>__: Options for the program.
+<strong><a name="type-_alajsxconfig">`_alaJsx.Config`</a></strong>: Options for the program.
 
-|    Name    |       Type        |                                                                                                     Description                                                                                                     | Default |
-| ---------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| quoteProps | _(true \| 'dom')_ | Whether to surround property names with quotes, e.g., for the Google Closure Compiler. When `dom` is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter. | `false` |
-| warn       | _function_        | The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).                                                                                            | -       |
+|    Name    |               Type                |                                                                                                            Description                                                                                                            | Default |
+| ---------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| quoteProps | <em>(boolean \| string)</em>      | Whether to surround property names with quotes. When the `dom` string is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter (E.g., for the _Google Closure Compiler_). | `false` |
+| warn       | <em>(...args: string[]) => ?</em> | The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).                                                                                                          | -       |
 
 ```js
 /* yarn example/ */
@@ -112,7 +116,9 @@ export const Component = ({
 }
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/2.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/2.svg?sanitize=true">
+</a></p>
 
 ## The Transform
 
@@ -120,7 +126,9 @@ The transform is the Reg-Exp alternative to Babel's implementation of the JSX tr
 
 The `import` and `export` statements will be temporally commented out when transpiling, otherwise V8 will throw an error when trying to detect where JSX syntax starts (see the method).
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/3.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/3.svg?sanitize=true">
+</a></p>
 
 
 ## The Dynamic Method
@@ -145,7 +153,9 @@ SyntaxError: Unexpected token <
     at bootstrap_node.js:625:3
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/4.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/4.svg?sanitize=true">
+</a></p>
 
 ## Limitations
 
@@ -171,26 +181,24 @@ SyntaxError: Unexpected token <
     </div>
     ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/5.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/5.svg?sanitize=true">
+</a></p>
 
 ## Copyright
 
 <table>
   <tr>
     <th>
-      <a href="https://artd.eco">
-        <img src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png" alt="Art Deco" />
+      <a href="https://www.artd.eco">
+        <img width="100" src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png"
+          alt="Art Deco">
       </a>
     </th>
-    <th>© <a href="https://artd.eco">Art Deco</a> for <a href="https://alamode.cc">À La Mode</a> 2019</th>
-    <th>
-      <a href="https://www.technation.sucks" title="Tech Nation Visa">
-        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif"
-          alt="Tech Nation Visa" />
-      </a>
-    </th>
-    <th><a href="https://www.technation.sucks">Tech Nation Visa Sucks</a></th>
+    <th>© <a href="https://www.artd.eco">Art Deco™</a> for <a href="https://alamode.cc">À La Mode</a> 2020</th>
   </tr>
 </table>
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/-1.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/-1.svg?sanitize=true">
+</a></p>
