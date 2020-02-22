@@ -3,7 +3,10 @@ environment:
   matrix:
     # node.js
     - nodejs_version: "8"
-    - nodejs_version: "12"
+    # - nodejs_version: "12"
+
+init: 
+  - git config core.autocrlf
 
 # Install scripts. (runs after repo cloning)
 install:
