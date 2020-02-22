@@ -7,7 +7,7 @@ const { SyncReplaceable } = require('restream');
  * const s = '<div>hello world</div>'
  * const tag = getTagName(s) // div
  */
-       const getTagName = (string) => {
+const getTagName = (string) => {
   const [, tagName] = /<\s*(.+?)(?:\s+[\s\S]+)?\s*\/?\s*>/.exec(string) || []
   return tagName
 }
@@ -27,7 +27,6 @@ const { SyncReplaceable } = require('restream');
     }
  *
  */
-
 const getProps = (props) => {
   let stack = 0
   const positions = []
@@ -122,7 +121,6 @@ const getPlain = (string) => {
  * @param {!Object<string, string>} pp The properties out of which to make a string object.
  * @returns {string|null} Either a JS object body string, or null if no keys were in the object.
  */
-
 const makeObjectBody = (pp, destructuring = [], quoteProps = false, whitespace = {}, beforeCloseWs = '') => {
   const keys = Object.keys(pp)
   const { length } = keys
@@ -136,7 +134,7 @@ const makeObjectBody = (pp, destructuring = [], quoteProps = false, whitespace =
   return pr
 }
 
-       const isComponentName = (tagName = '') => {
+const isComponentName = (tagName = '') => {
   const [t] = tagName
   if (!t) throw new Error('No tag name is given')
   return t.toUpperCase() == t
@@ -155,7 +153,7 @@ const makeObjectBody = (pp, destructuring = [], quoteProps = false, whitespace =
  * // =>
  * e('div',{ id: 'STATIC_ID' },['Hello, ', test, '!'])
  */
-       const pragma = (tagName, props = {}, children = [], destructuring = [], quoteProps = false, warn = null, whitespace = {}, beforeCloseWs = '') => {
+const pragma = (tagName, props = {}, children = [], destructuring = [], quoteProps = false, warn = null, whitespace = {}, beforeCloseWs = '') => {
   const cn = isComponentName(tagName)
   const tn = cn ? tagName : `'${tagName}'`
   if (!Object.keys(props).length && !children.length && !destructuring.length) {
@@ -189,7 +187,6 @@ const makeObjectBody = (pp, destructuring = [], quoteProps = false, whitespace =
  * @param {string} chunk The new string that needs to be placed back into the input.
  *
  */
-
 const replaceChunk = (input, index, length, chunk) => {
   const before = input.slice(0, index)
   const after = input.slice(index + length)

@@ -4,15 +4,15 @@ import { replaceChunk } from '../../src/lib'
 
 export
 const Components = makeTestSuite('test/result/components.jsx', {
-  getResults(input) {
-    return jsx(input)
+  getResults() {
+    return jsx(this.input)
   },
 })
 
 export
 const ComponentsClosure = makeTestSuite('test/result/components-closure.jsx', {
-  getResults(input) {
-    const res = jsx(input, {
+  getResults() {
+    const res = jsx(this.input, {
       quoteProps: true,
     })
     return res
@@ -21,8 +21,8 @@ const ComponentsClosure = makeTestSuite('test/result/components-closure.jsx', {
 
 export
 const ComponentsClosureDom = makeTestSuite('test/result/components-closure-dom.jsx', {
-  getResults(input) {
-    const res = jsx(input, {
+  getResults() {
+    const res = jsx(this.input, {
       quoteProps: 'dom',
     })
     return res.replace(/^\(/, '').replace(/\)$/, '') + ';'
@@ -31,8 +31,9 @@ const ComponentsClosureDom = makeTestSuite('test/result/components-closure-dom.j
 
 export
 const ReplaceChunk = makeTestSuite('test/result/components/replace-chunk.json', {
-  getResults(input) {
-    const { input: i, index, length, chunk } = JSON.parse(input)
+  getResults() {
+    const { input: i, index, length, chunk } = this.input
     return replaceChunk(i, index, length, chunk)
   },
+  jsonProps: ['input'],
 })

@@ -8,16 +8,9 @@ import jsx from '@a-la/jsx'
 
 %~%
 
-```## jsx => string
-[
-  ["string", "string"],
-  ["config", "Config"]
-]
-```
+<typedef name="jsx">types/api.xml</typedef>
 
-Returns the transpiled JSX code into `h` pragma calls.
-
-%TYPEDEF types/index.xml%
+<typedef>types/index.xml</typedef>
 
 %EXAMPLE: example, ../src => @a-la/jsx%
 

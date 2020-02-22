@@ -10,14 +10,14 @@ const extract = require('./extract');
  * // result:
  * `The mind always seeks to equilibrium.`
  */
-       const getQuoted = (s) => {
+const getQuoted = (s) => {
   let _b = '', _a = ''
   const r = s
-    .replace(/^(\n\s*)([\s\S]+)?/, (m, b, v = '') => {
+    .replace(/^(\r?\n\s*)([\s\S]+)?/, (m, b, v = '') => {
       _b = b
       return v
     })
-    .replace(/([\s\S]+?)?(\n\s*)$/, (m, v = '', a = '') => {
+    .replace(/([\s\S]+?)?(\r?\n\s*)$/, (m, v = '', a = '') => {
       _a = a
       return v
     })
@@ -33,7 +33,7 @@ const extract = require('./extract');
  * // result:
  * [`Hello, `, test, `!`]
  */
-       const parseSimpleContent = (string) => {
+const parseSimpleContent = (string) => {
   const temps = []
   // let prev = 0
   let current = {}

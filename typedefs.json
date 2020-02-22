@@ -1,0 +1,10 @@
+{
+  "_alaJsx.Config": {
+    "link": "https://github.com/a-la/jsx#type-config",
+    "description": "Options for the program."
+  },
+  "_alaJsx.jsx": {
+    "link": "https://github.com/a-la/jsx#jsxstring-stringconfig-config-string",
+    "description": "Returns the transpiled JSX code into `h` pragma calls."
+  }
+}

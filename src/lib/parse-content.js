@@ -13,11 +13,11 @@ import extract from './extract'
 export const getQuoted = (s) => {
   let _b = '', _a = ''
   const r = s
-    .replace(/^(\n\s*)([\s\S]+)?/, (m, b, v = '') => {
+    .replace(/^(\r?\n\s*)([\s\S]+)?/, (m, b, v = '') => {
       _b = b
       return v
     })
-    .replace(/([\s\S]+?)?(\n\s*)$/, (m, v = '', a = '') => {
+    .replace(/([\s\S]+?)?(\r?\n\s*)$/, (m, v = '', a = '') => {
       _a = a
       return v
     })

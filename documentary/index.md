@@ -1,11 +1,12 @@
 # @a-la/jsx
 
 %NPM: @a-la/jsx%
+[![Build status](https://ci.appveyor.com/api/projects/status/cyob36vkc19p1n1u?svg=true)](https://ci.appveyor.com/project/4r7d3c0/jsx)
 
 `@a-la/jsx` is The JSX transform For ÀLamode And Other Packages.
 
 ```sh
-yarn add -E @a-la/jsx
+yarn add @a-la/jsx
 ```
 
 ## Table Of Contents
