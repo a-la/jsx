@@ -1,4 +1,4 @@
-import { deepEqual } from 'zoroaster'
+import { deepEqual } from '@zoroaster/assert'
 import ExpressionContext from '../context/expression'
 import { parseContent } from '../../src/lib/components'
 
