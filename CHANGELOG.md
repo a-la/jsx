@@ -1,5 +1,11 @@
 ## 22 February 2020
 
+### [1.6.3](https://github.com/a-la/jsx/compare/v1.6.2...v1.6.3)
+
+- [doc] Update documentation for typedefs + appveyor badge.
+
+## 22 February 2020
+
 ### [1.6.2](https://github.com/a-la/jsx/compare/v1.6.1...v1.6.2)
 
 - [fix] Fix Windows newlines.
