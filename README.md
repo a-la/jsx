@@ -1,11 +1,12 @@
 # @a-la/jsx
 
 [![npm version](https://badge.fury.io/js/%40a-la%2Fjsx.svg)](https://www.npmjs.com/package/@a-la/jsx)
+[![Build status](https://ci.appveyor.com/api/projects/status/cyob36vkc19p1n1u?svg=true)](https://ci.appveyor.com/project/4r7d3c0/jsx)
 
 `@a-la/jsx` is The JSX transform For ÀLamode And Other Packages.
 
 ```sh
-yarn add -E @a-la/jsx
+yarn add @a-la/jsx
 ```
 
 ## Table Of Contents
@@ -13,7 +14,7 @@ yarn add -E @a-la/jsx
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
 - [`jsx(string: string, config: Config): string`](#jsxstring-stringconfig-config-string)
-  * [`_alaJsx.Config`](#type-_alajsxconfig)
+  * [`Config`](#type-config)
 - [The Transform](#the-transform)
 - [The Dynamic Method](#the-dynamic-method)
 - [Limitations](#limitations)
@@ -36,10 +37,13 @@ import jsx from '@a-la/jsx'
 </a></p>
 
 ## <code><ins>jsx</ins>(</code><sub><br/>&nbsp;&nbsp;`string: string,`<br/>&nbsp;&nbsp;`config: Config,`<br/></sub><code>): <i>string</i></code>
-
 Returns the transpiled JSX code into `h` pragma calls.
 
-<strong><a name="type-_alajsxconfig">`_alaJsx.Config`</a></strong>: Options for the program.
+ - <kbd><strong>string*</strong></kbd> <em>`string`</em>: The code to transform.
+ - <kbd><strong>config*</strong></kbd> <em><code><a href="#type-config" title="Options for the program.">Config</a></code></em>: Configuration object.
+
+__<a name="type-config">`Config`</a>__: Options for the program.
+
 
 |    Name    |               Type                |                                                                                                            Description                                                                                                            | Default |
 | ---------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
@@ -125,6 +129,7 @@ export const Component = ({
 The transform is the Reg-Exp alternative to Babel's implementation of the JSX transform. We're not aware of any other alternatives, however this approach provides a light-weight solution for transforming `JSX` syntax for front-end and back-end rendering and static website generation. The lit-html is based on template strings, and does not provide html highlighting which is enabled in `.jsx` files. This makes JSX the standard of modern HTML templating. The service using the JSX does not have to be a react page, so that the transform can be used to server-side rendering which will always require serving HTML using a template. To achieve this in Node.js, the ÀLaMode transpiler can be used, whereas this package just exports a single function to perform the translation of the code.
 
 The `import` and `export` statements will be temporally commented out when transpiling, otherwise V8 will throw an error when trying to detect where JSX syntax starts (see the method).
+
 
 <p align="center"><a href="#table-of-contents">
   <img src="/.documentary/section-breaks/3.svg?sanitize=true">

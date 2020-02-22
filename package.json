@@ -11,7 +11,7 @@
     "mask": "yarn t test/mask",
     "test-build": "yarn test -e test-build",
     "lint": "eslint .",
-    "doc": "doc documentary -o README.md -d -a",
+    "doc": "doc documentary -o README.md -n _alaJsx -d -a",
     "b": "alamode src -o build -s -i jsx.js,get-args.js",
     "d": "yarn-s d1 externs",
     "d1": "typal src/index.js -c",
@@ -35,6 +35,7 @@
     "type": "git",
     "url": "git://github.com/a-la/jsx.git"
   },
+  "typedefs": "typedefs.json",
   "keywords": [
     "jsx",
     "transpile",
@@ -53,7 +54,7 @@
   "homepage": "https://www.artd.eco",
   "devDependencies": {
     "@wrote/read": "^1.0.4",
-    "alamode": "^3.5.0",
+    "alamode": "^3.5.1",
     "argufy": "^1.7.5",
     "documentary": "^1.37.0",
     "eslint-config-artdeco": "1.0.1",
