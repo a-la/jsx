@@ -44,12 +44,13 @@
     "a-la",
     "alamode"
   ],
+  "alamode": true,
   "author": "Anton <anton@adc.sh>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/a-la/jsx/issues"
   },
-  "homepage": "https://github.com/a-la/jsx#readme",
+  "homepage": "https://www.artd.eco",
   "devDependencies": {
     "@wrote/read": "^1.0.4",
     "alamode": "^3.5.0",
