@@ -1,3 +1,9 @@
+## 22 February 2020
+
+### [1.6.2](https://github.com/a-la/jsx/compare/v1.6.1...v1.6.2)
+
+- [fix] Fix Windows newlines.
+
 ## 3 February 2020
 
 ### [1.6.1](https://github.com/a-la/jsx/compare/v1.6.0...v1.6.1)
