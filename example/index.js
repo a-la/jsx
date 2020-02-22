@@ -1,9 +1,6 @@
-/* yarn example/ */
-import read from '@wrote/read'
+import { readFileSync } from 'fs'
 import jsx from '../src'
 
-(async () => {
-  const code = await read('example/Component.jsx')
-  const res = jsx(code)
-  console.log(res)
-})()
+const code = readFileSync('example/Component.jsx', 'utf8')
+const res = jsx(code)
+console.log(res)

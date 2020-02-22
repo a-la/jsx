@@ -51,15 +51,12 @@ __<a name="type-config">`Config`</a>__: Options for the program.
 | warn       | <em>(...args: string[]) => ?</em> | The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).                                                                                                          | -       |
 
 ```js
-/* yarn example/ */
-import read from '@wrote/read'
+import { readFileSync } from 'fs'
 import jsx from '@a-la/jsx'
 
-(async () => {
-  const code = await read('example/Component.jsx')
-  const res = jsx(code)
-  console.log(res)
-})()
+const code = readFileSync('example/Component.jsx', 'utf8')
+const res = jsx(code)
+console.log(res)
 ```
 
 *Given the component's source code:*
