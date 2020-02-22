@@ -9,9 +9,9 @@
     "test": "yarn t test/spec test/mask",
     "spec": "yarn t test/spec",
     "mask": "yarn t test/mask",
-    "test-build": "ALAMODE_ENV=test-build yarn test",
+    "test-build": "yarn test -e test-build",
     "lint": "eslint .",
-    "doc": "NODE_DEBUG=doc doc documentary -o README.md",
+    "doc": "doc documentary -o README.md -d -a",
     "b": "alamode src -o build -s -i jsx.js,get-args.js",
     "d": "yarn-s d1 externs",
     "d1": "typal src/index.js -c",
@@ -52,12 +52,12 @@
   "homepage": "https://github.com/a-la/jsx#readme",
   "devDependencies": {
     "@wrote/read": "^1.0.4",
-    "alamode": "^3.3.3",
+    "alamode": "^3.5.0",
     "argufy": "^1.7.5",
-    "documentary": "^1.35.11",
+    "documentary": "^1.37.0",
     "eslint-config-artdeco": "1.0.1",
     "yarn-s": "1.2.3",
-    "zoroaster": "^4.2.0"
+    "zoroaster": "^4.3.0"
   },
   "dependencies": {
     "@a-la/detect-jsx": "^1.0.2",
