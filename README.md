@@ -16,6 +16,7 @@ yarn add @a-la/jsx
 - [`jsx(string: string, config: Config): string`](#jsxstring-stringconfig-config-string)
   * [`Config`](#type-config)
 - [The Transform](#the-transform)
+- [Classes](#classes)
 - [The Dynamic Method](#the-dynamic-method)
 - [Limitations](#limitations)
 - [Copyright](#copyright)
@@ -49,6 +50,8 @@ __<a name="type-config">`Config`</a>__: Options for the program.
 | ---------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
 | quoteProps | <em>(boolean \| string)</em>      | Whether to surround property names with quotes. When the `dom` string is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter (E.g., for the _Google Closure Compiler_). | `false` |
 | warn       | <em>(...args: string[]) => ?</em> | The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).                                                                                                          | -       |
+| prop2class | <em>boolean</em>                  | If a property name starts with a capital letter, the `className` of the _VNode_ will be updated.                                                                                                                                  | `false` |
+| classNames | <em>!Array&lt;string&gt;</em>     | The list of properties to put into the `className` property.                                                                                                                                                                      | -       |
 
 ```js
 import { readFileSync } from 'fs'
@@ -127,11 +130,47 @@ The transform is the Reg-Exp alternative to Babel's implementation of the JSX tr
 
 The `import` and `export` statements will be temporally commented out when transpiling, otherwise V8 will throw an error when trying to detect where JSX syntax starts (see the method).
 
-
 <p align="center"><a href="#table-of-contents">
   <img src="/.documentary/section-breaks/3.svg?sanitize=true">
 </a></p>
 
+## Classes
+
+It's possible to make the transpiler extract property names and add them into the `className` property. If such property already exists, it will be updated. If it doesn't, it will be created. Moreover, when `prop2class` property is set, any property that starts with a capital letter will also be added to the class list.
+
+_The component to transpile:_
+
+```jsx
+export default function Classes() {
+  return (<div Example hello world />)
+}
+```
+
+_The setup:_
+
+```js
+import { readFileSync } from 'fs'
+import jsx from '../src'
+
+const code = readFileSync('example/classes.jsx', 'utf8')
+const res = jsx(code, {
+  prop2class: true,
+  classNames: ['hello', 'world'],
+})
+console.log(res)
+```
+
+_The output:_
+
+```js
+export default function Classes() {
+  return (h('div',{className:'Example hello world' }))
+}
+```
+
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/4.svg?sanitize=true">
+</a></p>
 
 ## The Dynamic Method
 
@@ -156,7 +195,7 @@ SyntaxError: Unexpected token <
 ```
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/4.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/5.svg?sanitize=true">
 </a></p>
 
 ## Limitations
@@ -184,7 +223,7 @@ SyntaxError: Unexpected token <
     ```
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/5.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/6.svg?sanitize=true">
 </a></p>
 
 ## Copyright

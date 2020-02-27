@@ -9,5 +9,8 @@
     <prop boolean name="prop2class" default="false">
       If a property name starts with a capital letter, the `className` of the _VNode_ will be updated.
     </prop>
+    <prop opt type="!Array<string>" name="classNames">
+      The list of properties to put into the `className` property.
+    </prop>
   </type>
 </types>
