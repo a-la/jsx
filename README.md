@@ -3,10 +3,11 @@
 [![npm version](https://badge.fury.io/js/%40a-la%2Fjsx.svg)](https://www.npmjs.com/package/@a-la/jsx)
 [![Build status](https://ci.appveyor.com/api/projects/status/cyob36vkc19p1n1u?svg=true)](https://ci.appveyor.com/project/4r7d3c0/jsx)
 
-`@a-la/jsx` is The JSX transform For ÀLamode And Other Packages.
+`@a-la/jsx` is The JSX transform For _ÀLamode_ And Other Packages.
 
 ```sh
 yarn add @a-la/jsx
+npm i @a-la/jsx
 ```
 
 ## Table Of Contents
@@ -200,7 +201,6 @@ SyntaxError: Unexpected token <
 
 ## Limitations
 
-- [ ] No JSX comments support.
 - [ ] Cannot use `<>` in functions, and `{}` in comments e.g.,
     ```js
     const C = ({ items }) => <div>

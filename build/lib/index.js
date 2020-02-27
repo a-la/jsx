@@ -27,7 +27,10 @@ const getTagName = (string) => {
     }
  *
  */
-const getProps = (props) => {
+const getProps = (props, {
+  withClass = false,
+  classNames = [],
+} = {}) => {
   let stack = 0
   const positions = []
   let current
@@ -87,7 +90,40 @@ const getProps = (props) => {
     Object.assign(obj, plain)
     Object.assign(whitespace, ws)
   }
-  return { obj, destructuring, whitespace }
+  let ro = obj
+  if (withClass || classNames.length) {
+    ({ ...ro } = obj)
+    const cl = []
+    Object.keys(ro).forEach((k) => {
+      const p = () => {
+        cl.push(k)
+        delete ro[k]
+      }
+      if (classNames.includes(k)) p()
+      else if (withClass) {
+        const l = k[0]
+        if (l.toUpperCase() == l) p()
+      }
+    })
+
+    if (cl.length) {
+      const className = cl.join(' ')
+      if (ro.className) {
+        if (/[`"']$/.test(ro.className)) {
+          ro.className = ro.className.replace(/([`"'])$/, ` ${className}$1`)
+        } else
+          ro.className += `+' ${className}'`
+      } else if (ro.class) {
+        if (/[`"']$/.test(ro.class)) {
+          ro.class = ro.class.replace(/([`"'])$/, ` ${className}$1`)
+        } else
+          ro.class += `+' ${className}'`
+      } else {
+        ro.className = `'${className}'`
+      }
+    }
+  }
+  return { obj: ro, destructuring, whitespace }
 }
 
 /**
@@ -146,7 +182,7 @@ const isComponentName = (tagName = '') => {
  * @param {!Object<string, string>} props The properties of the element. The properties' values can be passed as strings or references as the `e` function will be called under the scope in which the JSX is written, e.g., when creating components `const C = ({ reference }) => <div id={reference} class="String"/>`.
  * @param {!Array<string>} children The array with the child nodes which are strings, but encode either a reference, a string or an invocation the the `e` function again. Thus the jsx is parsed recursively depth-first.
  * @param {!Array<string>} [destructuring] Any properties for destructuring.
- * @param {boolean} [quoteProps=false] Whether to quote the properties' keys (for Closure compiler).
+ * @param {boolean|string} [quoteProps=false] Whether to quote the properties' keys (for Closure compiler).
  * @example
  *
  * const r = pragma('div', { id: "'STATIC_ID'" }, ["'Hello, '", "test", "'!'"])
@@ -166,7 +202,9 @@ const pragma = (tagName, props = {}, children = [], destructuring = [], quotePro
   const pr = makeObjectBody(props, destructuring, qp, whitespace, beforeCloseWs)
   const c = children.reduce((acc, cc, i) => {
     const prev = children[i-1]
-    const comma = prev && /\S/.test(prev) ? ',' : ''
+    let comma = ''
+    if (prev && /^\/\*[\s\S]*\*\/$/.test(prev)) comma = ''
+    else if (prev && /\S/.test(prev)) comma = ','
     return `${acc}${comma}${cc}`
   }, '')
   const res = `h(${tn},${pr}${c ? `,${c}` : ''})`

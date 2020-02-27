@@ -12,17 +12,21 @@ const extract = require('./extract'); const { ExtractedJSX } = extract;
 /**
  * The entry point to transpiling a file.
  * @param {string} input The string to transpile.
+ * @param {_alaJsx.Config} config Transpilation config.
  * @returns {string} The transpiled source code with `h` pragma for hyperscript invocations.
  */
 const transpileJSX = (input, config = {}) => {
-  const { quoteProps, warn } = config
+  const { quoteProps, warn, prop2class, classNames } = config
   const position = detectJSX(input)
   if (position === null) return input
 
   const s = input.slice(position)
   const { props = '', content, tagName, string: { length } } = extract(s)
-  const children = parseContent(content, quoteProps, warn)
-  const { obj, destructuring, whitespace } = getProps(props.replace(/^ */, ''))
+  const children = parseContent(content, quoteProps, warn, config)
+  const { obj, destructuring, whitespace } = getProps(props.replace(/^ */, ''), {
+    withClass: prop2class,
+    classNames: classNames,
+  })
   const beforeCloseWs = /\s*$/.exec(props) || ['']
   const f = pragma(tagName, obj, children, destructuring, quoteProps, warn, whitespace, beforeCloseWs)
   const res = replaceChunk(input, position, length, f)
@@ -46,9 +50,12 @@ module.exports=transpileJSX
 /**
  * This function will return an array with content of a jsx tag, and the content can be a function to create an element (pragma), a string, or an expression.
  * @param {string} content
- * @param {boolean} [quoteProps=false] Whether to quote properties.
+ * @param {boolean|string} [quoteProps=false] Whether to quote properties.
+ * @param {Function} warn
+ * @param {_alaJsx.Config} config
  */
-const parseContent = (content, quoteProps = false, warn = null) => {
+const parseContent = (content, quoteProps = false, warn = null,
+  config = {}) => {
   if (!content) return []
   // const C = content
   // .split('\n').filter(a => !/^\s*$/.test(a)).join('\n')
@@ -56,7 +63,10 @@ const parseContent = (content, quoteProps = false, warn = null) => {
   const jsx = contents.reduce((acc, string) => {
     if (string instanceof ExtractedJSX) {
       const { props = '', content: part, tagName } = string
-      const { obj, destructuring } = getProps(props)
+      const { obj, destructuring } = getProps(props, {
+        withClass: config.prop2class,
+        classNames: config.classNames,
+      })
       const children = parseContent(part, quoteProps, warn)
       const p = pragma(tagName, obj, children, destructuring, quoteProps, warn)
       return [...acc, p]
@@ -65,7 +75,10 @@ const parseContent = (content, quoteProps = false, warn = null) => {
     if (j) {
       const s = string.slice(j)
       const { string: { length }, props = '', content: part, tagName } = extract(s)
-      const { obj, destructuring } = getProps(props)
+      const { obj, destructuring } = getProps(props, {
+        withClass: config.prop2class,
+        classNames: config.classNames,
+      })
       const children = parseContent(part, quoteProps, warn)
       const p = pragma(tagName, obj, children, destructuring, quoteProps, warn)
       const strBefore = string.slice(0, j)
@@ -76,5 +89,10 @@ const parseContent = (content, quoteProps = false, warn = null) => {
   }, [])
   return jsx
 }
+
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').Config} _alaJsx.Config
+ */
 
 module.exports.parseContent = parseContent

@@ -7,6 +7,7 @@
 
 ```sh
 yarn add @a-la/jsx
+npm i @a-la/jsx
 ```
 
 ## Table Of Contents
