@@ -25,3 +25,14 @@ h('div',{'className':"test"},
   h('div',{'onClick':() => {}}),
 )
 /**/
+
+// empty props
+;(<div className="" test="foo">
+  <hello world />
+</div>)
+
+/* expected */
+h('div',{'className':"", 'test':"foo"},
+  h('hello',{'world':true}),
+)
+/**/

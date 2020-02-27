@@ -137,7 +137,7 @@ export const getProps = (props, {
 const getPlain = (string) => {
   const r = []
   const whitespace = {}
-  const res = string.replace(/(\s*)(\S+)(\s*)=(\s*)(["'])([\s\S]+?)\5/g, (m, wsBefore, name, wsBeforeAssign, wsAfterAssign, q, val, i) => {
+  const res = string.replace(/(\s*)(\S+)(\s*)=(\s*)(["'])([\s\S]*?)\5/g, (m, wsBefore, name, wsBeforeAssign, wsAfterAssign, q, val, i) => {
     whitespace[name] = { before: wsBefore, beforeAssign: wsBeforeAssign, afterAssign: wsAfterAssign }
     r.push({ i, name, val: `${q}${val}${q}` })
     return '%'.repeat(m.length)
