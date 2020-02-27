@@ -2,6 +2,7 @@
 /** @const */
 var _alaJsx = {}
 /**
- * @typedef {{ quoteProps: ((boolean|string)|undefined), warn: (function(...string)|undefined) }}
+ * Options for the program.
+ * @typedef {{ quoteProps: (((boolean|string))|undefined), warn: ((function(...string))|undefined), prop2class: (boolean|undefined) }}
  */
 _alaJsx.Config

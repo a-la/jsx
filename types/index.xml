@@ -6,5 +6,8 @@
     <prop opt type="function(...string)" name="warn">
       The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).
     </prop>
+    <prop boolean name="prop2class" default="false">
+      If a property name starts with a capital letter, the `className` of the _VNode_ will be updated.
+    </prop>
   </type>
 </types>

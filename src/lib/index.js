@@ -27,10 +27,9 @@ export const getTagName = (string) => {
     }
  *
  */
-export
-const getProps = (props, {
+export const getProps = (props, {
   withClass = false,
-}) => {
+} = {}) => {
   let stack = 0
   const positions = []
   let current
@@ -178,7 +177,7 @@ export const isComponentName = (tagName = '') => {
  * @param {!Object<string, string>} props The properties of the element. The properties' values can be passed as strings or references as the `e` function will be called under the scope in which the JSX is written, e.g., when creating components `const C = ({ reference }) => <div id={reference} class="String"/>`.
  * @param {!Array<string>} children The array with the child nodes which are strings, but encode either a reference, a string or an invocation the the `e` function again. Thus the jsx is parsed recursively depth-first.
  * @param {!Array<string>} [destructuring] Any properties for destructuring.
- * @param {boolean} [quoteProps=false] Whether to quote the properties' keys (for Closure compiler).
+ * @param {boolean|string} [quoteProps=false] Whether to quote the properties' keys (for Closure compiler).
  * @example
  *
  * const r = pragma('div', { id: "'STATIC_ID'" }, ["'Hello, '", "test", "'!'"])
