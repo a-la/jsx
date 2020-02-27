@@ -15,7 +15,7 @@
     "b": "alamode src -o build -s -i jsx.js,get-args.js",
     "d": "yarn-s d1 externs",
     "d1": "typal src/index.js -c",
-    "externs": "typal externs.js -e",
+    "externs": "typal types/externs.js -e",
     "compile": "depack src/jsx -c -a -p -o depack/jsx.js --externs externs.js",
     "build": "yarn-s d b doc",
     "e": "alanode",
@@ -27,10 +27,11 @@
   "files": [
     "build",
     "src",
-    "externs.js",
-    "depack"
+    "depack",
+    "typedefs.json",
+    "types"
   ],
-  "externs": "externs.js",
+  "externs": "types/externs.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/a-la/jsx.git"

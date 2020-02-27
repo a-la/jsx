@@ -1,5 +1,9 @@
 ## 27 February 2020
 
+### [1.7.1](https://github.com/a-la/jsx/compare/v1.7.0...v1.7.1)
+
+- [fix] Publish types.
+
 ### [1.7.0](https://github.com/a-la/jsx/compare/v1.6.3...v1.7.0)
 
 - [feature] Properties to classes, class names and rename maps.
