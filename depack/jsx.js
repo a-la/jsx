@@ -4,7 +4,7 @@ const fs = require('fs');
 const vm = require('vm');
 const stream = require('stream');
 const os = require('os');             
-const t = (a, c, d, b = !1, f = !1) => {
+const v = (a, c, d, b = !1, f = !1) => {
   const e = d ? new RegExp(`^-(${d}|-${c})$`) : new RegExp(`^--${c}$`);
   c = a.findIndex(g => e.test(g));
   if (-1 == c) {
@@ -19,7 +19,7 @@ const t = (a, c, d, b = !1, f = !1) => {
   }
   f && (b = parseInt(b, 10));
   return {value:b, index:c, length:2};
-}, u = a => {
+}, w = a => {
   const c = [];
   for (let d = 0; d < a.length; d++) {
     const b = a[d];
@@ -30,9 +30,9 @@ const t = (a, c, d, b = !1, f = !1) => {
   }
   return c;
 };
-const v = function(a = {}, c = process.argv) {
+const x = function(a = {}, c = process.argv) {
   let [, , ...d] = c;
-  const b = u(d);
+  const b = w(d);
   d = d.slice(b.length);
   a = Object.entries(a).reduce((g, [h, k]) => {
     g[h] = "string" == typeof k ? {short:k} : k;
@@ -40,36 +40,36 @@ const v = function(a = {}, c = process.argv) {
   }, {});
   const f = [];
   a = Object.entries(a).reduce((g, [h, k]) => {
-    let l;
+    let m;
     try {
-      const m = k.short, n = k.boolean, p = k.number, q = k.command, r = k.multiple;
-      if (q && r && b.length) {
-        l = b;
+      const q = k.short, p = k.boolean, n = k.number, l = k.command, r = k.multiple;
+      if (l && r && b.length) {
+        m = b;
       } else {
-        if (q && b.length) {
-          l = b[0];
+        if (l && b.length) {
+          m = b[0];
         } else {
-          const w = t(d, h, m, n, p);
-          ({value:l} = w);
-          const x = w.index, y = w.length;
-          void 0 !== x && y && f.push({index:x, length:y});
+          const u = v(d, h, q, p, n);
+          ({value:m} = u);
+          const t = u.index, y = u.length;
+          void 0 !== t && y && f.push({index:t, length:y});
         }
       }
-    } catch (m) {
+    } catch (q) {
       return g;
     }
-    return void 0 === l ? g : {...g, [h]:l};
+    return void 0 === m ? g : {...g, [h]:m};
   }, {});
   let e = d;
   f.forEach(({index:g, length:h}) => {
-    Array.from({length:h}).forEach((k, l) => {
-      e[g + l] = null;
+    Array.from({length:h}).forEach((k, m) => {
+      e[g + m] = null;
     });
   });
   e = e.filter(g => null !== g);
   Object.assign(a, {J:e});
   return a;
-}({input:{description:"The location of the file to transpile.", command:!0}, preact:{description:"Whether to quote props for _Preact_.", boolean:!0, short:"p"}}), z = v.input, A = v.preact;
+}({input:{description:"The location of the file to transpile.", command:!0}, preact:{description:"Whether to quote props for _Preact_.", boolean:!0, short:"p"}}), z = x.input, A = x.preact;
 const B = fs.readFileSync;
 const C = vm.Script;
 const D = (a, c) => {
@@ -114,9 +114,9 @@ function F(a) {
           g = Error();
           try {
             return this.m ? h : e.call(this, h, ...k);
-          } catch (l) {
+          } catch (m) {
             {
-              h = l;
+              h = m;
               if (!(h instanceof Error)) {
                 throw h;
               }
@@ -126,8 +126,8 @@ function F(a) {
                 throw h;
               }
               k = h.stack.substr(0, k - 1);
-              const m = k.lastIndexOf("\n");
-              h.stack = k.substr(0, m);
+              const q = k.lastIndexOf("\n");
+              h.stack = k.substr(0, q);
               throw h;
             }
           }
@@ -169,65 +169,71 @@ M();
 const N = a => {
   [, a] = /<\s*(.+?)(?:\s+[\s\S]+)?\s*\/?\s*>/.exec(a) || [];
   return a;
-}, P = (a, {l:c = !1} = {}) => {
-  let d = 0;
-  const b = [];
-  let f;
-  G(a, [{re:/[{}]/g, replacement(m, n) {
-    m = "}" == m;
-    const p = !m;
-    if (!d && m) {
+}, P = (a, {l:c = !1, classNames:d = [], renameMap:b = {}} = {}) => {
+  let f = 0;
+  const e = [];
+  let g;
+  G(a, [{re:/[{}]/g, replacement(n, l) {
+    n = "}" == n;
+    const r = !n;
+    if (!f && n) {
       throw Error("A closing } is found without opening one.");
     }
-    d += p ? 1 : -1;
-    1 == d && p ? f = {open:n} : 0 == d && m && (f.close = n, b.push(f), f = {});
+    f += r ? 1 : -1;
+    1 == f && r ? g = {open:l} : 0 == f && n && (g.close = l, e.push(g), g = {});
   }}]);
-  if (d) {
-    throw Error(`Unbalanced props (level ${d}) ${a}`);
+  if (f) {
+    throw Error(`Unbalanced props (level ${f}) ${a}`);
   }
-  const e = {}, g = [], h = {};
-  var k = b.reduce((m, {open:n, close:p}) => {
-    m = a.slice(m, n);
-    const [, q, r, w, x] = /(\s*)(\S+)(\s*)=(\s*)$/.exec(m) || [];
-    n = a.slice(n + 1, p);
-    if (!r && !/\s*\.\.\./.test(n)) {
+  const h = {}, k = [], m = {};
+  var q = e.reduce((n, {open:l, close:r}) => {
+    n = a.slice(n, l);
+    const [, u, t, y, X] = /(\s*)(\S+)(\s*)=(\s*)$/.exec(n) || [];
+    l = a.slice(l + 1, r);
+    if (!t && !/\s*\.\.\./.test(l)) {
       throw Error("Could not detect prop name");
     }
-    r ? e[r] = n : g.push(n);
-    h[r] = {before:q, s:w, o:x};
-    n = m || "";
-    n = n.slice(0, n.length - (r || "").length - 1);
-    const {j:y, f:X} = O(n);
-    Object.assign(e, y);
-    Object.assign(h, X);
-    return p + 1;
+    t ? h[t] = l : k.push(l);
+    m[t] = {before:u, s:y, o:X};
+    l = n || "";
+    l = l.slice(0, l.length - (t || "").length - 1);
+    const {j:Y, f:Z} = O(l);
+    Object.assign(h, Y);
+    Object.assign(m, Z);
+    return r + 1;
   }, 0);
-  if (b.length) {
-    k = a.slice(k);
-    const {j:m, f:n} = O(k);
-    Object.assign(e, m);
+  if (e.length) {
+    q = a.slice(q);
+    const {j:n, f:l} = O(q);
     Object.assign(h, n);
+    Object.assign(m, l);
   } else {
-    const {j:m, f:n} = O(a);
-    Object.assign(e, m);
+    const {j:n, f:l} = O(a);
     Object.assign(h, n);
+    Object.assign(m, l);
   }
-  let l = e;
-  if (c) {
-    ({...l} = e);
-    const m = [];
-    Object.keys(l).forEach(n => {
-      const p = n[0];
-      p.toUpperCase() == p && (m.push(n), delete l[n]);
+  let p = h;
+  if (c || d.length) {
+    ({...p} = h);
+    const n = [];
+    Object.keys(p).forEach(l => {
+      if (d.includes(l)) {
+        n.push(l), delete p[l];
+      } else {
+        if (c) {
+          const r = l[0];
+          r.toUpperCase() == r && (n.push(l), delete p[l]);
+        }
+      }
     });
-    m.length && (c = m.join(" "), l.className ? /[`"']$/.test(l.className) ? l.className = l.className.replace(/([`"'])$/, ` ${c}$1`) : l.className += `+' ${c}'` : l.c ? /[`"']$/.test(l.c) ? l.c = l.c.replace(/([`"'])$/, ` ${c}$1`) : l.c += `+' ${c}'` : l.className = `'${c}'`);
+    n.length && (q = n.map(l => l in b ? b[l] : l).join(" "), p.className ? /[`"']$/.test(p.className) ? p.className = p.className.replace(/([`"'])$/, ` ${q}$1`) : p.className += `+' ${q}'` : p.c ? /[`"']$/.test(p.c) ? p.c = p.c.replace(/([`"'])$/, ` ${q}$1`) : p.c += `+' ${q}'` : p.className = `'${q}'`);
   }
-  return {i:l, h:g, f:h};
+  return {i:p, h:k, f:m};
 }, O = a => {
   const c = [], d = {};
-  a.replace(/(\s*)(\S+)(\s*)=(\s*)(["'])([\s\S]+?)\5/g, (b, f, e, g, h, k, l, m) => {
+  a.replace(/(\s*)(\S+)(\s*)=(\s*)(["'])([\s\S]*?)\5/g, (b, f, e, g, h, k, m, q) => {
     d[e] = {before:f, s:g, o:h};
-    c.push({g:m, name:e, w:`${k}${l}${k}`});
+    c.push({g:q, name:e, w:`${k}${m}${k}`});
     return "%".repeat(b.length);
   }).replace(/(\s*)([^\s%]+)/g, (b, f, e, g) => {
     d[e] = {before:f};
@@ -240,33 +246,35 @@ const N = a => {
     b[f] = e;
     return b;
   }, {}), f:d};
-}, Q = (a, c = [], d = !1, b = {}, f = "") => {
+}, aa = (a, c = [], d = !1, b = {}, f = "") => {
   const e = Object.keys(a);
   return e.length || c.length ? `{${e.reduce((g, h) => {
-    const k = a[h], l = d || -1 != h.indexOf("-") ? `'${h}'` : h, {before:m = "", s:n = "", o:p = ""} = b[h] || {};
-    return [...g, `${m}${l}${n}:${p}${k}`];
+    const k = a[h], m = d || -1 != h.indexOf("-") ? `'${h}'` : h, {before:q = "", s:p = "", o:n = ""} = b[h] || {};
+    return [...g, `${q}${m}${p}:${n}${k}`];
   }, c).join(",")}${f}}` : "{}";
-}, R = (a = "") => {
+}, ba = (a = "") => {
   [a] = a;
   if (!a) {
     throw Error("No tag name is given");
   }
   return a.toUpperCase() == a;
-}, S = (a, c = {}, d = [], b = [], f = !1, e = null, g = {}, h = "") => {
-  const k = R(a), l = k ? a : `'${a}'`;
+}, Q = (a, c = {}, d = [], b = [], f = !1, e = null, g = {}, h = "") => {
+  const k = ba(a), m = k ? a : `'${a}'`;
   if (!Object.keys(c).length && !d.length && !b.length) {
-    return `h(${l})`;
+    return `h(${m})`;
   }
-  const m = k && "dom" == f ? !1 : f;
+  const q = k && "dom" == f ? !1 : f;
   k || !b.length || f && "dom" != f || e && e(`JSX: destructuring ${b.join(" ")} is used without quoted props on HTML ${a}.`);
-  a = Q(c, b, m, g, h);
-  c = d.reduce((n, p, q) => {
-    q = d[q - 1];
-    return `${n}${q && /\S/.test(q) ? "," : ""}${p}`;
+  a = aa(c, b, q, g, h);
+  c = d.reduce((p, n, l) => {
+    l = d[l - 1];
+    let r = "";
+    l && /^\/\*[\s\S]*\*\/$/.test(l) ? r = "" : l && /\S/.test(l) && (r = ",");
+    return `${p}${r}${n}`;
   }, "");
-  return `h(${l},${a}${c ? `,${c}` : ""})`;
+  return `h(${m},${a}${c ? `,${c}` : ""})`;
 };
-const T = (a, c = []) => {
+const R = (a, c = []) => {
   let d = 0, b;
   a = G(a, [...c, {re:/[<>]/g, replacement(f, e) {
     if (b) {
@@ -281,52 +289,52 @@ const T = (a, c = []) => {
     throw Error(1);
   }
   return {I:a, u:b};
-}, V = a => {
+}, T = a => {
   const c = N(a);
   let d;
   const {A:b} = J({A:/=>/g});
   try {
-    ({I:k, u:d} = T(a, [L(b)]));
-  } catch (l) {
-    if (1 === l) {
+    ({I:k, u:d} = R(a, [L(b)]));
+  } catch (m) {
+    if (1 === m) {
       throw Error(`Could not find the matching closing > for ${c}.`);
     }
   }
   const f = k.slice(0, d + 1);
   var e = f.replace(/<\s*[^\s/>]+/, "");
   if (/\/\s*>$/.test(e)) {
-    return a = e.replace(/\/\s*>$/, ""), e = "", new U({b:f.replace(b.regExp, "=>"), a:a.replace(b.regExp, "=>"), content:"", tagName:c});
+    return a = e.replace(/\/\s*>$/, ""), e = "", new S({b:f.replace(b.regExp, "=>"), a:a.replace(b.regExp, "=>"), content:"", tagName:c});
   }
   a = e.replace(/>$/, "");
   e = d + 1;
   d = !1;
   let g = 1, h;
-  G(k, [{re:new RegExp(`[\\s\\S](?:<\\s*${c}(\\s+|>)|/\\s*${c}\\s*>)`, "g"), replacement(l, m, n, p) {
+  G(k, [{re:new RegExp(`[\\s\\S](?:<\\s*${c}(\\s+|>)|/\\s*${c}\\s*>)`, "g"), replacement(m, q, p, n) {
     if (d) {
-      return l;
+      return m;
     }
-    m = !m && l.endsWith(">");
-    const q = !m;
-    if (q) {
-      p = p.slice(n);
-      const {u:r} = T(p.replace(/^[\s\S]/, " "));
-      p = p.slice(0, r + 1);
-      if (/\/\s*>$/.test(p)) {
-        return l;
+    q = !q && m.endsWith(">");
+    const l = !q;
+    if (l) {
+      n = n.slice(p);
+      const {u:r} = R(n.replace(/^[\s\S]/, " "));
+      n = n.slice(0, r + 1);
+      if (/\/\s*>$/.test(n)) {
+        return m;
       }
     }
-    g += q ? 1 : -1;
-    0 == g && m && (d = n, h = d + l.length);
-    return l;
+    g += l ? 1 : -1;
+    0 == g && q && (d = p, h = d + m.length);
+    return m;
   }}]);
   if (g) {
     throw Error(`Could not find the matching closing </${c}>.`);
   }
   e = k.slice(e, d);
   var k = k.slice(0, h).replace(b.regExp, "=>");
-  return new U({b:k, a:a.replace(b.regExp, "=>"), content:e.replace(b.regExp, "=>"), tagName:c});
+  return new S({b:k, a:a.replace(b.regExp, "=>"), content:e.replace(b.regExp, "=>"), tagName:c});
 };
-class U {
+class S {
   constructor(a) {
     this.b = a.b;
     this.a = a.a;
@@ -334,7 +342,7 @@ class U {
     this.tagName = a.tagName;
   }
 }
-;const W = a => {
+;const U = a => {
   let c = "", d = "";
   a = a.replace(/^(\r?\n\s*)([\s\S]+)?/, (b, f, e = "") => {
     c = f;
@@ -344,7 +352,7 @@ class U {
     return f;
   });
   return `${c}${a ? `\`${a}\`` : ""}${d}`;
-}, ba = a => {
+}, da = a => {
   const c = [];
   let d = {}, b = 0, f = 0;
   G(a, [{re:/[<{}]/g, replacement(e, g) {
@@ -355,7 +363,7 @@ class U {
         if (b) {
           return e;
         }
-        e = V(a.slice(g));
+        e = T(a.slice(g));
         f = g + e.b.length;
         d.F = e;
         d.v = f;
@@ -365,52 +373,52 @@ class U {
       }
     }
   }}, {}]);
-  return c.length ? aa(a, c) : [W(a)];
-}, aa = (a, c) => {
+  return c.length ? ca(a, c) : [U(a)];
+}, ca = (a, c) => {
   let d = 0;
   c = c.reduce((b, {from:f, v:e, D:g, F:h}) => {
-    (f = a.slice(d, f)) && b.push(W(f));
+    (f = a.slice(d, f)) && b.push(U(f));
     d = e;
     g ? b.push(g) : h && b.push(h);
     return b;
   }, []);
   if (d < a.length) {
     const b = a.slice(d, a.length);
-    b && c.push(W(b));
+    b && c.push(U(b));
   }
   return c;
 };
-const Z = (a, c = {}) => {
+const W = (a, c = {}) => {
   var d = c.quoteProps, b = c.warn;
-  const f = c.prop2class;
-  var e = E(a);
-  if (null === e) {
+  const f = c.prop2class, e = c.classNames, g = c.renameMap;
+  var h = E(a);
+  if (null === h) {
     return a;
   }
-  var g = a.slice(e);
-  const {a:h = "", content:k, tagName:l, b:{length:m}} = V(g);
-  g = Y(k, d, b, c);
-  const {i:n, h:p, f:q} = P(h.replace(/^ */, ""), {l:f});
-  b = S(l, n, g, p, d, b, q, /\s*$/.exec(h) || [""]);
-  d = a.slice(0, e);
-  a = a.slice(e + m);
-  e = m - b.length;
-  0 < e && (b = `${" ".repeat(e)}${b}`);
+  var k = a.slice(h);
+  const {a:m = "", content:q, tagName:p, b:{length:n}} = T(k);
+  k = V(q, d, b, c);
+  const {i:l, h:r, f:u} = P(m.replace(/^ */, ""), {l:f, classNames:e, renameMap:g});
+  b = Q(p, l, k, r, d, b, u, /\s*$/.exec(m) || [""]);
+  d = a.slice(0, h);
+  a = a.slice(h + n);
+  h = n - b.length;
+  0 < h && (b = `${" ".repeat(h)}${b}`);
   a = `${d}${b}${a}`;
-  return Z(a, c);
-}, Y = (a, c = !1, d = null, b = {}) => a ? ba(a).reduce((f, e) => {
-  if (e instanceof U) {
-    const {a:k = "", content:l, tagName:m} = e, {i:n, h:p} = P(k, {l:b.prop2class});
-    e = Y(l, c, d);
-    e = S(m, n, e, p, c, d);
+  return W(a, c);
+}, V = (a, c = !1, d = null, b = {}) => a ? da(a).reduce((f, e) => {
+  if (e instanceof S) {
+    const {a:k = "", content:m, tagName:q} = e, {i:p, h:n} = P(k, {l:b.prop2class, classNames:b.classNames, renameMap:b.renameMap});
+    e = V(m, c, d);
+    e = Q(q, p, e, n, c, d);
     return [...f, e];
   }
   const g = E(e);
   if (g) {
     var h = e.slice(g);
-    const {b:{length:k}, a:l = "", content:m, tagName:n} = V(h), {i:p, h:q} = P(l, {l:b.prop2class});
-    h = Y(m, c, d);
-    h = S(n, p, h, q, c, d);
+    const {b:{length:k}, a:m = "", content:q, tagName:p} = T(h), {i:n, h:l} = P(m, {l:b.prop2class, classNames:b.classNames, renameMap:b.renameMap});
+    h = V(q, c, d);
+    h = Q(p, n, h, l, c, d);
     const r = e.slice(0, g);
     e = e.slice(g + k);
     return [...f, `${r}${h}${e}`];
@@ -418,17 +426,17 @@ const Z = (a, c = {}) => {
   return [...f, e];
 }, []) : [];
 z || (console.log("Please specify the file to transpile."), process.exit(1));
-const ca = ((a, c = {}) => {
-  const {e:d, B:b, C:f, g:e, G:g, H:h} = J({B:/^ *export\s+default\s+{[\s\S]+?}/mg, e:/^ *export\s+(?:default\s+)?/mg, C:/^ *export\s+{[^}]+}\s+from\s+(['"])(?:.+?)\1/mg, g:/^ *import(\s+([^\s,]+)\s*,?)?(\s*{(?:[^}]+)})?\s+from\s+['"].+['"]/gm, G:/^ *import\s+(?:(.+?)\s*,\s*)?\*\s+as\s+.+?\s+from\s+['"].+['"]/gm, H:/^ *import\s+['"].+['"]/gm}, {getReplacement(k, l) {
-    return `/*%%_RESTREAM_${k.toUpperCase()}_REPLACEMENT_${l}_%%*/`;
+const ea = ((a, c = {}) => {
+  const {e:d, B:b, C:f, g:e, G:g, H:h} = J({B:/^ *export\s+default\s+{[\s\S]+?}/mg, e:/^ *export\s+(?:default\s+)?/mg, C:/^ *export\s+{[^}]+}\s+from\s+(['"])(?:.+?)\1/mg, g:/^ *import(\s+([^\s,]+)\s*,?)?(\s*{(?:[^}]+)})?\s+from\s+['"].+['"]/gm, G:/^ *import\s+(?:(.+?)\s*,\s*)?\*\s+as\s+.+?\s+from\s+['"].+['"]/gm, H:/^ *import\s+['"].+['"]/gm}, {getReplacement(k, m) {
+    return `/*%%_RESTREAM_${k.toUpperCase()}_REPLACEMENT_${m}_%%*/`;
   }, getRegex(k) {
     return new RegExp(`/\\*%%_RESTREAM_${k.toUpperCase()}_REPLACEMENT_(\\d+)_%%\\*/`, "g");
   }});
   a = G(a, [L(f), L(b), L(d), L(e), L(g), L(h)]);
-  c = Z(a, c);
+  c = W(a, c);
   return G(c, [K(f), K(b), K(d), K(e), K(g), K(h)]);
 })(`${B(z)}`, {quoteProps:A ? "dom" : void 0});
-console.log(ca);
+console.log(ea);
 
 
 //# sourceMappingURL=jsx.js.map
