@@ -29,6 +29,7 @@ export const getTagName = (string) => {
  */
 export const getProps = (props, {
   withClass = false,
+  classNames = [],
 } = {}) => {
   let stack = 0
   const positions = []
@@ -90,16 +91,21 @@ export const getProps = (props, {
     Object.assign(whitespace, ws)
   }
   let ro = obj
-  if (withClass) {
+  if (withClass || classNames.length) {
     ({ ...ro } = obj)
     const cl = []
     Object.keys(ro).forEach((k) => {
-      const l = k[0]
-      if (l.toUpperCase() == l) {
+      const p = () => {
         cl.push(k)
         delete ro[k]
       }
+      if (classNames.includes(k)) p()
+      else if (withClass) {
+        const l = k[0]
+        if (l.toUpperCase() == l) p()
+      }
     })
+
     if (cl.length) {
       const className = cl.join(' ')
       if (ro.className) {

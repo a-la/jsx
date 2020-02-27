@@ -55,7 +55,7 @@ className="hello world" id={id} Testing Example
 }
 ```
 
-## !updates without className
+## updates without className
 id={id} Testing Example
 
 ```json expected */

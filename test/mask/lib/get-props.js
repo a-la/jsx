@@ -3,32 +3,8 @@ import { deepEqual } from '@zoroaster/assert'
 import Context from '../../context'
 import { getProps } from '../../../src/lib'
 
-export
-const GetProps = makeTestSuite('test/result/components/get-props.json', {
-  getResults() {
-    const { obj, whitespace } = getProps(this.input)
-    return { obj, whitespace }
-  },
-  mapActual: ({ obj }) => {
-    return Object.entries(obj).reduce((acc, [k, v]) => {
-      acc[k] = v.replace(/\r\n/g, '\n')
-      return acc
-    }, {})
-  },
-  assertResults({ whitespace }, { expectedWhitespace }) {
-    if (expectedWhitespace) deepEqual(whitespace, expectedWhitespace)
-  },
-  jsonProps: ['expected', 'expectedWhitespace'],
-})
-
-export
-const withClass = makeTestSuite('!test/result/components/get-props-class', {
-  getResults() {
-    const { obj, whitespace } = getProps(this.input, {
-      withClass: true,
-    })
-    return { obj, whitespace }
-  },
+/** @type {import('@zoroaster/mask').MaskConfig} */
+const logic = {
   mapActual: ({ obj }) => {
     return Object.entries(obj).reduce((acc, [k, v]) => {
       acc[k] = v.replace(/\r\n/g, '\n')
@@ -41,4 +17,49 @@ const withClass = makeTestSuite('!test/result/components/get-props-class', {
   propStartRe: /```json/,
   propEndRe: /```/,
   jsonProps: ['expected', 'expectedWhitespace'],
+}
+
+export
+const GetProps = makeTestSuite('test/result/components/get-props', {
+  getResults() {
+    const { obj, whitespace } = getProps(this.input)
+    return { obj, whitespace }
+  },
+  ...logic,
+})
+
+export
+const withClass = makeTestSuite('test/result/components/get-props-class', {
+  getResults() {
+    const { obj, whitespace } = getProps(this.input, {
+      withClass: true,
+    })
+    return { obj, whitespace }
+  },
+  ...logic,
+})
+
+export
+const classNames = makeTestSuite('test/result/components/get-props-class-names', {
+  getResults() {
+    const { obj, whitespace } = getProps(this.input, {
+      classNames: this.preamble,
+    })
+    return { obj, whitespace }
+  },
+  ...logic,
+  jsonProps: ['expected', 'preamble'],
+})
+
+export
+const propWithClass = makeTestSuite('test/result/components/get-props-2', {
+  getResults() {
+    const { obj, whitespace } = getProps(this.input, {
+      withClass: true,
+      classNames: this.preamble,
+    })
+    return { obj, whitespace }
+  },
+  ...logic,
+  jsonProps: ['expected', 'preamble'],
 })

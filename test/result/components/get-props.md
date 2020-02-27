@@ -1,69 +1,69 @@
-// gets multiple properties
+## gets multiple properties
 class={'hello world'} id={id}
 
-/* expected */
+```json expected */
 {"class": "'hello world'", "id": "id"}
-/**/
+```
 
-// gets a single property
+## gets a single property
 class={'hello world'}
 
-/* expected */
+```json expected */
 {"class": "'hello world'"}
-/**/
+```
 
-// gets props with }
+## gets props with }
 callback={() => {}}
 
-/* expected */
+```json expected */
 {"callback": "() => {}"}
-/**/
+```
 
-// gets plain props
+## gets plain props
 id='test' class="Test"
 
-/* expected */
+```json expected */
 {
   "id": "'test'",
   "class": "\"Test\""
 }
-/**/
+```
 
-// gets plain props after {}
+## gets plain props after {}
 id={test} class="Test"
 
-/* expected */
+```json expected */
 {
   "id": "test",
   "class": "\"Test\""
 }
-/**/
+```
 
-// gets multiple props with }
+## gets multiple props with }
 id="test" callback={() => {}} callback2={() => {
   return () => {
     return 'test'
   }
 }}
 
-/* expected */
+```json expected */
 {
   "id": "\"test\"",
   "callback": "() => {}",
   "callback2": "() => {\n  return () => {\n    return 'test'\n  }\n}"
 }
-/**/
+```
 
-// returns the whitespace
+## returns the whitespace
 the test={ok}
 
-/* expected */
+```json expected */
 {
   "the": "true",
   "test": "ok"
 }
-/**/
-/* expectedWhitespace */
+```
+```json expectedWhitespace */
 {
   "the": {
     "before": ""
@@ -74,4 +74,4 @@ the test={ok}
     "afterAssign": ""
   }
 }
-/**/
+```
