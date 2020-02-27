@@ -203,7 +203,9 @@ export const pragma = (tagName, props = {}, children = [], destructuring = [], q
   const pr = makeObjectBody(props, destructuring, qp, whitespace, beforeCloseWs)
   const c = children.reduce((acc, cc, i) => {
     const prev = children[i-1]
-    const comma = prev && /\S/.test(prev) ? ',' : ''
+    let comma = ''
+    if (prev && /^\/\*[\s\S]*\*\/$/.test(prev)) comma = ''
+    else if (prev && /\S/.test(prev)) comma = ','
     return `${acc}${comma}${cc}`
   }, '')
   const res = `h(${tn},${pr}${c ? `,${c}` : ''})`

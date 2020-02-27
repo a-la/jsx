@@ -1,6 +1,5 @@
 ## Limitations
 
-- [ ] No JSX comments support.
 - [ ] Cannot use `<>` in functions, and `{}` in comments e.g.,
     ```js
     const C = ({ items }) => <div>
@@ -26,6 +25,6 @@
 
 ## Copyright
 
-<ÀLaModeFooter />
+<alamode-footer />
 
 %~ -1%

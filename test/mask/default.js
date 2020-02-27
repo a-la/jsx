@@ -15,7 +15,7 @@ const ComponentsClosure = makeTestSuite('test/result/components-closure.jsx', {
     const res = jsx(this.input, {
       quoteProps: true,
     })
-    return res
+    return res.replace(/^;?\(/, '').replace(/\)$/, '')
   },
 })
 
