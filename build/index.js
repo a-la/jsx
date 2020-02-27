@@ -10,6 +10,7 @@ const { SyncReplaceable,
  * @param {function(...string)} [config.warn] The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).
  * @param {boolean} [config.prop2class=false] If a property name starts with a capital letter, the `className` of the _VNode_ will be updated. Default `false`.
  * @param {!Array<string>} [config.classNames] The list of properties to put into the `className` property.
+ * @param {!Object<string, string>} [config.renameMap] How to rename classes (only applies to `prop2class` and `classNames`).
  */
 const jsx = (input, config = {}) => {
   const { e, defObj, ef, i, ias, ii } = makeMarkers({
@@ -51,4 +52,5 @@ module.exports=jsx
  * @prop {function(...string)} [warn] The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).
  * @prop {boolean} [prop2class=false] If a property name starts with a capital letter, the `className` of the _VNode_ will be updated. Default `false`.
  * @prop {!Array<string>} [classNames] The list of properties to put into the `className` property.
+ * @prop {!Object<string, string>} [renameMap] How to rename classes (only applies to `prop2class` and `classNames`).
  */

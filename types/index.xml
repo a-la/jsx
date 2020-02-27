@@ -12,5 +12,8 @@
     <prop opt type="!Array<string>" name="classNames">
       The list of properties to put into the `className` property.
     </prop>
+    <prop opt type="!Object<string, string>" name="renameMap">
+      How to rename classes (only applies to `prop2class` and `classNames`).
+    </prop>
   </type>
 </types>

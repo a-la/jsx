@@ -16,7 +16,7 @@ import extract, { ExtractedJSX } from './extract'
  * @returns {string} The transpiled source code with `h` pragma for hyperscript invocations.
  */
 const transpileJSX = (input, config = {}) => {
-  const { quoteProps, warn, prop2class, classNames } = config
+  const { quoteProps, warn, prop2class, classNames, renameMap } = config
   const position = detectJSX(input)
   if (position === null) return input
 
@@ -25,7 +25,8 @@ const transpileJSX = (input, config = {}) => {
   const children = parseContent(content, quoteProps, warn, config)
   const { obj, destructuring, whitespace } = getProps(props.replace(/^ */, ''), {
     withClass: prop2class,
-    classNames: classNames,
+    classNames,
+    renameMap,
   })
   const beforeCloseWs = /\s*$/.exec(props) || ['']
   const f = pragma(tagName, obj, children, destructuring, quoteProps, warn, whitespace, beforeCloseWs)
@@ -66,6 +67,7 @@ export const parseContent = (content, quoteProps = false, warn = null,
       const { obj, destructuring } = getProps(props, {
         withClass: config.prop2class,
         classNames: config.classNames,
+        renameMap: config.renameMap,
       })
       const children = parseContent(part, quoteProps, warn)
       const p = pragma(tagName, obj, children, destructuring, quoteProps, warn)
@@ -78,6 +80,7 @@ export const parseContent = (content, quoteProps = false, warn = null,
       const { obj, destructuring } = getProps(props, {
         withClass: config.prop2class,
         classNames: config.classNames,
+        renameMap: config.renameMap,
       })
       const children = parseContent(part, quoteProps, warn)
       const p = pragma(tagName, obj, children, destructuring, quoteProps, warn)

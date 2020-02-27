@@ -20,7 +20,7 @@ const logic = {
 }
 
 export
-const GetProps = makeTestSuite('test/result/components/get-props', {
+const GetProps = makeTestSuite('test/result/components/get-props/default', {
   getResults() {
     const { obj, whitespace } = getProps(this.input)
     return { obj, whitespace }
@@ -29,7 +29,7 @@ const GetProps = makeTestSuite('test/result/components/get-props', {
 })
 
 export
-const withClass = makeTestSuite('test/result/components/get-props-class', {
+const withClass = makeTestSuite('test/result/components/get-props/prop2class', {
   getResults() {
     const { obj, whitespace } = getProps(this.input, {
       withClass: true,
@@ -40,7 +40,7 @@ const withClass = makeTestSuite('test/result/components/get-props-class', {
 })
 
 export
-const classNames = makeTestSuite('test/result/components/get-props-class-names', {
+const classNames = makeTestSuite('test/result/components/get-props/class-names', {
   getResults() {
     const { obj, whitespace } = getProps(this.input, {
       classNames: this.preamble,
@@ -52,7 +52,7 @@ const classNames = makeTestSuite('test/result/components/get-props-class-names',
 })
 
 export
-const propWithClass = makeTestSuite('test/result/components/get-props-2', {
+const propWithClass = makeTestSuite('test/result/components/get-props/2', {
   getResults() {
     const { obj, whitespace } = getProps(this.input, {
       withClass: true,
@@ -62,4 +62,18 @@ const propWithClass = makeTestSuite('test/result/components/get-props-2', {
   },
   ...logic,
   jsonProps: ['expected', 'preamble'],
+})
+
+export
+const renameMap = makeTestSuite('test/result/components/get-props/rename-map', {
+  getResults() {
+    const { obj, whitespace } = getProps(this.input, {
+      withClass: true,
+      classNames: this.preamble,
+      renameMap: this.renameMap,
+    })
+    return { obj, whitespace }
+  },
+  ...logic,
+  jsonProps: ['expected', 'preamble', 'renameMap'],
 })

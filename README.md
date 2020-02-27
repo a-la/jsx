@@ -48,12 +48,13 @@ Returns the transpiled JSX code into `h` pragma calls.
 __<a name="type-config">`Config`</a>__: Options for the program.
 
 
-|    Name    |               Type                |                                                                                                            Description                                                                                                            | Default |
-| ---------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| quoteProps | <em>(boolean \| string)</em>      | Whether to surround property names with quotes. When the `dom` string is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter (E.g., for the _Google Closure Compiler_). | `false` |
-| warn       | <em>(...args: string[]) => ?</em> | The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).                                                                                                          | -       |
-| prop2class | <em>boolean</em>                  | If a property name starts with a capital letter, the `className` of the _VNode_ will be updated.                                                                                                                                  | `false` |
-| classNames | <em>!Array&lt;string&gt;</em>     | The list of properties to put into the `className` property.                                                                                                                                                                      | -       |
+|    Name    |                  Type                  |                                                                                                            Description                                                                                                            | Default |
+| ---------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| quoteProps | <em>(boolean \| string)</em>           | Whether to surround property names with quotes. When the `dom` string is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter (E.g., for the _Google Closure Compiler_). | `false` |
+| warn       | <em>(...args: string[]) => ?</em>      | The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).                                                                                                          | -       |
+| prop2class | <em>boolean</em>                       | If a property name starts with a capital letter, the `className` of the _VNode_ will be updated.                                                                                                                                  | `false` |
+| classNames | <em>!Array&lt;string&gt;</em>          | The list of properties to put into the `className` property.                                                                                                                                                                      | -       |
+| renameMap  | <em>!Object&lt;string, string&gt;</em> | How to rename classes (only applies to `prop2class` and `classNames`).                                                                                                                                                            | -       |
 
 ```js
 import { readFileSync } from 'fs'
@@ -138,7 +139,7 @@ The `import` and `export` statements will be temporally commented out when trans
 
 ## Classes
 
-It's possible to make the transpiler extract property names and add them into the `className` property. If such property already exists, it will be updated. If it doesn't, it will be created. Moreover, when `prop2class` property is set, any property that starts with a capital letter will also be added to the class list.
+It's possible to make the transpiler extract property names and add them into the `className` property. If such property already exists, it will be updated. If it doesn't, it will be created. Moreover, when `prop2class` property is set, any property that starts with a capital letter will also be added to the class list. Finally, if you pass a rename map, the classes will be updated according to it.
 
 _The component to transpile:_
 
@@ -158,6 +159,9 @@ const code = readFileSync('example/classes.jsx', 'utf8')
 const res = jsx(code, {
   prop2class: true,
   classNames: ['hello', 'world'],
+  renameMap: {
+    hello: 'hi',
+  },
 })
 console.log(res)
 ```
@@ -166,7 +170,7 @@ _The output:_
 
 ```js
 export default function Classes() {
-  return (h('div',{className:'Example hello world' }))
+  return (h('div',{className:'Example hi world' }))
 }
 ```
 

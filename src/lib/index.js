@@ -30,6 +30,7 @@ export const getTagName = (string) => {
 export const getProps = (props, {
   withClass = false,
   classNames = [],
+  renameMap = {},
 } = {}) => {
   let stack = 0
   const positions = []
@@ -107,7 +108,10 @@ export const getProps = (props, {
     })
 
     if (cl.length) {
-      const className = cl.join(' ')
+      const className = cl.map((cn) => {
+        const r = cn in renameMap ? renameMap[cn] : cn
+        return r
+      }).join(' ')
       if (ro.className) {
         if (/[`"']$/.test(ro.className)) {
           ro.className = ro.className.replace(/([`"'])$/, ` ${className}$1`)
