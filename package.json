@@ -16,7 +16,7 @@
     "d": "yarn-s d1 externs",
     "d1": "typal src/index.js -c",
     "externs": "typal types/externs.js -e",
-    "compile": "depack src/jsx -c -a -p -o depack/jsx.js --externs externs.js",
+    "compile": "depack src/jsx -c -a -p -o depack/jsx.js --externs types/externs.js",
     "build": "yarn-s d b doc",
     "e": "alanode",
     "args": "argufy -o src/get-args.js",

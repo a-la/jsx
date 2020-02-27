@@ -9,7 +9,7 @@ import { SyncReplaceable,
  * @param {(boolean|string)} [config.quoteProps=false] Whether to surround property names with quotes. When the `dom` string is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter (E.g., for the _Google Closure Compiler_). Default `false`.
  * @param {function(...string)} [config.warn] The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).
  * @param {boolean} [config.prop2class=false] If a property name starts with a capital letter, the `className` of the _VNode_ will be updated. Default `false`.
- * @param {!Array<string>} [config.classNames] The list of properties to put into the `className` property.
+ * @param {!Array<string>|!Object} [config.classNames] The list of properties to put into the `className` property.
  * @param {!Object<string, string>} [config.renameMap] How to rename classes (only applies to `prop2class` and `classNames`).
  */
 const jsx = (input, config = {}) => {
@@ -51,6 +51,6 @@ export default jsx
  * @prop {(boolean|string)} [quoteProps=false] Whether to surround property names with quotes. When the `dom` string is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter (E.g., for the _Google Closure Compiler_). Default `false`.
  * @prop {function(...string)} [warn] The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).
  * @prop {boolean} [prop2class=false] If a property name starts with a capital letter, the `className` of the _VNode_ will be updated. Default `false`.
- * @prop {!Array<string>} [classNames] The list of properties to put into the `className` property.
+ * @prop {!Array<string>|!Object} [classNames] The list of properties to put into the `className` property.
  * @prop {!Object<string, string>} [renameMap] How to rename classes (only applies to `prop2class` and `classNames`).
  */

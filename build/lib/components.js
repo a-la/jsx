@@ -69,7 +69,7 @@ const parseContent = (content, quoteProps = false, warn = null,
         classNames: config.classNames,
         renameMap: config.renameMap,
       })
-      const children = parseContent(part, quoteProps, warn)
+      const children = parseContent(part, quoteProps, warn, config)
       const p = pragma(tagName, obj, children, destructuring, quoteProps, warn)
       return [...acc, p]
     }
@@ -82,7 +82,7 @@ const parseContent = (content, quoteProps = false, warn = null,
         classNames: config.classNames,
         renameMap: config.renameMap,
       })
-      const children = parseContent(part, quoteProps, warn)
+      const children = parseContent(part, quoteProps, warn, config)
       const p = pragma(tagName, obj, children, destructuring, quoteProps, warn)
       const strBefore = string.slice(0, j)
       const strAfter = string.slice(j + length)

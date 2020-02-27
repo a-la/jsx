@@ -92,7 +92,8 @@ export const getProps = (props, {
     Object.assign(whitespace, ws)
   }
   let ro = obj
-  if (withClass || classNames.length) {
+  if (withClass || (Array.isArray(classNames) && classNames.length)
+    || Object.keys(classNames).length) {
     ({ ...ro } = obj)
     const cl = []
     Object.keys(ro).forEach((k) => {
@@ -100,7 +101,8 @@ export const getProps = (props, {
         cl.push(k)
         delete ro[k]
       }
-      if (classNames.includes(k)) p()
+      if (Array.isArray(classNames) && classNames.includes(k)) p()
+      else if (classNames[k]) p()
       else if (withClass) {
         const l = k[0]
         if (l.toUpperCase() == l) p()

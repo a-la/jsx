@@ -56,12 +56,12 @@ const propWithClass = makeTestSuite('test/result/components/get-props/2', {
   getResults() {
     const { obj, whitespace } = getProps(this.input, {
       withClass: true,
-      classNames: this.preamble,
+      classNames: this.classNames || this.preamble,
     })
     return { obj, whitespace }
   },
   ...logic,
-  jsonProps: ['expected', 'preamble'],
+  jsonProps: ['expected', 'preamble', 'classNames'],
 })
 
 export
