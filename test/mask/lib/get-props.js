@@ -20,3 +20,25 @@ const GetProps = makeTestSuite('test/result/components/get-props.json', {
   },
   jsonProps: ['expected', 'expectedWhitespace'],
 })
+
+export
+const withClass = makeTestSuite('!test/result/components/get-props-class', {
+  getResults() {
+    const { obj, whitespace } = getProps(this.input, {
+      withClass: true,
+    })
+    return { obj, whitespace }
+  },
+  mapActual: ({ obj }) => {
+    return Object.entries(obj).reduce((acc, [k, v]) => {
+      acc[k] = v.replace(/\r\n/g, '\n')
+      return acc
+    }, {})
+  },
+  assertResults({ whitespace }, { expectedWhitespace }) {
+    if (expectedWhitespace) deepEqual(whitespace, expectedWhitespace)
+  },
+  propStartRe: /```json/,
+  propEndRe: /```/,
+  jsonProps: ['expected', 'expectedWhitespace'],
+})

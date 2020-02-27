@@ -25,14 +25,14 @@
   integrity sha512-5C0LDzW8DkiSSCLyYO9ux3R5ru65yEn/GtxH1wh7ukRhLAZ/Svx4+A81YvciXcn35B2VmvCqyiTrhNdxdgusSw==
 
 "@zoroaster/mask@^2.5.0":
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/@zoroaster/mask/-/mask-2.5.0.tgz#de128987743d71376485ba9b34977d49e18cde92"
-  integrity sha512-GuEHgVneq0MkSHBcF7YgTAuk42/pWJnvMPvbOsUXmq3m2FcSe1v788Bfw896RzZ7p6LWq11xnq48YOkhcy5jLA==
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/@zoroaster/mask/-/mask-2.6.1.tgz#bbb2c2a43e126e1fcb5de0a0c37192f1f7cc426e"
+  integrity sha512-KTHuxgzt8cQCs53H/EEWc3MaPVNyZXrcTYGLY7soiIBJiAsTpBJezCEsWn14Qhrf0UTVGI6EDE0SYQS9hfSjVg==
 
-alamode@^3.3.3, alamode@^3.5.0, alamode@^3.5.1:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/alamode/-/alamode-3.5.1.tgz#658713a324a2863c6faea6bdbdf4d94e2aebbb5c"
-  integrity sha512-S0fe1hIeIvDNoCSuDilXJTidI2eSvILfv4Xg3l8tml4+RGpQ2LooskF9YzLFmOYhdz07ymtOUVGOPJoTXqiyww==
+alamode@^3.3.3, alamode@^3.5.2:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/alamode/-/alamode-3.5.2.tgz#0d6fd9a4bbfaf3ecc488d636264c480a825e9bd4"
+  integrity sha512-lKEFyLAYj6I6WURR7YYaclGpQNPwCoPYkbYZSl5vka9n15cfZlSbPkrzivB6F6IXEkAtt7jGAl60V3qyPTEwdQ==
 
 argufy@^1.7.5:
   version "1.7.5"
@@ -47,12 +47,12 @@ catchment@^3.3.0:
     "@artdeco/clean-stack" "^1.1.1"
     erotic "^2.1.0"
 
-documentary@^1.37.0:
-  version "1.37.0"
-  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.37.0.tgz#901039214974d6e77c41ea2680ecfec14d82442f"
-  integrity sha512-6ENYPKOY4AW/qPjZdTyQMtDow73IuYGrFBj+PtoUvWB4XRok7OvoqZeDROoLK1158uJEjJCoLOkcjaKnOPdXhQ==
+documentary@^1.37.1:
+  version "1.37.1"
+  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.37.1.tgz#8ba6cb8094d0da4d5d70ffab3e1e9d4066d0a592"
+  integrity sha512-UfmvSwHtWKe7I9NKPpvylLQNEvwUXGS/nKSfNJr1BYcNZRJ78xoNCcLhfLHSwZ3pdNTffDOSmLwfl/4nsTbYRA==
   dependencies:
-    alamode "^3.5.0"
+    alamode "^3.5.2"
     preact "8.5.3"
     typal "^1.26.2"
 

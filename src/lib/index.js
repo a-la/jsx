@@ -28,7 +28,9 @@ export const getTagName = (string) => {
  *
  */
 export
-const getProps = (props) => {
+const getProps = (props, {
+  withClass = false,
+}) => {
   let stack = 0
   const positions = []
   let current
@@ -88,7 +90,35 @@ const getProps = (props) => {
     Object.assign(obj, plain)
     Object.assign(whitespace, ws)
   }
-  return { obj, destructuring, whitespace }
+  let ro = obj
+  if (withClass) {
+    ({ ...ro } = obj)
+    const cl = []
+    Object.keys(ro).forEach((k) => {
+      const l = k[0]
+      if (l.toUpperCase() == l) {
+        cl.push(k)
+        delete ro[k]
+      }
+    })
+    if (cl.length) {
+      const className = cl.join(' ')
+      if (ro.className) {
+        if (/[`"']$/.test(ro.className)) {
+          ro.className = ro.className.replace(/([`"'])$/, ` ${className}$1`)
+        } else
+          ro.className += `+' ${className}'`
+      } else if (ro.class) {
+        if (/[`"']$/.test(ro.class)) {
+          ro.class = ro.class.replace(/([`"'])$/, ` ${className}$1`)
+        } else
+          ro.class += `+' ${className}'`
+      } else {
+        ro.className = `'${className}'`
+      }
+    }
+  }
+  return { obj: ro, destructuring, whitespace }
 }
 
 /**
