@@ -1,3 +1,11 @@
+## 27 February 2020
+
+### [1.7.0](https://github.com/a-la/jsx/compare/v1.6.3...v1.7.0)
+
+- [feature] Properties to classes, class names and rename maps.
+- [fix] Allow to write comments :tada:
+- [fix] Fix empty properties.
+
 ## 22 February 2020
 
 ### [1.6.3](https://github.com/a-la/jsx/compare/v1.6.2...v1.6.3)
