@@ -216,20 +216,21 @@ const N = a => {
   if (d || Array.isArray(c) && c.length || Object.keys(c).length) {
     ({...p} = h);
     const n = [];
-    Object.keys(p).forEach(l => {
-      const r = () => {
-        n.push(l);
-        delete p[l];
-      };
-      if (Array.isArray(c) && c.includes(l)) {
-        r();
-      } else {
-        if (c[l]) {
+    Object.entries(p).forEach(([l, r]) => {
+      if ("true" == r) {
+        if (r = () => {
+          n.push(l);
+          delete p[l];
+        }, Array.isArray(c) && c.includes(l)) {
           r();
         } else {
-          if (d) {
-            const t = l[0];
-            t.toUpperCase() == t && r();
+          if (c[l]) {
+            r();
+          } else {
+            if (d) {
+              const t = l[0];
+              t.toUpperCase() == t && r();
+            }
           }
         }
       }

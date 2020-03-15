@@ -56,7 +56,7 @@
   "homepage": "https://www.artd.eco",
   "devDependencies": {
     "@wrote/read": "^1.0.4",
-    "alamode": "^3.5.2",
+    "alamode": "^3.7.1",
     "argufy": "^1.7.5",
     "depack": "^1.1.2",
     "documentary": "^1.37.1",

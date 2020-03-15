@@ -44,6 +44,11 @@ alamode@^3.3.3, alamode@^3.5.2:
   resolved "https://registry.yarnpkg.com/alamode/-/alamode-3.5.2.tgz#0d6fd9a4bbfaf3ecc488d636264c480a825e9bd4"
   integrity sha512-lKEFyLAYj6I6WURR7YYaclGpQNPwCoPYkbYZSl5vka9n15cfZlSbPkrzivB6F6IXEkAtt7jGAl60V3qyPTEwdQ==
 
+alamode@^3.7.1:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/alamode/-/alamode-3.7.1.tgz#62e71512cd535d26811fc852933293ac73015df1"
+  integrity sha512-Vy2w3qhjyDqwiy1sX0NzVgw7tc3vy/OAoBfV88EaS7PzI4Qo/uwpnhWmWBw38su3LdkBUJV2imRmJLScizf48A==
+
 argufy@^1.7.5:
   version "1.7.5"
   resolved "https://registry.yarnpkg.com/argufy/-/argufy-1.7.5.tgz#e0ead64079b746765f08643d3fc0d4629c7468c8"

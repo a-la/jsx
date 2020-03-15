@@ -10,6 +10,17 @@ class={'hello world'} id={id} testing
 }
 ```
 
+## does not update when not `true`
+class={'hello world'} id={id} example testing="ok"
+
+```json expected */
+{
+  "class": "'hello world example'",
+  "id": "id",
+  "testing": "\"ok\""
+}
+```
+
 ## updates dynamic property with variable
 class={className} id={id} testing
 

@@ -96,7 +96,8 @@ export const getProps = (props, {
     || Object.keys(classNames).length) {
     ({ ...ro } = obj)
     const cl = []
-    Object.keys(ro).forEach((k) => {
+    Object.entries(ro).forEach(([k, v]) => {
+      if (v != 'true') return
       const p = () => {
         cl.push(k)
         delete ro[k]
