@@ -22,12 +22,48 @@
   resolved "https://registry.yarnpkg.com/@externs/nodejs/-/nodejs-1.5.0.tgz#88ff9e7a03c53d19101ee49768e598ff0f39c9ad"
   integrity sha512-2J+FRDjGfKKldTQ5YqLmhQ04/sA9swTQ6OTtPzo4xhg41u1+eiufciXiqW6u3UXEcmm413a27NakgnLbzfp0wQ==
 
-"@wrote/read@^1.0.4":
+"@wrote/clone@^1.1.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@wrote/clone/-/clone-1.2.1.tgz#112cfab56adcfe8df9341a82c48ddb0d6bd6dbc4"
+  integrity sha512-V1tFKje8f+gmFDJSBnJ6xGeZQjPtUGJK2kwHdJ2o/FC6bYHDhWv8aHat5hXv8hqN0fl8TtH0ZRZ5GwLhoezfng==
+  dependencies:
+    "@wrote/ensure-path" "^1.0.8"
+    "@wrote/read-dir-structure" "^1.2.0"
+    makepromise "^3.1.0"
+
+"@wrote/ensure-path@^1.0.6", "@wrote/ensure-path@^1.0.8":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@wrote/ensure-path/-/ensure-path-1.1.0.tgz#2b5875dd4e215f209329c9c774702e4e67c3e07f"
+  integrity sha512-yZigiFQhgAMAVrec9BoPdJzqjSBdHuCyDrAacWSHIUByxiMcmY9i/1dGM4RbGZg/bN8XWrxDDmcWLuPUmsJYFg==
+  dependencies:
+    makepromise "^3.1.0"
+
+"@wrote/read-dir-structure@^1.2.0":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@wrote/read-dir-structure/-/read-dir-structure-1.3.1.tgz#f63e2d9f8dd4b5c173b803cdc2f8d2cebd29177b"
+  integrity sha512-fGf6n2k6/6S4koam4odR1Bk/2nzkP7/e5iyiwvexLQ7phdCnlwKJiLtYlFmOLHk4cavBpdwRP8NUm+sUJQDPHw==
+
+"@wrote/read@^1.0.3", "@wrote/read@^1.0.4":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@wrote/read/-/read-1.0.4.tgz#b7343b3bbfb1d1b9ed35ee87e8021730f13f5fcf"
   integrity sha512-wRvv11mvywo2UIeFhvJ7SCO30hvW0P6jMBo1cAlYQOFwbdbTZYZxHdb1zz3VMF8o74W3xQAuvS78DNmA47NumQ==
   dependencies:
     catchment "^3.3.0"
+
+"@wrote/rm@^1.1.3":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@wrote/rm/-/rm-1.1.5.tgz#8044b45fd599554f653a447f386a658ff1259f52"
+  integrity sha512-PBeEQ9GapqrBCig3wdvOLdSHhV4SMjxS9uWThCsuGeTNwE4dUb/hqmYC75acIvAd2iRFB2rmO/TyKjdLkM/tgQ==
+  dependencies:
+    "@wrote/read-dir-structure" "^1.2.0"
+    makepromise "^3.1.0"
+
+"@wrote/write@^1.0.3":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@wrote/write/-/write-1.0.4.tgz#ad2c4e667b3e2bd5f37bb844d6b78b55952c391f"
+  integrity sha512-zhelf+k8hMbk/FCvroJ/KwpX8Bi1lnJ9hkJITLqiCWi1vk6X74QhjdFxSaNDyiC5V1WTPJIWQ+76VB4obY7zVw==
+  dependencies:
+    erotic "^2.1.0"
 
 "@zoroaster/assert@^1.0.2":
   version "1.0.2"
@@ -54,7 +90,7 @@ argufy@^1.7.5:
   resolved "https://registry.yarnpkg.com/argufy/-/argufy-1.7.5.tgz#e0ead64079b746765f08643d3fc0d4629c7468c8"
   integrity sha512-vc/AqYhXqQyDSTVRx2RNIlKNTwSdsVBP3Tp512kOCgzz8IIaHbdebVdi3PDRG1PUXv0oH/KBzdvDlS04fVV9Jg==
 
-catchment@^3.3.0:
+catchment@^3.2.3, catchment@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/catchment/-/catchment-3.3.0.tgz#e57eb70183d6a75ee71da0cb8ec2e76ac01317d2"
   integrity sha512-PACm54CBCUZv1uEOMyNiB6i0kkDMdDN0+VYXIQAaeZMDcjudyPccgpYLWQfGCwCW/Q9SOfD6MyBLmxL3qh7V3A==
@@ -91,6 +127,18 @@ eslint-config-artdeco@1.0.1:
   resolved "https://registry.yarnpkg.com/eslint-config-artdeco/-/eslint-config-artdeco-1.0.1.tgz#4451c9d0ed1ce4d33dfd43a6315f12c8bfb04274"
   integrity sha1-RFHJ0O0c5NM9/UOmMV8SyL+wQnQ=
 
+makepromise@^3.0.3, makepromise@^3.1.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/makepromise/-/makepromise-3.2.0.tgz#5967d982e01cdc5d044c544489c9e2a7abebc3b0"
+  integrity sha512-Hb8mGdLkE/rba1McbPdQl3NU86ovEm3RXhKFsuxUQ2SxLfMOXP5aES/2BLVWigpS0hoBy0NBIYnHHvouLdDuzg==
+  dependencies:
+    erotic "^2.1.0"
+
+pedantry@^2.3.1:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/pedantry/-/pedantry-2.5.2.tgz#631adc950b36ac5790b9dbca3e24ccbeb572f778"
+  integrity sha512-seZWm7tMjRMThtI4rON3u8DyKW3//a7dFfGMt0hj1R/TvlLVLOe3+T2HunKgh51gt71fxYTfbi0DkvUkZh0Qrg==
+
 preact@8.5.3:
   version "8.5.3"
   resolved "https://registry.yarnpkg.com/preact/-/preact-8.5.3.tgz#78c2a5562fcecb1fed1d0055fa4ac1e27bde17c1"
@@ -103,6 +151,20 @@ restream@^3.7.4:
   dependencies:
     "@artdeco/clean-stack" "^1.1.1"
     catchment "^3.3.0"
+
+temp-context@^2.1.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/temp-context/-/temp-context-2.1.3.tgz#278502e47a2aa717334d5d84f18657ea42d7512c"
+  integrity sha512-x5Zoj1X1OJe/2RNbPJwVLbhFs0Gu8552E8VBAEZH+vLxARdUb1Kf5RXIdX6VZBMmgRpN1NXEXJsMcNirIHubeA==
+  dependencies:
+    "@wrote/clone" "^1.1.1"
+    "@wrote/ensure-path" "^1.0.6"
+    "@wrote/read" "^1.0.3"
+    "@wrote/rm" "^1.1.3"
+    "@wrote/write" "^1.0.3"
+    catchment "^3.2.3"
+    makepromise "^3.0.3"
+    pedantry "^2.3.1"
 
 typal@^1.26.2:
   version "1.26.2"

@@ -36,7 +36,12 @@ export default class Context {
   getStack(string) {
     return getStack(string)
   }
+  static get BIN() {
+    return BIN
+  }
   // async _destroy() {
   //   LOG('destroy context')
   // }
 }
+
+const BIN = process.env.ALAMODE_ENV == 'test-compile' ? 'compile/bin/jsx' : 'src/bin'

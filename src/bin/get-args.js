@@ -11,6 +11,7 @@ export const argsConfig = {
     short: 'p',
   },
 }
+
 const args = argufy(argsConfig)
 
 /**
