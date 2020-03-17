@@ -1,11 +1,12 @@
 <types namespace="_alaJsx">
   <type name="Config" desc="Options for the program.">
     <prop type="(boolean|string)" name="quoteProps" default="false">
-      Whether to surround property names with quotes. When the `dom` string is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter (E.g., for the _Google Closure Compiler_).
+      Whether to surround property names with quotes. When the `dom` string is passed, it will only quote props for invoking html components, i.e. those that start with a lowercase letter (this is required for _Closure Compiler_ when not providing externs to elements).
     </prop>
-    <prop opt type="function(...string)" name="warn">
+    <fn opt name="warn">
+      <arg string name="warning">The warning.</arg>
       The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).
-    </prop>
+    </fn>
     <prop boolean name="prop2class" default="false">
       If a property name starts with a capital letter, the `className` of the _VNode_ will be updated.
     </prop>
@@ -14,6 +15,9 @@
     </prop>
     <prop opt type="!Object<string, string>" name="renameMap">
       How to rename classes (only applies to `prop2class` and `classNames`).
+    </prop>
+    <prop opt type="!Object<string, string>" name="styles">
+      Rename these properties into styles, e.g., `<el border-top="1px">` will become `<el style="border-top:1px">`. The keys must be property names, and the values are either booleans, or a string that should be used for renaming of the CSS property, such as `{ borderTop: 'border-top' }`. Check out [`@a-la/styles`](https://github.com/a-la/styles) that provides such a map.
     </prop>
   </type>
 </types>

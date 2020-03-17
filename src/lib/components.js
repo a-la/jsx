@@ -3,16 +3,15 @@ import { parseSimpleContent } from './parse-content'
 import { pragma, replaceChunk, getProps } from './'
 import extract, { ExtractedJSX } from './extract'
 
-
 /* <div id={'id'}>
   Hello, {test}! {children}
   <div class={'TEST'} id={id}>test</div>
 </div> */
 
 /**
- * The entry point to transpiling a file.
+ * The entry point to transpiling a file, and recursive entry.
  * @param {string} input The string to transpile.
- * @param {_alaJsx.Config} config Transpilation config.
+ * @param {_alaJsx.Config} config The transpilation config.
  * @returns {string} The transpiled source code with `h` pragma for hyperscript invocations.
  */
 const transpileJSX = (input, config = {}) => {
@@ -47,7 +46,7 @@ export default transpileJSX
 //   f = newPragma(tagName, ...children) // `e(tag, child, child2)`
 // }
 
-// parse the content bro parse it
+// parse the content bro parse it 🥦
 /**
  * This function will return an array with content of a jsx tag, and the content can be a function to create an element (pragma), a string, or an expression.
  * @param {string} content
@@ -95,5 +94,5 @@ export const parseContent = (content, quoteProps = false, warn = null,
 
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('..').Config} _alaJsx.Config
+ * @typedef {import('../../compile').Config} _alaJsx.Config
  */

@@ -6,7 +6,7 @@ if (!_input) {
   console.log('Please specify the file to transpile.')
   process.exit(1)
 }
-const code = `${readFileSync(_input)}`
+const code = readFileSync(_input, 'utf8')
 const res = jsx(code, {
   quoteProps: _preact ? 'dom' : undefined,
 })

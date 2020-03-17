@@ -1,7 +1,7 @@
 <types ns="_alaJsx">
   <method name="jsx" return="string">
     <arg string name="string">The code to transform.</arg>
-    <arg type="_alaJsx.Config" name="config">Configuration object.</arg>
+    <arg opt type="!_alaJsx.Config" name="config">Configuration object.</arg>
     Returns the transpiled JSX code into `h` pragma calls.
   </method>
 </types>
