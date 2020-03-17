@@ -10,7 +10,7 @@ var Example = () => <h1 test>Title</h1>;
 /**/
 
 /* expected */
-var Example = () => h('h1',{    className:'test'},`Title`);
+var Example = () => h('h1',{className:'test'},`Title`);
 /**/
 
 // keeps line numbers
@@ -26,7 +26,7 @@ var Example = () => <h1 className="Hello"
 
 /* expected */
 var Example = () => h('h1',{className:"Hello test example-test",
-       'data-hello':true,
+   'data-hello':true,
 
   'data-test':true
 },`Title`);

@@ -15,7 +15,7 @@ npm i @a-la/jsx
 
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
-- [`jsx(string: string, config: Config): string`](#jsxstring-stringconfig-config-string)
+- [`jsx(string: string, config=: !Config): string`](#jsxstring-stringconfig-config-string)
   * [`Config`](#type-config)
 - [The Transform](#the-transform)
 - [Classes](#classes)
@@ -39,22 +39,23 @@ import jsx from '@a-la/jsx'
   <img src="/.documentary/section-breaks/1.svg?sanitize=true">
 </a></p>
 
-## <code><ins>jsx</ins>(</code><sub><br/>&nbsp;&nbsp;`string: string,`<br/>&nbsp;&nbsp;`config: Config,`<br/></sub><code>): <i>string</i></code>
+## <code><ins>jsx</ins>(</code><sub><br/>&nbsp;&nbsp;`string: string,`<br/>&nbsp;&nbsp;`config=: !Config,`<br/></sub><code>): <i>string</i></code>
 Returns the transpiled JSX code into `h` pragma calls.
 
  - <kbd><strong>string*</strong></kbd> <em>`string`</em>: The code to transform.
- - <kbd><strong>config*</strong></kbd> <em><code><a href="#type-config" title="Options for the program.">Config</a></code></em>: Configuration object.
+ - <kbd>config</kbd> <em><code><a href="#type-config" title="Options for the program.">!Config</a></code></em> (optional): Configuration object.
 
 __<a name="type-config">`Config`</a>__: Options for the program.
 
 
-|    Name    |                    Type                    |                                                                                                            Description                                                                                                            | Default |
-| ---------- | ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| quoteProps | <em>(boolean \| string)</em>               | Whether to surround property names with quotes. When the `dom` string is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter (E.g., for the _Google Closure Compiler_). | `false` |
-| warn       | <em>(...args: string[]) => ?</em>          | The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).                                                                                                          | -       |
-| prop2class | <em>boolean</em>                           | If a property name starts with a capital letter, the `className` of the _VNode_ will be updated.                                                                                                                                  | `false` |
-| classNames | <em>(!Array&lt;string&gt; \| !Object)</em> | The list of properties to put into the `className` property.                                                                                                                                                                      | -       |
-| renameMap  | <em>!Object&lt;string, string&gt;</em>     | How to rename classes (only applies to `prop2class` and `classNames`).                                                                                                                                                            | -       |
+|    Name    |                    Type                    |                                                                                                                                                                                     Description                                                                                                                                                                                     | Default |
+| ---------- | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| quoteProps | <em>(boolean \| string)</em>               | Whether to surround property names with quotes. When the `dom` string is passed, it will only quote props for invoking html components, i.e. those that start with a lowercase letter (this is required for _Closure Compiler_ when not providing externs to elements).                                                                                                             | `false` |
+| prop2class | <em>boolean</em>                           | If a property name starts with a capital letter, the `className` of the _VNode_ will be updated.                                                                                                                                                                                                                                                                                    | `false` |
+| classNames | <em>(!Array&lt;string&gt; \| !Object)</em> | The list of properties to put into the `className` property.                                                                                                                                                                                                                                                                                                                        | -       |
+| renameMap  | <em>!Object&lt;string, string&gt;</em>     | How to rename classes (only applies to `prop2class` and `classNames`).                                                                                                                                                                                                                                                                                                              | -       |
+| styles     | <em>!Object&lt;string, string&gt;</em>     | Rename these properties into styles, e.g., `<el border-top="1px">` will become `&lt;el style="border-top:1px">`. The keys must be property names, and the values are either booleans, or a string that should be used for renaming of the CSS property, such as `{ borderTop: 'border-top' }`. Check out [`@a-la/styles`](https://github.com/a-la/styles) that provides such a map. | -       |
+| warn       | <em>(warning: string) => ?</em>            | The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).                                                                                                                                                                                                                                                            | -       |
 
 ```js
 import { readFileSync } from 'fs'
@@ -170,7 +171,7 @@ _The output:_
 
 ```js
 export default function Classes() {
-  return (h('div',{className:'Example hi world' }))
+  return (h('div',{  className:'Example hi world' }))
 }
 ```
 
