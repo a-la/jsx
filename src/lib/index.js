@@ -1,4 +1,5 @@
 import { SyncReplaceable } from 'restream'
+import { upgrade } from './upgrade'
 
 /**
  * Returns the name of the opening tag from the string starting with <, or `undefined`.
@@ -113,56 +114,16 @@ export const getProps = (props, {
     Object.assign(whitespace, ws)
   }
   let ro = obj
-  if (withClass || (Array.isArray(classNames) && classNames.length)
-    || Object.keys(classNames).length) {
-    ro = upgrade(obj, classNames, withClass, renameMap)
+  if (Array.isArray(classNames)) {
+    classNames = classNames.reduce((acc, c) => { acc[c] = true; return acc }, {})
+  }
+  let usedClassNames = {}
+  if (withClass || Object.keys(classNames).length) {
+    ({ ro, usedClassNames } = upgrade(obj, classNames, withClass, renameMap))
   }
   return {
-    obj: ro, whitespace,
+    obj: ro, whitespace, usedClassNames,
   }
-}
-
-/**
- * Updates properties into class names.
- */
-const upgrade = (obj, classNames, withClass, renameMap) => {
-  let ro = obj
-  ;({ ...ro } = obj)
-  const cl = []
-  Object.entries(ro).forEach(([k, v]) => {
-    if (v != 'true') return
-    const p = () => {
-      cl.push(k)
-      delete ro[k]
-    }
-    if (Array.isArray(classNames) && classNames.includes(k)) p()
-    else if (classNames[k]) p()
-    else if (withClass) {
-      const l = k[0]
-      if (l.toUpperCase() == l) p()
-    }
-  })
-
-  if (cl.length) {
-    const className = cl.map((cn) => {
-      const r = cn in renameMap ? renameMap[cn] : cn
-      return r
-    }).join(' ')
-    if (ro.className) {
-      if (/[`"']$/.test(ro.className)) {
-        ro.className = ro.className.replace(/([`"'])$/, ` ${className}$1`)
-      } else
-        ro.className += `+' ${className}'`
-    } else if (ro.class) {
-      if (/[`"']$/.test(ro.class)) {
-        ro.class = ro.class.replace(/([`"'])$/, ` ${className}$1`)
-      } else
-        ro.class += `+' ${className}'`
-    } else {
-      ro.className = `'${className}'`
-    }
-  }
-  return ro
 }
 
 /**
@@ -196,19 +157,20 @@ const getPlain = (string) => {
  * @param {!Object<string, string>} pp The properties out of which to make a string object.
  * @returns {string|null} Either a JS object body string, or null if no keys were in the object.
  */
-export const makeObjectBody = (pp, quoteProps = false, whitespace = {}, beforeCloseWs = '') => {
+export const makeObjectBody = (pp, quoteProps = false, whitespace = {}, beforeCloseWs = '', usedClassNames = {}) => {
   const keys = Object.keys(pp)
   const { length } = keys
   if (!length) return '{}'
-  const pr = `{${keys.map((k) => {
+  const pr = `{${keys.reduce((ACC, k) => {
     const v = pp[k]
     const { before = '', beforeAssign = '', afterAssign = '' } = whitespace[k] || {}
     if (k.startsWith('$%_DESTRUCTURING_PLACEHOLDER_')) {
-      return `${before}${v}`
+      return `${ACC}${before}${v},`
     }
+    if (usedClassNames[k]) return `${ACC}${before}${' '.repeat(k.length)}`
     const kk = quoteProps || k.indexOf('-') != -1 ? `'${k}'` : k
-    return `${before}${kk}${beforeAssign}:${afterAssign}${v}`
-  }).join(',')}${beforeCloseWs}}`
+    return `${ACC}${before}${kk}${beforeAssign}:${afterAssign}${v},`
+  }, '').replace(/,(\s*)$/, '$1')}${beforeCloseWs}}`
   return pr
 }
 
@@ -223,7 +185,6 @@ export const isComponentName = (tagName = '') => {
  * @param {string} tagName The name of the tag to create, or a reference to a component function.
  * @param {!Object<string, string>} props The properties of the element. The properties' values can be passed as strings or references as the `e` function will be called under the scope in which the JSX is written, e.g., when creating components `const C = ({ reference }) => <div id={reference} class="String"/>`.
  * @param {!Array<string>} children The array with the child nodes which are strings, but encode either a reference, a string or an invocation the the `e` function again. Thus the jsx is parsed recursively depth-first.
- * @param {!Array<string>} [destructuring] Any properties for destructuring.
  * @param {boolean|string} [quoteProps=false] Whether to quote the properties' keys (for Closure compiler).
  * @example
  *
@@ -231,7 +192,8 @@ export const isComponentName = (tagName = '') => {
  * // =>
  * e('div',{ id: 'STATIC_ID' },['Hello, ', test, '!'])
  */
-export const pragma = (tagName, props = {}, children = [], quoteProps = false, warn = null, whitespace = {}, beforeCloseWs = '') => {
+export const pragma = (tagName, props = {}, children = [],
+  { quoteProps = false, warn = null, whitespace = {}, beforeCloseWs = '', usedClassNames } = {}) => {
   const cn = isComponentName(tagName)
   const tn = cn ? tagName : `'${tagName}'`
   if (!Object.keys(props).length && !children.length) {
@@ -247,7 +209,7 @@ export const pragma = (tagName, props = {}, children = [], quoteProps = false, w
   if (!cn && hasDestructuring && (!quoteProps || quoteProps == 'dom')) {
     warn && warn(`JSX: destructuring ${hasDestructuring.join(', ')} is used without quoted props on HTML ${tagName}.`)
   }
-  const pr = makeObjectBody(props, qp, whitespace, beforeCloseWs)
+  const pr = makeObjectBody(props, qp, whitespace, beforeCloseWs, usedClassNames)
   const c = children.reduce((acc, cc, i) => {
     const prev = children[i-1]
     let comma = ''

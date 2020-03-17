@@ -31,9 +31,10 @@ const GetProps = makeTestSuite('test/result/components/get-props/default', {
 export
 const withClass = makeTestSuite('test/result/components/get-props/prop2class', {
   getResults() {
-    const { obj, whitespace } = getProps(this.input, {
+    const { obj, whitespace, usedClassNames } = getProps(this.input, {
       withClass: true,
     })
+    Object.keys(usedClassNames).forEach((cl) => delete obj[cl])
     return { obj, whitespace }
   },
   ...logic,
@@ -42,9 +43,10 @@ const withClass = makeTestSuite('test/result/components/get-props/prop2class', {
 export
 const classNames = makeTestSuite('test/result/components/get-props/class-names', {
   getResults() {
-    const { obj, whitespace } = getProps(this.input, {
+    const { obj, whitespace, usedClassNames } = getProps(this.input, {
       classNames: this.preamble,
     })
+    Object.keys(usedClassNames).forEach((cl) => delete obj[cl])
     return { obj, whitespace }
   },
   ...logic,
@@ -54,10 +56,11 @@ const classNames = makeTestSuite('test/result/components/get-props/class-names',
 export
 const propWithClass = makeTestSuite('test/result/components/get-props/2', {
   getResults() {
-    const { obj, whitespace } = getProps(this.input, {
+    const { obj, whitespace, usedClassNames } = getProps(this.input, {
       withClass: true,
       classNames: this.classNames || this.preamble,
     })
+    Object.keys(usedClassNames).forEach((cl) => delete obj[cl])
     return { obj, whitespace }
   },
   ...logic,
@@ -67,11 +70,12 @@ const propWithClass = makeTestSuite('test/result/components/get-props/2', {
 export
 const renameMap = makeTestSuite('test/result/components/get-props/rename-map', {
   getResults() {
-    const { obj, whitespace } = getProps(this.input, {
+    const { obj, whitespace, usedClassNames } = getProps(this.input, {
       withClass: true,
       classNames: this.preamble,
       renameMap: this.renameMap,
     })
+    Object.keys(usedClassNames).forEach((cl) => delete obj[cl])
     return { obj, whitespace }
   },
   ...logic,

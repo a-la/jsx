@@ -22,13 +22,15 @@ const transpileJSX = (input, config = {}) => {
   const s = input.slice(position)
   const { props = '', content, tagName, string: { length } } = extract(s)
   const children = parseContent(content, quoteProps, warn, config)
-  const { obj, whitespace } = getProps(props.replace(/^ */, ''), {
+  const { obj, whitespace, usedClassNames } = getProps(props.replace(/^ */, ''), {
     withClass: prop2class,
     classNames,
     renameMap,
   })
   const beforeCloseWs = /\s*$/.exec(props) || ['']
-  const f = pragma(tagName, obj, children, quoteProps, warn, whitespace, beforeCloseWs)
+  const f = pragma(tagName, obj, children, {
+    quoteProps, warn, whitespace, beforeCloseWs, usedClassNames,
+  })
   const res = replaceChunk(input, position, length, f)
   // find another one one
   const newRes = transpileJSX(res, config)
@@ -63,26 +65,26 @@ export const parseContent = (content, quoteProps = false, warn = null,
   const jsx = contents.reduce((acc, string) => {
     if (string instanceof ExtractedJSX) {
       const { props = '', content: part, tagName } = string
-      const { obj } = getProps(props, {
+      const { obj, usedClassNames } = getProps(props, {
         withClass: config.prop2class,
         classNames: config.classNames,
         renameMap: config.renameMap,
       })
       const children = parseContent(part, quoteProps, warn, config)
-      const p = pragma(tagName, obj, children, quoteProps, warn)
+      const p = pragma(tagName, obj, children, { quoteProps, warn, usedClassNames })
       return [...acc, p]
     }
     const j = detectJSX(string)
     if (j) {
       const s = string.slice(j)
       const { string: { length }, props = '', content: part, tagName } = extract(s)
-      const { obj } = getProps(props, {
+      const { obj, usedClassNames } = getProps(props, {
         withClass: config.prop2class,
         classNames: config.classNames,
         renameMap: config.renameMap,
       })
       const children = parseContent(part, quoteProps, warn, config)
-      const p = pragma(tagName, obj, children, quoteProps, warn)
+      const p = pragma(tagName, obj, children, { quoteProps, warn, usedClassNames })
       const strBefore = string.slice(0, j)
       const strAfter = string.slice(j + length)
       return [...acc, `${strBefore}${p}${strAfter}`]

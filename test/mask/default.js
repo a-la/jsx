@@ -37,3 +37,14 @@ const ReplaceChunk = makeTestSuite('test/result/components/replace-chunk.json', 
   },
   jsonProps: ['input'],
 })
+
+
+export
+const classNames = makeTestSuite('test/result/class-names', {
+  getResults() {
+    return jsx(this.input, {
+      classNames: this.classNames,
+    }).replace(/^\s+$/gm, '')
+  },
+  jsProps: 'classNames',
+})
