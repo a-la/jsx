@@ -80,6 +80,15 @@ export const getProps = (props, {
     }
     if (!propName && !isDestructuring)
       throw new Error('Could not detect prop name')
+
+    // get plain beforehand
+    const beforeOrNot = before || '' // when using destructuring
+    const propOrNot = propName || ''
+    const bb = beforeOrNot.slice(0, beforeOrNot.length - propOrNot.length - 1)
+    const { plain, whitespace: ws } = getPlain(bb)
+    Object.assign(obj, plain)
+    Object.assign(whitespace, ws)
+
     if (!propName) {
       const tempPropName = `$%_DESTRUCTURING_PLACEHOLDER_${i}%$`
       obj = { ...obj, [tempPropName]: val }
@@ -88,12 +97,7 @@ export const getProps = (props, {
       obj = { ...obj, [propName]: val }
       whitespace[propName] = { before: wsBefore, beforeAssign: wsBeforeAssign, afterAssign }
     }
-    const beforeOrNot = before || '' // when using destructuring
-    const propOrNot = propName || ''
-    const bb = beforeOrNot.slice(0, beforeOrNot.length - propOrNot.length - 1)
-    const { plain, whitespace: ws } = getPlain(bb)
-    Object.assign(obj, plain)
-    Object.assign(whitespace, ws)
+
     return close + 1
   }, 0)
 
