@@ -9,7 +9,7 @@ const jsx = (input, config = {}) => {
   const { e, defObj, ef, i, ias, ii } = makeMarkers({
     defObj: /^ *export\s+default\s+{[\s\S]+?}/mg,
     e: /^ *export\s+(?:default\s+)?/mg,
-    ef: /^ *export\s+{[^}]+}\s+from\s+(['"])(?:.+?)\1/mg,
+    ef: /^ *export\s+{[^}]+}(?:\s+from\s+(['"])(?:.+?)\1)?/mg,
     i: /^ *import(\s+([^\s,]+)\s*,?)?(\s*{(?:[^}]+)})?\s+from\s+['"].+['"]/gm,
     ias: /^ *import\s+(?:(.+?)\s*,\s*)?\*\s+as\s+.+?\s+from\s+['"].+['"]/gm,
     ii: /^ *import\s+(['"]).+\1/gm,

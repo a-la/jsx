@@ -17,12 +17,12 @@ import { h } from 'preact'
 /**/
 
 // processes JSX with export as
-const abc = 'test'
+var abc = 'test'
 
 export { abc as test }
 
-/* stderr */
-/**/
-
 /* stdout */
+var abc = 'test'
+
+export { abc as test }
 /**/
