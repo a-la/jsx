@@ -173,6 +173,21 @@ var C = <div {...props} id={test}/>
 var C = h('div',{...props, id:test})
 /**/
 
+// keeps order of destructuring
+var C = <div id={test}
+  data-test {...props}
+  test={'hello'}
+  {...props} className="Test"
+/>
+
+/* expected */
+var C = h('div',{id:test,
+  'data-test':true, ...props,
+  test:'hello',
+  ...props, className:"Test"
+})
+/**/
+
 // processes self-closing without props
 var C = <div>
   <RichTextArea/>

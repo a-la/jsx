@@ -15,23 +15,10 @@ export const getTagName = (string) => {
 // * const getClass = o => Object.keys(o).join(' ')
 
 /**
- * Parses a string with attributes written in jsx, e.g., `id={id}` into an object.
- * @param {string} props The string with properties in the tag
- * @example
- *
- * const El = getProps("class={'hello world'} id={id}")
- * // =>
-   {
-     class: "'hello world'",
-     id: 'id'
-    }
- *
+ * Returns positions of where properties open and close.
+ * @param {string} props
  */
-export const getProps = (props, {
-  withClass = false,
-  classNames = [],
-  renameMap = {},
-} = {}) => {
+const getPositions = (props) => {
   let stack = 0
   const positions = []
   let current
@@ -57,21 +44,50 @@ export const getProps = (props, {
     },
   ])
   if (stack) throw new Error(`Unbalanced props (level ${stack}) ${props}`)
-  const obj = {}
-  const destructuring = []
+  return positions
+}
+
+/**
+ * Parses a string with attributes written in jsx, e.g., `id={id}` into an object.
+ * @param {string} props The string with properties in the tag
+ * @example
+ *
+ * const El = getProps("class={'hello world'} id={id}")
+ * // =>
+   {
+     class: "'hello world'",
+     id: 'id'
+    }
+ *
+ */
+export const getProps = (props, {
+  withClass = false, // when property starts with a Capital letter -> class
+  classNames = [],
+  renameMap = {},
+} = {}) => {
+  const positions = getPositions(props)
+  let obj = {}
   const whitespace = {}
-  const lastClose = positions.reduce((acc, { open, close }) => {
+  const lastClose = positions.reduce((acc, { open, close }, i) => {
     const before = props.slice(acc, open)
-    const [, wsBefore, propName, wsBeforeAssign, afterAssign] = /(\s*)(\S+)(\s*)=(\s*)$/.exec(before) || []
     const val = props.slice(open + 1, close)
-    if (!propName && !/\s*\.\.\./.test(val))
+    const isDestructuring = /\s*\.\.\./.test(val)
+    let wsBefore, propName, wsBeforeAssign, afterAssign
+    if (isDestructuring) {
+      [, wsBefore] = /(\s*)$/.exec(before) || []
+    } else {
+      [, wsBefore, propName, wsBeforeAssign, afterAssign] = /(\s*)(\S+)(\s*)=(\s*)$/.exec(before) || []
+    }
+    if (!propName && !isDestructuring)
       throw new Error('Could not detect prop name')
     if (!propName) {
-      destructuring.push(val)
+      const tempPropName = `$%_DESTRUCTURING_PLACEHOLDER_${i}%$`
+      obj = { ...obj, [tempPropName]: val }
+      whitespace[tempPropName] = { before: wsBefore }
     } else {
-      obj[propName] = val
+      obj = { ...obj, [propName]: val }
+      whitespace[propName] = { before: wsBefore, beforeAssign: wsBeforeAssign, afterAssign }
     }
-    whitespace[propName] = { before: wsBefore, beforeAssign: wsBeforeAssign, afterAssign }
     const beforeOrNot = before || '' // when using destructuring
     const propOrNot = propName || ''
     const bb = beforeOrNot.slice(0, beforeOrNot.length - propOrNot.length - 1)
@@ -80,6 +96,7 @@ export const getProps = (props, {
     Object.assign(whitespace, ws)
     return close + 1
   }, 0)
+
   // make sure plain attrs are there when no {} are given
   if (!positions.length) {
     const { plain, whitespace: ws } = getPlain(props)
@@ -94,43 +111,54 @@ export const getProps = (props, {
   let ro = obj
   if (withClass || (Array.isArray(classNames) && classNames.length)
     || Object.keys(classNames).length) {
-    ({ ...ro } = obj)
-    const cl = []
-    Object.entries(ro).forEach(([k, v]) => {
-      if (v != 'true') return
-      const p = () => {
-        cl.push(k)
-        delete ro[k]
-      }
-      if (Array.isArray(classNames) && classNames.includes(k)) p()
-      else if (classNames[k]) p()
-      else if (withClass) {
-        const l = k[0]
-        if (l.toUpperCase() == l) p()
-      }
-    })
+    ro = upgrade(obj, classNames, withClass, renameMap)
+  }
+  return {
+    obj: ro, whitespace,
+  }
+}
 
-    if (cl.length) {
-      const className = cl.map((cn) => {
-        const r = cn in renameMap ? renameMap[cn] : cn
-        return r
-      }).join(' ')
-      if (ro.className) {
-        if (/[`"']$/.test(ro.className)) {
-          ro.className = ro.className.replace(/([`"'])$/, ` ${className}$1`)
-        } else
-          ro.className += `+' ${className}'`
-      } else if (ro.class) {
-        if (/[`"']$/.test(ro.class)) {
-          ro.class = ro.class.replace(/([`"'])$/, ` ${className}$1`)
-        } else
-          ro.class += `+' ${className}'`
-      } else {
-        ro.className = `'${className}'`
-      }
+/**
+ * Updates properties into class names.
+ */
+const upgrade = (obj, classNames, withClass, renameMap) => {
+  let ro = obj
+  ;({ ...ro } = obj)
+  const cl = []
+  Object.entries(ro).forEach(([k, v]) => {
+    if (v != 'true') return
+    const p = () => {
+      cl.push(k)
+      delete ro[k]
+    }
+    if (Array.isArray(classNames) && classNames.includes(k)) p()
+    else if (classNames[k]) p()
+    else if (withClass) {
+      const l = k[0]
+      if (l.toUpperCase() == l) p()
+    }
+  })
+
+  if (cl.length) {
+    const className = cl.map((cn) => {
+      const r = cn in renameMap ? renameMap[cn] : cn
+      return r
+    }).join(' ')
+    if (ro.className) {
+      if (/[`"']$/.test(ro.className)) {
+        ro.className = ro.className.replace(/([`"'])$/, ` ${className}$1`)
+      } else
+        ro.className += `+' ${className}'`
+    } else if (ro.class) {
+      if (/[`"']$/.test(ro.class)) {
+        ro.class = ro.class.replace(/([`"'])$/, ` ${className}$1`)
+      } else
+        ro.class += `+' ${className}'`
+    } else {
+      ro.className = `'${className}'`
     }
   }
-  return { obj: ro, destructuring, whitespace }
+  return ro
 }
 
 /**
@@ -164,17 +192,19 @@ const getPlain = (string) => {
  * @param {!Object<string, string>} pp The properties out of which to make a string object.
  * @returns {string|null} Either a JS object body string, or null if no keys were in the object.
  */
-export
-const makeObjectBody = (pp, destructuring = [], quoteProps = false, whitespace = {}, beforeCloseWs = '') => {
+export const makeObjectBody = (pp, quoteProps = false, whitespace = {}, beforeCloseWs = '') => {
   const keys = Object.keys(pp)
   const { length } = keys
-  if (!length && !destructuring.length) return '{}'
-  const pr = `{${keys.reduce((a, k) => {
+  if (!length) return '{}'
+  const pr = `{${keys.map((k) => {
     const v = pp[k]
-    const kk = quoteProps || k.indexOf('-') != -1 ? `'${k}'` : k
     const { before = '', beforeAssign = '', afterAssign = '' } = whitespace[k] || {}
-    return [...a, `${before}${kk}${beforeAssign}:${afterAssign}${v}`]
-  }, destructuring).join(',')}${beforeCloseWs}}`
+    if (k.startsWith('$%_DESTRUCTURING_PLACEHOLDER_')) {
+      return `${before}${v}`
+    }
+    const kk = quoteProps || k.indexOf('-') != -1 ? `'${k}'` : k
+    return `${before}${kk}${beforeAssign}:${afterAssign}${v}`
+  }).join(',')}${beforeCloseWs}}`
   return pr
 }
 
@@ -197,17 +227,23 @@ export const isComponentName = (tagName = '') => {
  * // =>
  * e('div',{ id: 'STATIC_ID' },['Hello, ', test, '!'])
  */
-export const pragma = (tagName, props = {}, children = [], destructuring = [], quoteProps = false, warn = null, whitespace = {}, beforeCloseWs = '') => {
+export const pragma = (tagName, props = {}, children = [], quoteProps = false, warn = null, whitespace = {}, beforeCloseWs = '') => {
   const cn = isComponentName(tagName)
   const tn = cn ? tagName : `'${tagName}'`
-  if (!Object.keys(props).length && !children.length && !destructuring.length) {
+  if (!Object.keys(props).length && !children.length) {
     return `h(${tn})`
   }
   const qp = cn && quoteProps == 'dom' ? false : quoteProps
-  if (!cn && destructuring.length && (!quoteProps || quoteProps == 'dom')) {
-    warn && warn(`JSX: destructuring ${destructuring.join(' ')} is used without quoted props on HTML ${tagName}.`)
+  const hasDestructuring = Object.entries(props)
+    .map(([k, v]) => {
+      if (k.startsWith('$%_DESTRUCTURING_PLACEHOLDER_')) return v
+      return null
+    }).filter(Boolean)
+
+  if (!cn && hasDestructuring && (!quoteProps || quoteProps == 'dom')) {
+    warn && warn(`JSX: destructuring ${hasDestructuring.join(', ')} is used without quoted props on HTML ${tagName}.`)
   }
-  const pr = makeObjectBody(props, destructuring, qp, whitespace, beforeCloseWs)
+  const pr = makeObjectBody(props, qp, whitespace, beforeCloseWs)
   const c = children.reduce((acc, cc, i) => {
     const prev = children[i-1]
     let comma = ''
