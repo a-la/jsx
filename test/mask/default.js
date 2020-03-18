@@ -1,4 +1,5 @@
 import makeTestSuite from '@zoroaster/mask'
+import { EOL } from 'os'
 import jsx from '../../src'
 import { replaceChunk } from '../../src/lib'
 
@@ -38,13 +39,13 @@ const ReplaceChunk = makeTestSuite('test/result/components/replace-chunk.json', 
   jsonProps: ['input'],
 })
 
-
 export
 const classNames = makeTestSuite('test/result/class-names', {
   getResults() {
     return jsx(this.input, {
       classNames: this.classNames,
-    }).replace(/^\s+$/gm, '')
+    })
+      .replace(/^ +$/gm, '')
   },
   jsProps: 'classNames',
 })
