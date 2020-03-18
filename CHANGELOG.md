@@ -1,3 +1,9 @@
+## 18 March 2020
+
+### [1.8.0](https://github.com/a-la/jsx/compare/v1.7.3...v1.8.0)
+
+- [fix] Fix destructuring order.
+
 ## 15 March 2020
 
 ### [1.7.3](https://github.com/a-la/jsx/compare/v1.7.2...v1.7.3)
